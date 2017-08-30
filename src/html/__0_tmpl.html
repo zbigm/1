@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AAECA</title>
+    <link href="../Styles/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="../Styles/main.css">
+    <link href="http://vjs.zencdn.net/6.2.5/video-js.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/gh/kenwheeler/slick@1.7.1/slick/slick.css"/>
+
+
+    <script>
+        var apiPre = ''
+    </script>
+    <script src="../Scripts/lib/jquery-3.2.1.min.js"></script>
+    <script>
+        $(function () {
+            console.log('jquery version:', $.fn.jquery)
+
+            $(".slider").slick({
+
+                // normal options...
+                infinite: false,
+
+                // the magic
+                responsive: [{
+
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        infinite: true
+                    }
+
+                }, {
+
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        dots: true
+                    }
+
+                }, {
+
+                    breakpoint: 300,
+                    settings: "unslick" // destroys slick
+
+                }]
+            });
+        })
+    </script>
+</head>
+<body>
+
+this is template
+
+<div class="slide" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
+    <div><h3>1</h3></div>
+    <div><h3>2</h3></div>
+    <div><h3>3</h3></div>
+    <div><h3>4</h3></div>
+    <div><h3>5</h3></div>
+    <div><h3>6</h3></div>
+</div>
+
+<div>video demo</div>
+<video id="my-video" class="video-js" controls preload="auto" width="640" height="264"
+       poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+    <source src="http://vjs.zencdn.net/v/oceans.mp4" type='video/mp4'>
+    <p class="vjs-no-js">
+        To view this video please enable JavaScript, and consider upgrading to a web browser that
+        <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+    </p>
+</video>
+
+<script src="http://vjs.zencdn.net/6.2.5/video.js"></script>
+<script type="text/javascript" src="http://cdn.jsdelivr.net/gh/kenwheeler/slick@1.7.1/slick/slick.min.js"></script>
+
+<!--{{footer.html}}-->
+</body>
+</html>
