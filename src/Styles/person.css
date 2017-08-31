@@ -45,6 +45,9 @@ html, body{
 	border-top: 0.17rem solid #f5f5f5;
 	border-bottom: 0.17rem solid #f5f5f5;
 }
+.person-nologin .list a{
+	text-decoration: none;
+}
 .person-nologin .list .item {
 	border-bottom: 1px solid #e8e8e8;
 	height: 0.93rem;
@@ -107,5 +110,64 @@ html, body{
 }
 .contact {
 	width: 7.5rem;
-	background-color: #f5f5f5;
+}
+.contact .contact-list {
+	border-top: 0.17rem solid #f5f5f5;
+}
+.contact .contact-list .item {
+	height: 0.92rem;
+	border-bottom: 1px solid #e8e8e8;
+	padding: 0 0.35rem;
+	font-size: 0.28rem;
+	color: #909090;
+	line-height: 0.92rem;
+}
+.contact .contact-list .list-tit {
+	font-size: 0.32rem;
+	color: #3c3c3c;
+}
+.contact .contact-list .list-tit span {
+	font-size: 0.34rem;
+	font-weight: bold;
+}
+.contact .address-pic {
+	width: 100%;
+	border-top: 0.17rem solid #f5f5f5;
+}
+.contact .address-pic img {
+	width: 100%;
+}
+.person-info {
+	border-top: 0.17rem solid #f5f5f5;
+	border-bottom: 0.17rem solid #f5f5f5;
+}
+.person-info .info-list {
+	height: 0.92rem;
+	border-bottom: 1px solid #e8e8e8;
+	padding: 0 0.3rem;
+	line-height: 0.92rem;
+}
+.person-info .info-list .left {
+	color: #3c3c3c;
+	font-size: 0.34rem;
+	text-align: left;
+	padding: 0;
+}
+.person-info .info-list .right {
+	color: #909090;
+	font-size: 0.28rem;
+	text-align: right;
+	padding: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding-right: 0.3rem;
+	background: url("../Images/next.png") center right no-repeat;
+	background-size: 0.15rem auto;
+}
+.person-info .info-list .right .person {
+	width: 0.64rem;
+	height: 0.64rem;
+	border-radius: 0.32rem;
+	
 }
