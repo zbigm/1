@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AAECA</title>
+    <link href="../Styles/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="../Styles/lib/swiper/css/swiper-3.4.2.min.css">
+    <link rel="stylesheet" href="../Styles/main.css">
+    <link rel="stylesheet" href="../Styles/news.css">
+    <script>
+        var apiPre = ''
+    </script>
+    <script src="../Scripts/lib/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../Scripts/lib/FontSize.js"></script>
+    <script src="../Scripts/lib/swiper/js/swiper-3.4.2.min.js"></script>
+    <script src="../Scripts/lib/app.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <!-- modal -->
+    <div class="wrap-news-modal">
+        <div class="news-modal row">
+            <a href="news_3.html" class="col-xs-4 modal-item active">
+                <span class="article-icon">
+                    <em class="news-ico"></em>
+                    <i>Article</i>
+                </span>
+            </a>
+            <a href="news_4.html" class="col-xs-4 modal-item">
+                <span class="video-icon">
+                    <em class="news-ico"></em>
+                    <i>Video</i>
+                </span>
+            </a>
+            <a href="news_6.html" class="col-xs-4 modal-item">
+                <span class="recommend-icon">
+                    <em class="news-ico"></em>
+                    <i>Recommend</i>
+                </span>
+            </a>
+        </div>
+        <div class="wrap-logsignbtn row">
+            <div class="col-xs-6 persion-btn active">
+                <a class="logsignbtn">Login</a>
+            </div>
+            <div class="col-xs-6  persion-btn">
+                <a class="logsignbtn">Sign up</a>
+            </div>
+        </div>
+    </div>
+    <div id="loadmask"></div>
+    <!-- modal -->
+    <div class="container">
+        <div class="row news-header padding0">
+            <div class="col-xs-4 padding0">
+                <span class="classify-icon">
+                    <img src="../Images/classifyicon.png" alt="">
+                </span>
+                <span class="cancel-icon">
+                    <img src="../Images/cancelicon.png" alt="">
+                </span>
+            </div> 
+            <div class="col-xs-4">
+                <img src="../Images/newslogo.png" alt="" class="news-logo">
+            </div>
+            <div class="col-xs-4 padding0">
+                <span class="search-icon pull-right">
+                    <img src="../Images/searchicon.png" alt="">
+                </span>
+            </div>   
+        </div><!-- /news-header -->
+    </div><!-- /container -->
+    <div class="row news-banner">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <a href="javascript:void(0);">
+                        <img src="../Images/newsbanner1.png" alt="">
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="javascript:void(0);">
+                        <img src="../Images/newsbanner1.png" alt="">
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="javascript:void(0);">
+                        <img src="../Images/newsbanner1.png" alt="">
+                    </a>
+                </div>
+            </div>
+            <!-- 分页器 -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </div><!--/news-banner -->
+    <div class="row wrap-navbar">
+        <div class="swiper-container">
+            <ul class="swiper-wrapper clearfix">
+                <li class="swiper-slide active">
+                    <a href="javascript:void(0);">
+                        <span>javascript</span>
+                        <i>行业洞察</i>
+                    </a>
+                    <div class="linebottom"></div>
+                </li>
+                <li class="swiper-slide">
+                    <a href="javascript:void(0);">
+                        <span>javascript</span>
+                        <i>前沿热点</i>
+                    </a>
+                    <div class="linebottom"></div>
+                </li>
+                <li class="swiper-slide">
+                    <a href="javascript:void(0);">
+                        <span>javascript</span>
+                        <i>科技创新</i>
+                    </a>
+                    <div class="linebottom"></div>
+                </li>
+                <li class="swiper-slide">
+                    <a href="javascript:void(0);">
+                        <span>javascript</span>
+                        <i>快乐大本营</i>
+                    </a>
+                    <div class="linebottom"></div>
+                </li>
+            </ul>
+        </div>
+    </div><!-- wrap-navbar -->
+    <div class="wrap-news-item">
+        <ul>
+            <li class="news-item clearfix">
+                <a href="news_detail.html" class="pull-left newsitem-img">
+                    <img src="../Images/newsitem.png" alt="">
+                </a>
+                <div class="news-item-detail pull-right">
+                    <h3><a href="news_detail.html">硅谷的人本理念对我国产业园区发展的启示</a></h3>
+                    <p class="news-item-tag">
+                        <span>高科技</span>
+                    </p>
+                    <div class="wrap-tagsnew clearfix">
+                        <div class="pull-left clearfix">
+                            <img src="../Images/newspeople.png" alt="" class="pull-left icon-person">
+                            <span class="pull-left color-grey">Bo Hong</span>
+                        </div>
+                        <div class="pull-right">
+                            <span class="color-grey">August 17, 2017</span>
+                        </div>
+                    </div>
+                </div>
+            </li><!-- news-item -->
+            <li class="news-item clearfix">
+                <a href="news_detail.html" class="pull-left newsitem-img">
+                    <img src="../Images/newsitem.png" alt="">
+                </a>
+                <div class="news-item-detail pull-right">
+                    <h3><a href="news_detail.html">硅谷的人本理念对我国产业园区发展的启示</a></h3>
+                    <p class="news-item-tag">
+                        <span>高科技</span>
+                    </p>
+                    <div class="wrap-tagsnew clearfix">
+                        <div class="pull-left clearfix">
+                            <img src="../Images/newspeople.png" alt="" class="pull-left icon-person">
+                            <span class="pull-left color-grey">Bo Hong</span>
+                        </div>
+                        <div class="pull-right">
+                            <span class="color-grey">August 17, 2017</span>
+                        </div>
+                    </div>
+                </div>
+            </li><!-- news-item -->
+        </ul>
+    </div><!-- wrap-news-item -->
+</div><!-- container-fluid -->
+<!--{{footer.html}}-->
+<script>
+    $(function () {
+        console.log('jquery version:', $.fn.jquery);
+        // swiper 轮播图
+        var mySwiper = new Swiper('.news-banner .swiper-container', {
+            autoplay: 5000,
+            loop: true,
+            // 如果需要分页器
+            pagination: '.swiper-pagination'
+        });      
+        // swiper 轮播图
+        // swiper 滑动导航
+        var navBarSwiper = new Swiper ('.wrap-navbar .swiper-container', {
+            slidesPerView: "auto"
+        });
+        $(".wrap-navbar li").click(function(){
+            $(this).addClass('active').siblings().removeClass('active');
+        });     
+        // swiper 滑动导航
+    })
+</script>
+</body>
+</html>
