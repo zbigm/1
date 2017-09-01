@@ -1,0 +1,155 @@
+.index-signup {
+	padding: 0 0.25rem;
+	width: 7.5rem;
+}
+.index-signup .input-wrap {
+	margin-top: 0.35rem;
+}
+.index-signup .input-wrap .input-list {
+	height: 1.1rem;
+	border-bottom: 1px solid #eaeaea;
+	font-size: 0.32rem;
+}
+.index-signup .input-wrap .line {
+	display: block;
+	width: 100%;
+	height: 100%;
+	-webkit-appearance: none;
+	border: none;
+	outline:none;
+}
+.index-signup .input-wrap .code {
+	width: 4.5rem;
+	height: 100%;
+	-webkit-appearance: none;
+	border: none;
+	outline:none;
+}
+.index-signup .input-wrap .auth-code {
+	width: 2rem;
+	height: 0.75rem;
+	border-radius: 5px;
+	background-color: #118ff6;
+	color: #fff;
+	border: none;
+	font-size: 0.3rem;
+	outline: none;
+}
+.index-signup .input-wrap .submit {
+	width: 100%;
+	font-size: 0.36rem;
+	background-color: #118ff6;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	height: 0.9rem;
+	margin-top: 0.62rem;
+	outline: none;
+	opacity: 0.8;
+}
+.index-signup .input-wrap .cansubmit {
+	opacity: 1;
+}
+.index-signup .agree {
+	margin-top: 0.7rem;
+}
+.index-signup .agree .noagree {
+	width: 0.34rem;
+	height: 0.34rem;
+	float: left;
+	margin-top: 0.06rem;
+	background: url(../Images/noselected.png) top center no-repeat;
+	background-size: 100%;
+}
+.index-signup .agree .agreebg {
+	background: url(../Images/selected.png) top center no-repeat;
+	background-size: 100%;
+}
+.index-signup .agree .noagree input {
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+}
+.index-signup .agree .agree-text {
+	width: 6rem;
+	float: left;
+	font-size: 0.32rem;
+	line-height: 0.48rem;
+	color: #c1c1c1;
+	margin-left: 0.2rem;
+}
+.index-signup .agree .chinese {
+	font-size: 0.28rem;
+}
+.index-signup .agree .text>a{
+	color: #118ff6;
+	text-decoration: underline;
+}
+.index-signup .input-file {
+	height: 2.16rem;
+	line-height: 2.16rem;
+	border-bottom: 1px solid #eaeaea;
+	font-size: 0.32rem;
+}
+.index-signup .input-file .prompt {
+	display: inline-block;
+	width: 4.5rem;
+	line-height: 0.48rem;
+}
+.index-signup .input-file .file-wrap{
+	display: inline-block;
+	width: 2.14rem;
+	height: 1.64rem;
+	background: url(../Images/upload.png) top center no-repeat;
+	background-size: 100%;
+	margin-top: 0.26rem;
+}
+.index-signup .input-file .file-wrap>input {
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+}
+.index-signup .input-select {
+	width: 3.28rem;
+	height: 0.72rem;
+	border: 1px solid #dadada;
+	border-radius: 5px;
+	-webkit-appearance: none;
+	outline: none;
+	background: url(../Images/sec.png) 95% center no-repeat;
+	background-size: 7% 25%;
+	padding-left: 0.22rem;
+	margin: 0.45rem 0 0 0.32rem;
+	font-size: 0.3rem;
+	color: #118ff6;
+}
+.index-signup .selected {
+	overflow: hidden;
+	margin-left: 0.32rem;
+}
+.index-signup .selected .selected-item {
+	border: 1px solid #118ff6;
+	border-radius: 5px;
+	font-size: 0.3rem;
+	color: #118ff6;
+	float: left;
+	padding: 0.1rem 0.4rem 0.1rem 0.1rem;
+	position: relative;
+	margin-left: 0.2rem;
+	margin-top: 0.2rem;
+}
+.index-signup .selected .selected-item>i {
+	font-style: normal;
+}
+.index-signup .selected .selected-item>span {
+	display: block;
+	height: 100%;
+	width: 0.4rem;
+	font-size: 0.2rem;
+	text-align: center;
+	padding: 0.15rem 0;
+	color: #999;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
