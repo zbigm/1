@@ -34,7 +34,6 @@ $(function () {
 		}
 	})   
 	$("body").on("click", ".selected-item span", function(){
-		alert("ok")
 		var text = $(this).parents(".selected-item").find("i").text();
 		for(var j = 0; j < selected.length; j++) {
 			if(text === selected[j]) {
