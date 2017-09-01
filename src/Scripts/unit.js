@@ -33,7 +33,7 @@ $(function () {
 			}
 		}
 	})   
-	$("body").on("click", ".selected .selected-item span", function(){
+	$("body").on("click", ".selected .selected-item", function(){
 		alert("ok")
 		var text = $(this).parents(".selected-item").find("i").text();
 		for(var j = 0; j < selected.length; j++) {
