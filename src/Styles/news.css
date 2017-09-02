@@ -240,7 +240,7 @@ a{
 	margin-right: 0.18rem;
 }
 .wrap-news-articletag{
-	margin-bottom: 0.5rem;
+	margin-bottom: 0.3rem;
 }
 .wrap-news-attachment h4{
 	color: #000;
@@ -453,5 +453,20 @@ a{
 	height: 0.1rem;
 	background: #ededed;
 	width: 100%;
+}
+.wrap-video-broadcast{
+	background: #fff;
+}
+.video-broadcast-title{
+	margin: 0px;
+	font-size: 0.38rem;
+	color: #000;
+	line-height: 0.6rem;
+	padding: 0.2rem 15px;
+	overflow:hidden; 
+	text-overflow:ellipsis;
+	display:-webkit-box; 
+	-webkit-box-orient:vertical;
+	-webkit-line-clamp:2; 
 }
 /*協議長成*/
