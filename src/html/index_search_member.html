@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>AAECA</title>
     <link href="../Styles/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="../Styles/lib/swiper/css/swiper-3.4.2.min.css">
     <link rel="stylesheet" href="../Styles/main.css">
     <link rel="stylesheet" href="../Styles/news.css">
     <link rel="stylesheet" href="../Styles/index.css">
@@ -17,7 +16,6 @@
     <script src="../Scripts/lib/jquery-3.2.1.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../Scripts/lib/FontSize.js"></script>
-    <script src="../Scripts/lib/swiper/js/swiper-3.4.2.min.js"></script>
     <script src="../Scripts/lib/app.js"></script>
 </head>
 <body>
@@ -48,51 +46,16 @@
                 <input type="text" class="input-group-control pull-left" placeholder="Username">
             </div>
         </div><!-- wrap-search-header -->
+        <div class="wrap-search-type">
+            <div class="wrap-searchtag clearfix">
+                <a href="javascript:void(0);" class="tagbtn pull-left">Insight</a>
+                <a href="javascript:void(0);" class="tagbtn pull-left">TopNews</a>
+                <a href="javascript:void(0);" class="tagbtn pull-left">TechExpress</a>
+                <a href="javascript:void(0);" class="tagbtn pull-left active">Project</a>
+            </div>
+        </div><!-- wrap-search-type -->
     </div><!-- wrap-search-title -->
-    <div class="wrap-member-introduction clearfix">
-        <div class="pull-left member-introduction-img">
-            <a href="javascript:void(0);">
-                <img src="../Images/member.png" alt="">
-            </a>
-        </div>
-        <div class="pull-right member-introduction-text">
-            <h3>鲍曼</h3>
-            <h4>Chairwoman,AAECA</h4>
-            <p>美亚经济文化协会是一个非盈利性机构，本人很容幸成为AAECA临时会长。
-发展美亚经济文化，共创双赢桥梁。协会通过各种双边的经济文化交流活动，促进美洲与中国及其他亚洲国家政府之间，企业之间，以及各类专业人士之间的经济，文化往来，从而为美、亚两洲各国的经济文化发展事业做出应有的贡献。</p>
-        </div>
-    </div>
-    <div class="row wrap-navbar member-navbar">
-        <div class="swiper-container">
-            <ul class="swiper-wrapper clearfix">
-                <li class="swiper-slide active">
-                    <b>All</b>
-                    <div class="linebottom"></div>
-                </li>
-                <li class="swiper-slide">
-                    <b>All</b>
-                    <div class="linebottom"></div>
-                </li>
-                <li class="swiper-slide">
-                    <b>All</b>
-                    <div class="linebottom"></div>
-                </li>
-                <li class="swiper-slide">
-                    <b>All</b>
-                    <div class="linebottom"></div>
-                </li>
-            </ul>
-        </div>
-    </div><!-- wrap-navbar -->
-    <div class="wrap-search-type container  member-type">
-        <div class="wrap-searchtag clearfix">
-            <a href="javascript:void(0);" class="tagbtn pull-left active">Insight</a>
-            <a href="javascript:void(0);" class="tagbtn pull-left">TopNews</a>
-            <a href="javascript:void(0);" class="tagbtn pull-left">TechExpress</a>
-            <a href="javascript:void(0);" class="tagbtn pull-left">Project</a>
-        </div>
-    </div><!-- wrap-search-type -->
-    <div class="wrap-member-list container">
+        <div class="wrap-member-list container">
         <ul class="clearfix">
             <li class="pull-left col-xs-6 member-list-item">
                 <a class="person-item clearfix" href="javascript:void(0);">
@@ -142,18 +105,5 @@
     </div><!-- wrap-member-list -->
 </div><!-- container-fluid -->
 <!--{{footer.html}}-->
-<script>
-    $(function () {
-        console.log('jquery version:', $.fn.jquery);
-        // swiper 滑动导航
-        var navBarSwiper = new Swiper ('.wrap-navbar .swiper-container', {
-            slidesPerView: "auto"
-        });
-        $(".wrap-navbar li").click(function(){
-            $(this).addClass('active').siblings().removeClass('active');
-        });     
-        // swiper 滑动导航
-    })
-</script>
 </body>
 </html>
