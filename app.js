@@ -31,7 +31,7 @@ app.use('/dist', express.static(path.join(__dirname, 'dist')));
 
 // route
 app.use('/news', require('./route/news'))
-app.use('/Member', require('./route/member'))
+// app.use('/Member', require('./route/member'))
 app.use('/', require('./route/index'))
 
 
