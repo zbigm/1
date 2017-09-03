@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up</title>
+    <link href="../Styles/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="../Styles/main.css">
+    <link rel="stylesheet" href="../Styles/index.css">
+    <script>
+        var apiPre = ''
+    </script>
+    <script src="../Scripts/lib/jquery-3.2.1.min.js"></script>
+    <script src="../Scripts/lib/FontSize.js"></script>
+    <script src="../Scripts/signup.js"></script>
+</head>
+<body>
+    <div class="index-signup">
+        <div class="input-wrap">
+            <div class="input-list">
+                <input class="line email" type="text" placeholder="Please enter the E-mail">
+            </div>
+            <div class="input-list">
+                <input class="code" type="number" placeholder="Please enter the Auth-code">
+                <button class="auth-code getcode">Auth-Code</button>
+            </div>
+            <div class="input-list">
+                <input class="line password1" type="password" placeholder="Please enter the Password">
+            </div>
+            <div class="input-list">
+                <input class="line password2" type="password" placeholder="Please confirm Password">
+            </div>
+            <button class="submit">Sign Up</button>
+        </div>
+        <div class="agree">
+            <label for="iagree">
+                <div class="noagree">
+                    <input id="iagree" name="iagree" type="checkbox"/>
+                </div>               
+                <div class="agree-text">
+                    <span class="text">I have read and accepted the <a href="#">"AIU Association 
+Membership Registration Agreement"</a></span><br>
+                    <span class="text chinese">我已经阅读并接受<a href="#">《美亚协会会员注册协议》</a></span>
+                </div>
+            </label>    
+        </div>
+    </div>
+</body>
+</html>
