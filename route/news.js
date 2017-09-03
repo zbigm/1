@@ -1,20 +1,21 @@
 var express = require('express')
 var router = express.Router()
 
-var newsDt = require('../data/news_article')
+var article = require('../data/news_article')
+var video = require('../data/news_video')
 
 router.get('/', function (req, res) {
+    let type = req.query.type
     let tag = req.query.tag
-    let pageIdx = parseInt(req.query.pageIndex)
+    let page = parseInt(req.query.page)
     console.log(req.query)
 
     let news = [1,2,3,4,5].map( function (v) {
-        return newsDt
+        return type == 'article' ? article : video
     })
-    console.log(typeof pageIdx,pageIdx,'pageIndex')
     res.json({
-        hasMore: pageIdx < 3 ? true : false,
-        news: pageIdx < 3 ? news : null
+        hasMore: page < 3 ? true : false,
+        news: page < 3 ? news : null
     })
 })
 
