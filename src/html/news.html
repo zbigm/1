@@ -166,8 +166,10 @@
         // swiper 滑动导航
         //加载第一页
         var canload = true;
-        var tag = 1;
-        var type = 'video';
+        var memberId = 1;
+        var articleType = '行业洞察';
+        var isRecommend = false;
+        var keyword = '';
         var page = 0;
         var dropload = $('.container-fluid').dropload({
             scrollArea : window,
@@ -180,34 +182,38 @@
                 canload = false;
                 tag = 1;
                 page = page + 1;
-                $.get('http://47.91.241.71:9000/news',{
-                    tag: tag,
+                $.get('http://47.91.241.71:9000/Article/Search',{
+                    memberId: memberId,
                     page: page,
-                    type: type
+                    articleType: articleType,
+                    keyword: keyword,
+                    isRecommend: isRecommend
                 })
                 .done(function(data) {
+                    var list = data.articles;
                     if(data.hasMore){
-                        for(var i=0; i<data.news.length; i++) {
+                        for(var i=0; i<list.length; i++) {
                             var html = '<li class="news-item clearfix">'
                                 + '<a href="news_detail.html" class="pull-left newsitem-img">'
-                                + '<img src="'+data.news[i].imgUrl+'" alt="">'
+                                + '<img src="'+list[i].imgUrl+'" alt="">'
                                 + '</a>'
                                 + '<div class="news-item-detail pull-right">'
-                                + '<h3><a href="news_detail.html">'+data.news[i].title+'</a></h3>'
+                                + '<h3><a href="news_detail.html">'+list[i].title+'</a></h3>'
                                 + '<p class="news-item-tag">'
-                                + '<span>高科技</span>'
+                                + '<a href="javascript:void(0);">高科技</a>'
+                                + '<a href="javascript:void(0);">高科技</a>'
                                 + '</p>'
                                 + '<div class="wrap-tagsnew clearfix">'
                                 + '<div class="pull-left clearfix">'
-                                + '<img src="'+data.news[i].authorIconUrl+'" alt="" class="pull-left icon-person">'
-                                + '<span class="pull-left color-grey">'+data.news[i].author+'</span>'
+                                + '<img src="'+list[i].authorIconUrl+'" alt="" class="pull-left icon-person">'
+                                + '<span class="pull-left color-grey">'+list[i].author+'</span>'
                                 + '</div>'
                                 + '<div class="pull-right">'
-                                + '<span class="color-grey">'+data.news[i].postTime+'</span>'
+                                + '<span class="color-grey">'+list[i].postTime+'</span>'
                                 + '</div>'
                                 + '</div>'
                                 + '</div>'
-                                + '</li>'
+                                + '</li>';
                             $(".wrap-news-item ul").append(html);
                         }
                         canload = true;
@@ -215,7 +221,7 @@
                     me.resetload();
                 })
                 .fail(function(e) {
-                    console.log('error', JSON.stringify(e))
+                    console.log('error', JSON.stringify(e));
                     me.resetload();
                     canload = true;
                 })
@@ -226,7 +232,7 @@
         });
         $(".wrap-navbar .swiper-slide").click(function() {
             page = 0;
-            type = $(this).find("i").text();
+            articleType = $(this).find("i").text();
             canload = true;
             $(".wrap-news-item ul").empty();
             dropload.resetload();

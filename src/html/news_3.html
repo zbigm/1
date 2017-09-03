@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../Styles/lib/swiper/css/swiper-3.4.2.min.css">
     <link rel="stylesheet" href="../Styles/main.css">
     <link rel="stylesheet" href="../Styles/news.css">
+    <link rel="stylesheet" href="../Styles/lib/dropload.css">
     <script>
         var apiPre = ''
     </script>
@@ -17,6 +18,7 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../Scripts/lib/FontSize.js"></script>
     <script src="../Scripts/lib/swiper/js/swiper-3.4.2.min.js"></script>
+    <script src="../Scripts/lib/dropload.min.js"></script>
     <script src="../Scripts/lib/app.js"></script>
 </head>
 <body>
@@ -121,69 +123,27 @@
     </div><!-- wrap-navbar -->
     <div class="wrap-news-item">
         <ul>
-            <li class="news-item clearfix">
-                <a href="javascript:void(0);" class="pull-left newsitem-img">
-                    <img src="../Images/newsitem.png" alt="">
-                </a>
-                <div class="news-item-detail pull-right">
-                    <h3><a href="javascript:void(0);">硅谷的人本理念对我国产业园区发展的启示</a></h3>
-                    <p class="news-tag-recommend">
-                        <a href="javascript:void(0);">高科技</a>
-                        <a href="javascript:void(0);">高科技</a>
-                    </p>
-                    <div class="wrap-tagsnew clearfix">
-                        <div class="pull-left clearfix">
-                            <img src="../Images/newspeople.png" alt="" class="pull-left icon-person">
-                            <span class="pull-left color-grey">Bo Hong</span>
-                        </div>
-                        <div class="pull-right">
-                            <span class="color-grey">August 17, 2017</span>
-                        </div>
-                    </div>
-                </div>
-            </li><!-- news-item -->
-            <li class="news-item clearfix">
-                <a href="javascript:void(0);" class="pull-left newsitem-img">
-                    <img src="../Images/newsitem.png" alt="">
-                </a>
-                <div class="news-item-detail pull-right">
-                    <h3><a href="javascript:void(0);">硅谷的人本理念对我国产业园区发展的启示</a></h3>
-                    <p class="news-tag-recommend">
-                        <a href="javascript:void(0);">高科技</a>
-                        <a href="javascript:void(0);">高科技</a>
-                    </p>
-                    <div class="wrap-tagsnew clearfix">
-                        <div class="pull-left clearfix">
-                            <img src="../Images/newspeople.png" alt="" class="pull-left icon-person">
-                            <span class="pull-left color-grey">Bo Hong</span>
-                        </div>
-                        <div class="pull-right">
-                            <span class="color-grey">August 17, 2017</span>
-                        </div>
-                    </div>
-                </div>
-            </li><!-- news-item -->
-            <li class="news-item clearfix">
-                <a href="javascript:void(0);" class="pull-left newsitem-img">
-                    <img src="../Images/newsitem.png" alt="">
-                </a>
-                <div class="news-item-detail pull-right">
-                    <h3><a href="javascript:void(0);">硅谷的人本理念对我国产业园区发展的启示</a></h3>
-                    <p class="news-tag-recommend">
-                        <a href="javascript:void(0);">高科技</a>
-                        <a href="javascript:void(0);">高科技</a>
-                    </p>
-                    <div class="news-tags wrap-tagsnew clearfix">
-                        <div class="pull-left clearfix">
-                            <img src="../Images/newspeople.png" alt="" class="pull-left icon-person">
-                            <span class="pull-left color-grey">Bo Hong</span>
-                        </div>
-                        <div class="pull-right">
-                            <span class="color-grey">August 17, 2017</span>
-                        </div>
-                    </div>
-                </div>
-            </li><!-- news-item -->
+            <!--<li class="news-item clearfix">-->
+                <!--<a href="javascript:void(0);" class="pull-left newsitem-img">-->
+                    <!--<img src="../Images/newsitem.png" alt="">-->
+                <!--</a>-->
+                <!--<div class="news-item-detail pull-right">-->
+                    <!--<h3><a href="javascript:void(0);">硅谷的人本理念对我国产业园区发展的启示</a></h3>-->
+                    <!--<p class="news-tag-recommend">-->
+                        <!--<a href="javascript:void(0);">高科技</a>-->
+                        <!--<a href="javascript:void(0);">高科技</a>-->
+                    <!--</p>-->
+                    <!--<div class="wrap-tagsnew clearfix">-->
+                        <!--<div class="pull-left clearfix">-->
+                            <!--<img src="../Images/newspeople.png" alt="" class="pull-left icon-person">-->
+                            <!--<span class="pull-left color-grey">Bo Hong</span>-->
+                        <!--</div>-->
+                        <!--<div class="pull-right">-->
+                            <!--<span class="color-grey">August 17, 2017</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</li>&lt;!&ndash; news-item &ndash;&gt;-->
         </ul>
     </div><!-- wrap-news-item -->
 </div><!-- container-fluid -->
@@ -207,6 +167,66 @@
             $(this).addClass('active').siblings().removeClass('active');
         });     
         // swiper 滑动导航
+        //分页加载数据
+        var canload = true;
+        var tag = 1;
+        var type = 'article';
+        var page = 0;
+        var dropload = $('.container-fluid').dropload({
+            scrollArea : window,
+            threshold: 0,
+            loadDownFn : function(me){
+                if(!canload) {
+                    $(".dropload-load").text("加载完毕");
+                    return;
+                }
+                canload = false;
+                tag = 1;
+                page = page + 1;
+                $.get('http://47.91.241.71:9000/news',{
+                    tag: tag,
+                    page: page,
+                    type: type
+                })
+                    .done(function(data) {
+                        if(data.hasMore){
+                            for(var i=0; i<data.news.length; i++) {
+                                var html = '<li class="news-item clearfix">'
+                                    + '<a href="news_detail.html" class="pull-left newsitem-img">'
+                                    + '<img src="'+data.news[i].imgUrl+'" alt="">'
+                                    + '</a>'
+                                    + '<div class="news-item-detail pull-right">'
+                                    + '<h3><a href="news_detail.html">'+data.news[i].title+'</a></h3>'
+                                    + '<p class="news-item-tag">'
+                                    + '<span>高科技</span>'
+                                    + '</p>'
+                                    + '<div class="wrap-tagsnew clearfix">'
+                                    + '<div class="pull-left clearfix">'
+                                    + '<img src="'+data.news[i].authorIconUrl+'" alt="" class="pull-left icon-person">'
+                                    + '<span class="pull-left color-grey">'+data.news[i].author+'</span>'
+                                    + '</div>'
+                                    + '<div class="pull-right">'
+                                    + '<span class="color-grey">'+data.news[i].postTime+'</span>'
+                                    + '</div>'
+                                    + '</div>'
+                                    + '</div>'
+                                    + '</li>'
+                                $(".wrap-news-item ul").append(html);
+                            }
+                            canload = true;
+                        }
+                        me.resetload();
+                    })
+                    .fail(function(e) {
+                        console.log('error', JSON.stringify(e))
+                        me.resetload();
+                        canload = true;
+                    })
+                    .always(function() {
+                        //alert( "finished" );
+                    });
+            }
+        });
     })
 </script>
 </body>
