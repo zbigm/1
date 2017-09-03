@@ -19,6 +19,7 @@ html, body{
 	bottom: 0%;
 	padding: 0.18rem 0px 0.1rem;
 	background: #fff;
+	z-index: 9999999;
 }
 .wrap-footer ul li{
 	padding: 0px;
