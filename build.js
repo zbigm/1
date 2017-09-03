@@ -1,6 +1,6 @@
 const fs = require('fs')
+const fse = require('fs-extra')
 const path = require('path')
-
 
 function travDir(dir, cb) {
     fs.readdirSync(dir).forEach( file => {
@@ -14,17 +14,6 @@ function travDir(dir, cb) {
 let srcDir = path.join(__dirname, 'src')
 let distDir = path.join(__dirname, 'dist')
 
-// let htmlDir = path.join(__dirname, 'src', 'html')
-// let htmlTgtDir = path.join(__dirname, 'dist', 'html')
-// travDir(htmlDir, file => {
-//     let baseName = path.basename(file)
-//     let footerPath = path.join(__dirname, 'src', 'html', 'part', 'footer.html')
-//     let footerStr = fs.readFileSync(footerPath, 'utf8')
-//     let tgtPath = path.join(htmlTgtDir, baseName)
-//     let fileStr = fs.readFileSync(file,'utf8')
-//     let tgtFileStr = fileStr.replace(/<!--{{footer.html}}-->/, footerStr)
-//     fs.writeFileSync(tgtPath, tgtFileStr ,'utf8')
-// })
 
 // html
 let srcHtmlDir = path.join(srcDir, 'html')
@@ -38,6 +27,22 @@ fs.readdirSync(srcHtmlDir).forEach( html => {
 
         let tgtFile = path.join(distHtmlDir, html)
         fs.writeFileSync(tgtFile, tgtFileStr, 'utf8')
-        console.log(html, '\n', filePath, '\n', tgtFile)
+        // console.log(html, '\n', filePath, '\n', tgtFile)
     }
 })
+
+
+// js
+let srcJsDir = path.join(srcDir, "Scripts")
+let distJsDir = path.join(distDir, "Scripts")
+fse.copySync(srcJsDir, distJsDir)
+
+// css
+let srcCssDir = path.join(srcDir, "Styles")
+let distCssDir = path.join(distDir, "Styles")
+fse.copySync(srcCssDir, distCssDir)
+
+// img
+let srcImgDir = path.join(srcDir, "Images")
+let distImgDir = path.join(distDir, "Images")
+fse.copySync(srcImgDir, distImgDir)

@@ -1,0 +1,173 @@
+html, body{
+    background-color: #fff;
+}
+.person-nologin {
+	width: 7.5rem;
+	font-family: '微软雅黑';
+}
+.person-nologin .head {
+	width: 7.5rem;
+	height: 3.84rem;
+	background: url("../Images/login-bg.jpg") top center no-repeat;
+	background-size: 100%;
+	text-align: center;
+}
+.person-nologin .head .avatar {
+	width: 1.71rem;
+	height: 1.71rem;
+	background-color: #fff;
+	border-radius: 50%;
+	display: inline-block;
+	margin: 0.85rem auto 0;
+}
+.person-nologin .head .text {
+	font-size: 0.28rem;
+	color: #fff;
+	text-align: center;
+	margin-top: 0.2rem;
+}
+.person-nologin .person-list {
+	height: 1.47rem;
+	background-color: #fff;
+	font-size: 0.32rem;
+	color: #909090;
+}
+.person-nologin .person-list>div{
+	text-align: center;
+}
+.person-nologin .person-list>div>span {
+	display: inline-block;
+	margin-top: 0.32rem;
+	color: #3c3c3c;
+	font-size: 0.28rem;
+}
+.person-nologin .list {
+	border-top: 0.17rem solid #f5f5f5;
+	border-bottom: 0.17rem solid #f5f5f5;
+}
+.person-nologin .list a{
+	text-decoration: none;
+}
+.person-nologin .list .item {
+	border-bottom: 1px solid #e8e8e8;
+	height: 0.93rem;
+	padding: 0 0.2rem;
+	line-height: 0.93rem;
+	font-size: 0.34rem;
+	color: #3c3c3c;
+}
+.person-nologin .list .item img {
+	width: 0.3rem;
+	margin-right: 0.24rem;
+}
+.person-nologin .list .bordernone {
+	border: none;
+}
+.person-login .head .text {
+	font-size: 0.24rem;
+}
+.person-login .head .text .name {
+	font-size: 0.28rem;
+	font-weight: bold;
+}
+.person-nologin .list .item>span {
+	display: block;
+	float: right;
+	height: 100%;
+	line-height: 0.93rem;
+}
+.person-nologin .list .item>span>img {
+	width: 0.15rem;
+	margin-left: 0.1rem;
+}
+.person-nologin .list .item .date{
+	font-size: 0.28rem;
+	color: #cbcbcb;
+}
+.charter {
+	width: 7.5rem;
+	padding: 0.35rem;
+}
+.charter .charter-title {
+	font-size: 0.34rem;
+	color: #3c3c3c;
+	text-align: center;
+	font-weight: bold;
+	margin-top: 0.15rem;
+}
+.charter .para {
+	margin-top: 0.6rem;
+}
+.charter .para .para-tit {
+	font-size: 0.28rem;
+	color: #3c3c3c;
+	margin-bottom: 0.27rem;
+}
+.charter .para .para-cont {
+	font-size: 0.24rem;
+	color: #646464;
+	line-height: 0.48rem;
+}
+.contact {
+	width: 7.5rem;
+}
+.contact .contact-list {
+	border-top: 0.17rem solid #f5f5f5;
+}
+.contact .contact-list .item {
+	height: 0.92rem;
+	border-bottom: 1px solid #e8e8e8;
+	padding: 0 0.35rem;
+	font-size: 0.28rem;
+	color: #909090;
+	line-height: 0.92rem;
+}
+.contact .contact-list .list-tit {
+	font-size: 0.32rem;
+	color: #3c3c3c;
+}
+.contact .contact-list .list-tit span {
+	font-size: 0.34rem;
+	font-weight: bold;
+}
+.contact .address-pic {
+	width: 100%;
+	border-top: 0.17rem solid #f5f5f5;
+}
+.contact .address-pic img {
+	width: 100%;
+}
+.person-info {
+	border-top: 0.17rem solid #f5f5f5;
+	border-bottom: 0.17rem solid #f5f5f5;
+}
+.person-info .info-list {
+	height: 0.92rem;
+	border-bottom: 1px solid #e8e8e8;
+	padding: 0 0.3rem;
+	line-height: 0.92rem;
+}
+.person-info .info-list .left {
+	color: #3c3c3c;
+	font-size: 0.34rem;
+	text-align: left;
+	padding: 0;
+}
+.person-info .info-list .right {
+	color: #909090;
+	font-size: 0.28rem;
+	text-align: right;
+	padding: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding-right: 0.3rem;
+	background: url("../Images/next.png") center right no-repeat;
+	background-size: 0.15rem auto;
+}
+.person-info .info-list .right .person {
+	width: 0.64rem;
+	height: 0.64rem;
+	border-radius: 0.32rem;
+	
+}
