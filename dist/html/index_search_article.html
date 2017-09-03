@@ -133,7 +133,7 @@
     </div>
 </div>
 <script>
-    $(".wrap-footer .col-xs-3").click(function(){
+    $("body").on("click",".wrap-footer .col-xs-3",function(){
         $(".wrap-footer .col-xs-3").removeClass("active");
         $(this).addClass("active");
     })
