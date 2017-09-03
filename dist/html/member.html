@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../Styles/main.css">
     <link rel="stylesheet" href="../Styles/news.css">
     <link rel="stylesheet" href="../Styles/index.css">
+    <link rel="stylesheet" href="../Styles/lib/dropload.css">
     <script>
         var apiPre = ''
     </script>
@@ -34,9 +35,9 @@
                             </span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
+                            <li><a href="#">Article</a></li>
+                            <li><a href="#">Video</a></li>
+                            <li><a href="#">Members</a></li>
                         </ul>
                   </div><!-- /btn-group -->
                 </div><!-- /input-group -->
@@ -70,28 +71,30 @@
                     <div class="linebottom"></div>
                 </li>
                 <li class="swiper-slide">
-                    <b>All</b>
+                    <b>Secretary General</b>
                     <div class="linebottom"></div>
                 </li>
                 <li class="swiper-slide">
-                    <b>All</b>
+                    <b>Diretors</b>
                     <div class="linebottom"></div>
                 </li>
                 <li class="swiper-slide">
-                    <b>All</b>
+                    <b>Members</b>
                     <div class="linebottom"></div>
                 </li>
             </ul>
         </div>
     </div><!-- wrap-navbar -->
-    <div class="wrap-search-type container  member-type">
-        <div class="wrap-searchtag clearfix">
-            <a href="javascript:void(0);" class="tagbtn pull-left active">Insight</a>
-            <a href="javascript:void(0);" class="tagbtn pull-left">TopNews</a>
-            <a href="javascript:void(0);" class="tagbtn pull-left">TechExpress</a>
-            <a href="javascript:void(0);" class="tagbtn pull-left">Project</a>
-        </div>
-    </div><!-- wrap-search-type -->
+    <div class="wrap-member-type-box">
+        <div class="wrap-search-type container  member-type swiper-container">
+            <ul class="wrap-searchtag clearfix swiper-wrapper">
+                <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left active">Insight</a>
+                <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">TopNews</a>
+                <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">TechExpress</a>
+                <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">Project</a>
+            </ul>
+        </div><!-- wrap-search-type -->
+    </div><!-- wrap-member-type-box -->
     <div class="wrap-member-list container">
         <ul class="clearfix">
             <li class="pull-left col-xs-6 member-list-item">
@@ -176,6 +179,9 @@
         console.log('jquery version:', $.fn.jquery);
         // swiper 滑动导航
         var navBarSwiper = new Swiper ('.wrap-navbar .swiper-container', {
+            slidesPerView: "auto"
+        });
+        var navBarSwiper = new Swiper ('.wrap-member-type-box .swiper-container', {
             slidesPerView: "auto"
         });
         $(".wrap-navbar li").click(function(){
