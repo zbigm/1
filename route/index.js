@@ -1,9 +1,41 @@
 var express = require('express')
 var router = express.Router()
 
+var tag = require('../data/tag')
+var account = require('../data/account')
 var article = require('../data/article')
 var video = require('../data/video')
 var project = require('../data/project')
+
+
+router.get('/Tag/GetAll', function (req, res) {
+    res.json(tag)
+})
+
+
+router.get('/Account/Search', function (req, res) {
+    let memberType = req.query.memberType
+    let memberLevel = req.query.memberLevel
+    let keyword = req.query.keyword
+    let tagId = req.query.tagId
+    let page = parseInt(req.query.page) || 1
+    console.log(req.query)
+
+    let accounts = [1,2,3,4,5].map( function (v) {
+        return account
+    })
+    res.json({
+        hasMore: page < 3 ? true : false,
+        accounts: page < 3 ? accounts : null,
+        reqParam: {
+            memberType,
+            memberLevel,
+            keyword,
+            tagId,
+            page
+        }
+    })
+})
 
 router.get('/Article/Search', function (req, res) {
     let memberId = req.query.memberId
