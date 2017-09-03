@@ -171,3 +171,15 @@ html, body{
 	border-radius: 0.32rem;
 	
 }
+.person-nologin .text a{
+	color: #fff;
+	text-decoration: none;
+}
+.person-nologin .text em{
+	font-style: normal;
+	padding: 0 0.05rem;
+}
+.avatar img{
+	width: 100%;
+	height: 100%;
+}
