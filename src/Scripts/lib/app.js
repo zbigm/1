@@ -15,7 +15,7 @@ $(function(){
         $(this).addClass('active').siblings().removeClass('active');
     });
     //memeber
-    $(".wrap-member-title li").click(function(){
+    $(".wrap-member-title li,.wrap-searchtag a").click(function(){
     		$(this).addClass("active").siblings().removeClass("active");
     })
 });
