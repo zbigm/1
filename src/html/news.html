@@ -280,6 +280,21 @@
         $(".nano").nanoScroller();
         $(".nano").bind("scrollend", function(e){
             $(".loader").text("加载中...");
+            $.get('http://localhost:9000/news',{
+                tag: 'ggg',
+                page: 2,
+                type: 'video'
+            })
+            .done(function() {
+                alert(JSON.stringify(data))
+            })
+            .fail(function() {
+                console.log('error', JSON.stringify(e))
+            })
+            .always(function() {
+                //alert( "finished" );
+            });
+
         });
     })
 </script>
