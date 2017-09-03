@@ -393,6 +393,7 @@ a.index-news-title{
 	color: #b1b1b1;
 	font-size: 0.32rem;
 	padding:0px 0.14rem;
+	margin-right: 0.1rem;
 }
 .member-navbar .swiper-container{
 	line-height: 0.98rem;
@@ -591,4 +592,21 @@ li.member-list-item:nth-child(even){
 .wrap-info-tip a{
 	color: #fff;
 	text-decoration: none;
+}
+.wrap-member-type-box a.tagbtn{
+	width: auto;
+}
+.index-search .member-type{
+	background: #fff;
+}
+.index-search .wrap-search-type{
+   padding-left: 0px;
+   padding-right: 0px;
+}
+.index-search .search-type{
+	padding-left: 15px;
+}
+.index-search .wrap-member-type-box .wrap-search-type{
+	padding-top: 0px;
+	padding-left: 15px;
 }

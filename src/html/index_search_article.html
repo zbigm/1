@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>AAECA</title>
     <link href="../Styles/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="../Styles/lib/swiper/css/swiper-3.4.2.min.css">
     <link rel="stylesheet" href="../Styles/main.css">
     <link rel="stylesheet" href="../Styles/news.css">
     <link rel="stylesheet" href="../Styles/index.css">
@@ -15,11 +16,12 @@
     </script>
     <script src="../Scripts/lib/jquery-3.2.1.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../Scripts/lib/swiper/js/swiper-3.4.2.min.js"></script>
     <script src="../Scripts/lib/FontSize.js"></script>
     <script src="../Scripts/lib/app.js"></script>
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid index-search">
     <div class="wrap-search-title">
         <div class="wrap-search-header clearfix">
             <div class="wrap-select-box pull-left">
@@ -48,13 +50,16 @@
         </div><!-- wrap-search-header -->
         <div class="wrap-search-type">
             <div class="search-type">Article Type</div>
-            <div class="wrap-searchtag clearfix">
-                <a href="javascript:void(0);" class="tagbtn pull-left">Insight</a>
-                <a href="javascript:void(0);" class="tagbtn pull-left">TopNews</a>
-                <a href="javascript:void(0);" class="tagbtn pull-left">TechExpress</a>
-                <a href="javascript:void(0);" class="tagbtn pull-left">Insight</a>
-                <a href="javascript:void(0);" class="tagbtn pull-left active">Project</a>
-            </div>
+            <div class="wrap-member-type-box">
+                <div class="wrap-search-type container  member-type swiper-container">
+                    <ul class="wrap-searchtag clearfix swiper-wrapper">
+                        <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left active">Insight</a>
+                        <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">TopNews</a>
+                        <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">TechExpress</a>
+                        <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">Project</a>
+                    </ul>
+                </div><!-- wrap-search-type -->
+            </div><!-- wrap-member-type-box -->
         </div><!-- wrap-search-type -->
     </div><!-- wrap-search-title -->
     <div class="wrap-news-item">
@@ -103,5 +108,18 @@
     </div><!-- wrap-news-item -->
 </div><!-- container-fluid -->
 <!--{{footer.html}}-->
+<script>
+    $(function () {
+        console.log('jquery version:', $.fn.jquery);
+        // swiper 滑动导航
+        var navBarSwiper = new Swiper ('.wrap-member-type-box .swiper-container', {
+            slidesPerView: "auto"
+        });
+        $(".wrap-navbar li").click(function(){
+            $(this).addClass('active').siblings().removeClass('active');
+        });     
+        // swiper 滑动导航
+    })
+</script>
 </body>
 </html>
