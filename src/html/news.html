@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../Styles/lib/swiper/css/swiper-3.4.2.min.css">
     <link rel="stylesheet" href="../Styles/main.css">
     <link rel="stylesheet" href="../Styles/news.css">
-    <link rel="stylesheet" href="../Styles/lib/nanoscroller.css">
+    <link rel="stylesheet" href="../Styles/lib/dropload.css">
     <script>
         var apiPre = ''
     </script>
@@ -18,22 +18,10 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../Scripts/lib/FontSize.js"></script>
     <script src="../Scripts/lib/swiper/js/swiper-3.4.2.min.js"></script>
-    <script src="../Scripts/lib/nanoScroller.js"></script>
+    <script src="../Scripts/lib/dropload.min.js"></script>
     <script src="../Scripts/lib/app.js"></script>
-
-    <style>
-
-        .nano { background: transparent; width: 100%; height: 100%; }
-        .nano > .nano-content { padding: 0; }
-        .nano > .nano-pane   { background: transparent; }
-        .nano > .nano-pane > .nano-slider { background: transparent; }
-
-    </style>
 </head>
 <body>
-
-<div class="nano">
-<div class="nano-content">
 
 <div class="container-fluid ">
     <!-- modal -->
@@ -253,10 +241,8 @@
             </li>
         </ul>
     </div><!-- wrap-news-item -->
-    <div class="loader">加载完毕</div>
+    <!--<div class="loader">加载完毕</div>-->
 </div><!-- container-fluid -->
-</div>
-</div>
 <!--{{footer.html}}-->
 <script>
     $(function () {
@@ -277,24 +263,31 @@
             $(this).addClass('active').siblings().removeClass('active');
         });     
         // swiper 滑动导航
-        $(".nano").nanoScroller();
-        $(".nano").bind("scrollend", function(e){
-            $(".loader").text("加载中...");
-            $.get('http://localhost:9000/news',{
-                tag: 'ggg',
-                page: 2,
-                type: 'video'
-            })
-            .done(function() {
-                alert(JSON.stringify(data))
-            })
-            .fail(function() {
-                console.log('error', JSON.stringify(e))
-            })
-            .always(function() {
-                //alert( "finished" );
-            });
-
+        var canload = true;
+        $('.container-fluid').dropload({
+            scrollArea : window,
+            loadDownFn : function(me){
+                if(!canload) return;
+                canload = false;
+                $.get('data/json',{
+                    tag: 'ggg',
+                    page: 2,
+                    type: 'video'
+                })
+                .done(function(data) {
+                    alert(JSON.stringify(data));
+                    me.resetload();
+                    canload = true;
+                })
+                .fail(function(e) {
+                    console.log('error', JSON.stringify(e))
+                    me.resetload();
+                    canload = true;
+                })
+                .always(function() {
+                    //alert( "finished" );
+                });
+            }
         });
     })
 </script>
