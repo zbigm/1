@@ -15,6 +15,7 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../Scripts/lib/FontSize.js"></script>
     <script src="../Scripts/lib/swiper/js/swiper-3.4.2.min.js"></script>
+    <script src="../Scripts/lib/dropload.min.js"></script>
     <script src="../Scripts/lib/app.js"></script>
 </head>
 <body>
@@ -23,37 +24,37 @@
         <div class="wrap-memeber-item clearfix">
             <a href="javascript:void(0);">
                 <span class="pull-left">Icon</span>
-                <i class="pull-right"><img src="../Images/newspeople.png" alt="" class="icon-person"></i>
+                <i class="pull-right"><img src="" alt="" class="icon-person"></i>
             </a>
         </div>
         <div class="wrap-memeber-item clearfix">
             <a href="javascript:void(0);">
                 <span class="pull-left">Name</span>
-                <i class="pull-right">点点Josh</i>
+                <i class="pull-right" id="member_infomation_name"></i>
             </a>
         </div>
         <div class="wrap-memeber-item clearfix">
             <a href="javascript:void(0);">
                 <span class="pull-left">Uint</span>
-                <i class="pull-right">上海飨都信息技术有限公司</i>
+                <i class="pull-right" id="member_infomation_company"></i>
             </a>
         </div>
         <div class="wrap-memeber-item clearfix">
             <a href="javascript:void(0);">
                 <span class="pull-left">E-main</span>
-                <i class="pull-right">zhoudiandian@kunzhanchina.com</i>
+                <i class="pull-right" id="member_infomation_mail"></i>
             </a>
         </div>
         <div class="wrap-memeber-item clearfix">
             <a href="javascript:void(0);">
                 <span class="pull-left">Phone</span>
-                <i class="pull-right">18810971174</i>
+                <i class="pull-right" id="member_infomation_phone"></i>
             </a>
         </div>
         <div class="wrap-memeber-item clearfix">
             <a href="javascript:void(0);">
                 <span class="pull-left">Registration Date</span>
-                <i class="pull-right">18810971174</i>
+                <i class="pull-right" id="member_infomation_date"></i>
             </a>
         </div>
     </div>
@@ -88,5 +89,33 @@
         </ul>
     </div>
 </div>
+<script>
+    // 数据加载
+        var memberId = 3;
+        var detailurl='http://47.91.241.71:9000/Account/Detail/'+memberId;
+        $.get(detailurl,{
+            memberId: memberId
+        })
+        .done(function(data) {
+            var accountDetailData = data.accountDetail;
+            if(accountDetailData){
+                $(".icon-person").attr('src', accountDetailData.imgsrc);
+                $("#member_infomation_name").html(accountDetailData.Name);
+                $("#member_infomation_company").html(accountDetailData.Name);
+                $("#member_infomation_mail").html(accountDetailData.Email);
+                $("#member_infomation_phone").html(accountDetailData.Phone);
+                $("#member_infomation_date").html(accountDetailData.RegisterDate);
+            }
+        })
+        .fail(function(e) {
+            console.log('error', JSON.stringify(e));
+        })
+        .always(function() {
+            //alert( "finished" );
+        });
+        }
+        });
+    // 数据加载
+</script>
 </body>
 </html>

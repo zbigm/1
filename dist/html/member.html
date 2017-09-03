@@ -19,6 +19,7 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../Scripts/lib/FontSize.js"></script>
     <script src="../Scripts/lib/swiper/js/swiper-3.4.2.min.js"></script>
+    <script src="../Scripts/lib/dropload.min.js"></script>
     <script src="../Scripts/lib/app.js"></script>
 </head>
 <body>
@@ -88,7 +89,7 @@
     <div class="wrap-member-type-box">
         <div class="wrap-search-type container  member-type swiper-container">
             <ul class="wrap-searchtag clearfix swiper-wrapper">
-                <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left active">Insight</a>
+                <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">Insight</a>
                 <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">TopNews</a>
                 <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">TechExpress</a>
                 <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">Project</a>
@@ -97,7 +98,7 @@
     </div><!-- wrap-member-type-box -->
     <div class="wrap-member-list container">
         <ul class="clearfix">
-            <li class="pull-left col-xs-6 member-list-item">
+            <!-- <li class="pull-left col-xs-6 member-list-item">
                 <a class="person-item clearfix" href="member_article.html">
                     <div class="pull-left member-trait">
                         <img src="../Images/submember.png" alt="">
@@ -107,40 +108,7 @@
                         <i>Mobile Inter...</i>
                     </div>
                 </a>
-            </li>
-            <li class="pull-left col-xs-6 member-list-item">
-                <a class="person-item clearfix" href="member_article.html">
-                    <div class="pull-left member-trait">
-                        <img src="../Images/submember.png" alt="">
-                    </div>
-                    <div class="person-item-text pull-left">
-                        <span>鲍曼</span>
-                        <i>Mobile Inter...</i>
-                    </div>
-                </a>
-            </li>
-            <li class="pull-left col-xs-6 member-list-item">
-                <a class="person-item clearfix" href="member_article.html">
-                    <div class="pull-left member-trait">
-                        <img src="../Images/submember.png" alt="">
-                    </div>
-                    <div class="person-item-text pull-left">
-                        <span>鲍曼</span>
-                        <i>Mobile Inter...</i>
-                    </div>
-                </a>
-            </li>
-            <li class="pull-left col-xs-6 member-list-item">
-                <a class="person-item clearfix" href="member_article.html">
-                    <div class="pull-left member-trait">
-                        <img src="../Images/submember.png" alt="">
-                    </div>
-                    <div class="person-item-text pull-left">
-                        <span>鲍曼</span>
-                        <i>Mobile Inter...</i>
-                    </div>
-                </a>
-            </li>
+            </li> -->
         </ul>
     </div><!-- wrap-member-list -->
 </div><!-- container-fluid -->
@@ -188,6 +156,78 @@
             $(this).addClass('active').siblings().removeClass('active');
         });     
         // swiper 滑动导航
+        // memberType,  0 1 2 3  all
+        //     memberLevel,
+        //     keyword,
+        //     tagId,
+        //     page
+        // 数据加载
+        var canload = true;
+        var memberType = 0;
+        var memberLevel = '';
+        var tagId="";
+        var isRecommend = false;
+        var keyword = '';
+        var page = 0;
+        var dropload = $('.container-fluid').dropload({
+            scrollArea : window,
+            threshold: 0,
+            loadDownFn : function(me){
+                if(!canload) {
+                    $(".dropload-load").text("加载完毕");
+                    return;
+                }
+                canload = false;
+                tag = 1;
+                page = page + 1;
+                $.get('http://47.91.241.71:9000/Account/Search',{
+                    memberType: memberType,
+                    memberLevel:memberLevel,
+                    page: page,
+                    tagId: tagId,
+                    keyword: keyword,
+                    isRecommend: isRecommend
+                })
+                .done(function(data) {
+                    var list = data.accounts;
+                    if(data.hasMore){
+                        for(var i=0; i<list.length; i++) {
+                            var datatagshtml=list[i].tag.join(' ');
+                            var html = '<li class="pull-left col-xs-6 member-list-item">'
+                                + '<a class="person-item clearfix" href="member_article.html">'
+                                + '<div class="pull-left member-trait">'
+                                + '<img src="'+list[i].imgUrl+'" alt="">'
+                                + '</div>'
+                                + '<div class="person-item-text pull-left">'
+                                + '<span>'+list[i].name+'</span>'
+                                + '<i>'+datatagshtml+'</i>'
+                                + '</div>'
+                                + '</a>'
+                                + '</li>';
+                            $(".wrap-member-list ul").append(html);
+                        }
+                        canload = true;
+                    }
+                    me.resetload();
+                })
+                .fail(function(e) {
+                    console.log('error', JSON.stringify(e));
+                    me.resetload();
+                    canload = true;
+                })
+                .always(function() {
+                    //alert( "finished" );
+                });
+            }
+        });
+        // 数据加载
+        $(".wrap-navbar .swiper-slide").click(function() {
+            page = 0;
+            articleType = $(this).find("i").text();
+            canload = true;
+            $(".wrap-news-item ul").empty();
+            dropload.resetload();
+        })
     })
 </script>
 </body>

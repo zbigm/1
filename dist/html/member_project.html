@@ -16,6 +16,7 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../Scripts/lib/FontSize.js"></script>
     <script src="../Scripts/lib/swiper/js/swiper-3.4.2.min.js"></script>
+    <script src="../Scripts/lib/dropload.min.js"></script>
     <script src="../Scripts/lib/app.js"></script>
 </head>
 <body>
@@ -131,5 +132,74 @@
         </ul>
     </div>
 </div>
+<script>
+    // 数据加载
+    var canload = true;
+        var memberId = 1;
+        var articleType = '行业洞察';
+        var isRecommend = false;
+        var keyword = '';
+        var page = 0;
+        var dropload = $('.container-fluid').dropload({
+            scrollArea : window,
+            threshold: 0,
+            loadDownFn : function(me){
+                if(!canload) {
+                    $(".dropload-load").text("加载完毕");
+                    return;
+                }
+                canload = false;
+                tag = 1;
+                page = page + 1;
+                $.get('http://47.91.241.71:9000/Article/Search',{
+                    memberId: memberId,
+                    page: page,
+                    articleType: articleType,
+                    keyword: keyword,
+                    isRecommend: isRecommend
+                })
+                .done(function(data) {
+                    var list = data.articles;
+                    if(data.hasMore){
+                        for(var i=0; i<list.length; i++) {
+                            var html = '<li class="news-item clearfix">'
+                                + '<a href="news_detail.html" class="pull-left newsitem-img">'
+                                + '<img src="'+list[i].imgUrl+'" alt="">'
+                                + '</a>'
+                                + '<div class="news-item-detail pull-right">'
+                                + '<h3><a href="news_detail.html">'+list[i].title+'</a></h3>'
+                                + '<p class="news-item-tag">'
+                                + '<a href="javascript:void(0);">高科技</a>'
+                                + '<a href="javascript:void(0);">高科技</a>'
+                                + '</p>'
+                                + '<div class="wrap-tagsnew clearfix">'
+                                + '<div class="pull-left clearfix">'
+                                + '<img src="'+list[i].authorIconUrl+'" alt="" class="pull-left icon-person">'
+                                + '<span class="pull-left color-grey">'+list[i].author+'</span>'
+                                + '</div>'
+                                + '<div class="pull-right">'
+                                + '<span class="color-grey">'+list[i].postTime+'</span>'
+                                + '</div>'
+                                + '</div>'
+                                + '</div>'
+                                + '</li>';
+                            $(".wrap-news-item ul").append(html);
+                        }
+                        canload = true;
+                    }
+                    me.resetload();
+                })
+                .fail(function(e) {
+                    console.log('error', JSON.stringify(e));
+                    me.resetload();
+                    canload = true;
+                })
+                .always(function() {
+                    //alert( "finished" );
+                });
+            }
+        });
+    // 数据加载
+</script>
 </body>
 </html>
