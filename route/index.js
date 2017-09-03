@@ -2,7 +2,7 @@ var express = require('express')
 var router = express.Router()
 
 var tag = require('../data/tag')
-var account = require('../data/account')
+var { account, accountDetail }  = require('../data/account')
 var article = require('../data/article')
 var video = require('../data/video')
 var project = require('../data/project')
@@ -33,6 +33,18 @@ router.get('/Account/Search', function (req, res) {
             keyword,
             tagId,
             page
+        }
+    })
+})
+
+router.get('/Account/Detail/:id', function (req, res) {
+    let memberId = req.params.memberId
+    console.log(req.query)
+
+    res.json({
+        accountDetail,
+        reqParam: {
+            memberId
         }
     })
 })
