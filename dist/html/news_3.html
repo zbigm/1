@@ -69,7 +69,9 @@
             </div>
             <div class="col-xs-4 padding0">
                 <span class="search-icon pull-right">
-                    <img src="../Images/searchicon.png" alt="">
+                    <a href="index_search.html">
+                        <img src="../Images/searchicon.png" alt="">
+                    </a>
                 </span>
             </div>   
         </div><!-- /news-header -->
@@ -215,6 +217,12 @@
         </ul>
     </div>
 </div>
+<script>
+    $(".wrap-footer .col-xs-3").click(function(){
+        $(".wrap-footer .col-xs-3").removeClass("active");
+        $(this).addClass("active");
+    })
+</script>
 <script>
     $(function () {
         console.log('jquery version:', $.fn.jquery);
