@@ -8,3 +8,66 @@
 html, body{
     position: relative;
 }
+/*footer*/
+.wrap-footer{
+	position: fixed;
+	width: 100%;
+	bottom: 0%;
+	padding: 0.18rem 0px 0.1rem;
+	background: #fff;
+}
+.wrap-footer ul li{
+	padding: 0px;
+	text-align: center;
+}
+.wrap-footer ul li span{
+	width: 0.47rem;
+	height: 0.41rem;
+	display: block;
+	margin:0 auto;
+}
+.wrap-footer ul li a{
+	display: block;
+}
+.wrap-footer ul li i{
+	font-style: normal;
+	font-size: 0.22rem;
+	color: #545454;
+}
+.wrap-footer ul li .home-footer{
+	background: url(../Images/fixhome.png) no-repeat left center;
+	background-size: 100% 100%;
+}
+.wrap-footer ul li.active .home-footer{
+	background: url(../Images/fixhomeactive.png) no-repeat left center;
+	background-size: 100% 100%;
+}
+.wrap-footer ul li .news-footer{
+	background: url(../Images/fixnews.png) no-repeat left center;
+	background-size: 100% 100%;
+}
+.wrap-footer ul li.active .news-footer{
+	background: url(../Images/fixnewsactive.png) no-repeat left center;
+	background-size: 100% 100%;
+}
+.wrap-footer ul li .members-footer{
+	background: url(../Images/fixmember.png) no-repeat left center;
+	background-size: 100% 100%;
+}
+.wrap-footer ul li.active .members-footer{
+	background: url(../Images/fixmemberactive.png) no-repeat left center;
+	background-size: 100% 100%;
+}
+.wrap-footer ul li .me-footer{
+	background: url(../Images/fixme.png) no-repeat left center;
+	background-size: 100% 100%;
+}
+.wrap-footer ul li.active .me-footer{
+	background: url(../Images/fixmeactive.png) no-repeat left center;
+	background-size: 100% 100%;
+}
+.wrap-footer ul li.active i{
+	color: #118ff6;
+}
+/*footer*/
+
