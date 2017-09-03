@@ -9,6 +9,8 @@
     <link href="../Styles/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="../Styles/main.css">
     <link rel="stylesheet" href="../Styles/person.css">
+    <link rel="stylesheet" href="../Styles/news.css">
+    <link rel="stylesheet" href="../Styles/member.css">
     <script>
         var apiPre = ''
     </script>
@@ -23,31 +25,42 @@
 </head>
 <body>
     <div class="person-nologin person-login">
-        <div class="head">
-            <div class="avatar"></div>
-            <div class="text">
-                <span class="name">Bowman</span><br>
-                Mobile Internet
+        <div class="wrap-member-header">
+            <div class="wrap-user-icon">
+                <a href="person_loggedin_unit_info.html">
+                    <img src="../Images/memberico.png"/>
+                </a>
             </div>
-        </div>
+            <h3 class="text-center">Bowman</h3>
+            <h4 class="text-center">Mobile Internet</h4>
+        </div><!--wrap-member-header-->
         <div class="person-list">
             <div class="col-xs-4 article">
-                <span>100</span><br>
-                Article
+                <a href="person_article_list.html">
+                    <span>100</span>
+                    <i>Article</i>
+                </a>
             </div>
             <div class="col-xs-4 project">
-                <span>100</span><br>
-                Project
+                <a href="person_project_list.html">
+                    <span>100</span>
+                    <i>Project</i>
+                </a>
             </div>
             <div class="col-xs-4 video">
-                <span>100</span><br>
-                Video
+                <a href="person_video_list.html">
+                    <span>100</span>
+                    <i>Video</i>
+                </a>
             </div>
         </div>
         <div class="list">
             <div class="item">
                 <img src="../Images/Vip.png">My Vip
-                <span><span class="date">2018-08-09到期</span><img src="../Images/next.png"></span>
+                <span>
+                    <span class="date">2018-08-09到期</span>
+                    <img src="../Images/next.png">
+                </span>
             </div>
             <a href="person_loggedin_help.html">
                 <div class="item">

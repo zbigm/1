@@ -183,3 +183,19 @@ html, body{
 	width: 100%;
 	height: 100%;
 }
+.person-login .person-list a span{
+	display: block;
+	color: #3c3c3c;
+	font-size: 0.28rem;
+	line-height: 0.44rem;
+}
+.person-login .person-list a i{
+	display: block;
+	font-style: normal;
+	color: #909090;
+	font-size: 0.32rem;
+	line-height: 0.44rem;
+}
+.person-login .person-list{
+	padding-top: 0.4rem;
+}
