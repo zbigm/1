@@ -18,4 +18,7 @@ $(function(){
     $(".wrap-member-title li,.wrap-searchtag a").click(function(){
     		$(this).addClass("active").siblings().removeClass("active");
     })
+    $(".dropdown-menu li").click(function(){
+        $(".btn .search-text").text($(this).find("a").text())
+    })
 });
