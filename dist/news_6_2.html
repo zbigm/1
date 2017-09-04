@@ -166,11 +166,13 @@ cessf Project and talent of the benign int </h4>
         // swiper 滑动导航
         // 数据加载
         page = 1
+        var videoType = 3;
         $('.container-fluid').dropload({
             scrollArea: window,
             loadDownFn: function (me) {
                 $get('/Video/Search',{
-                    p: page++
+                    p: page++,
+                    videoType: videoType
                 }, function (data) {
                     if(data.Status == 2){
                         var Body = data.Body
