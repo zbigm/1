@@ -86,26 +86,24 @@
         </div><!-- wrap-search-type -->
     </div><!-- wrap-member-type-box -->
     <div class="wrap-member-list container">
-        <ul class="clearfix">
-            <!-- <li class="pull-left col-xs-6 member-list-item">
+        <ul class="clearfix memberListUl">
+            <li class="pull-left col-xs-6 member-list-item itemTmpl" style="display: none">
                 <a class="person-item clearfix" href="member_article.html">
                     <div class="pull-left member-trait">
-                        <img src="./public/Images/submember.png" alt="">
+                        <img class="avatarImg" src="" alt="">
                     </div>
                     <div class="person-item-text pull-left">
-                        <span>鲍曼</span>
-                        <i>Mobile Inter...</i>
+                        <span class="memberName">鲍曼</span>
+                        <i class="memberCompany">Mobile Inter...</i>
                     </div>
                 </a>
-            </li> -->
+            </li>
         </ul>
     </div><!-- wrap-member-list -->
 </div><!-- container-fluid -->
 <!--{{footer.html}}-->
 <script>
     $(function () {
-        console.log('jquery version:', $.fn.jquery);
-        // swiper 滑动导航
         var navBarSwiper = new Swiper ('.wrap-navbar .swiper-container', {
             slidesPerView: "auto"
         });
@@ -114,8 +112,61 @@
         });
         $(".wrap-navbar li").click(function(){
             $(this).addClass('active').siblings().removeClass('active');
-        });     
-        // swiper 滑动导航
+        });
+
+
+        page = 1
+        $('.container-fluid').dropload({
+            scrollArea: window,
+            loadDownFn: function (me) {
+                $post('/Account/Search',{
+                    p: page++
+                }, function (data) {
+                    if(data.Status == 2){
+                        var Body = data.Body
+                        if(Body && Body.length){
+                            var $items = []
+
+                            for(var i=0; i<Body.length; i++){
+                                var item = Body[i]
+                                $items.push(makeMemberItem(item))
+                            }
+
+                            $('.memberListUl').append($items)
+                            me.resetload();
+
+                        }else{
+                            me.lock();
+                            me.noData();
+                            me.resetload();
+                        }
+                    }else{
+                        page--
+                        me.resetload();
+                        alert(data.Message)
+                    }
+                }, function (error) {
+                    me.resetload();
+                })
+            }
+        })
+
+        function makeMemberItem(dt) {
+            var $item = $('.itemTmpl').clone().removeClass('itemTmpl').css('display', 'block')
+            $item.find('.memberCompany').text(dt.PersonalCompanyName)
+//            $item.find('.articleDate').text(fmtDate1(dt.Timestamp))
+//            $item.find('.articleTags').text(dt.Keywords)
+            $item.find('.memberName').text(dt.Name)
+            $item.find('.avatarImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.AvatarKey)
+            return $item
+        }
+
+
+
+        return
+
+
+
         // memberType,  0 1 2 3  all
         //     memberLevel,
         //     keyword,

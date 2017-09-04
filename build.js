@@ -22,14 +22,31 @@ let footerStr = fs.readFileSync(path.join(srcHtmlDir, 'part', 'footer.html'), 'u
 fs.readdirSync(srcHtmlDir).forEach( html => {
     let filePath = path.join(srcHtmlDir, html)
     if(fs.statSync(filePath).isFile()){
+
         let fileStr = fs.readFileSync(filePath, 'utf8')
-        let tgtFileStr = fileStr.replace(/<!--{{footer.html}}-->/, footerStr)
+        let tgtFileStr = fileStr.replace(/<!--{{footer.html}}-->/, getFootStr(html))
 
         let tgtFile = path.join(distHtmlDir, html)
         fs.writeFileSync(tgtFile, tgtFileStr, 'utf8')
         // console.log(html, '\n', filePath, '\n', tgtFile)
     }
 })
+
+function getFootStr(srcHtml) {
+    debugger
+    let ret = ''
+    if(srcHtml.indexOf('index') === 0){
+        ret = footerStr.replace(/index_actv/, 'active')
+    }else if(srcHtml.indexOf('member') === 0){
+        ret = footerStr.replace(/member_actv/, 'active')
+    }else if(srcHtml.indexOf('news') === 0){
+        ret = footerStr.replace(/news_actv/, 'active')
+    }else if(srcHtml.indexOf('person') === 0){
+        ret = footerStr.replace(/person_actv/, 'active')
+    }
+
+    return ret
+}
 
 function joinFile(paths, dilm) {
     let strs = paths.map(path => {

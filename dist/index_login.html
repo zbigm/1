@@ -18,7 +18,7 @@
         <!--背景图片-->
         <div class="wrap-log-box container">
             <div class="wrap-log-header row clearfix">
-                <a class="backbtn pull-left" href="javascript:void(0);">
+                <a class="backbtn pull-left" href="javascript:void(0);" style="visibility: hidden">
                     <img src="./public/Images/backarrow.png" alt="">
                 </a>
                 <div class="log-title pull-left text-center">Login</div>
@@ -51,7 +51,7 @@
                 <div class="input-item-group clearfix">
                     <div class="wrap-input-item">
                         <span class="pull-left codeimg">
-                            <img src="./public/Images/codeimg.png" alt="">
+                            <img src="http://api.m.aaeca.org/Captcha/Image" alt="">
                         </span>
                         <div class="codeimgtext inputbg pull-right">
                             <input type="number" placeholder="" class="input-item imgcode pull-left">
@@ -81,9 +81,6 @@
             </div>
         </div><!-- container -->
     </div><!-- logbg -->
-    <script src="./public/Scripts/lib/jquery-3.2.1.min.js"></script>
-    <script src="./public/Scripts/main.js"></script>
-
     <script>
         $(function () {
             $('.loginBtn').click(function () {
@@ -94,6 +91,13 @@
                     alert('请输入邮箱地址')
                     return
                 }
+//                else{
+//                    var emailReg = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+//                    if(!emailReg.test(email)){
+//                        alert('请输入有效的邮箱地址')
+//                        return
+//                    }
+//                }
                 if(!pwd){
                     alert('请输入密码')
                     return
