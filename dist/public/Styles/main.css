@@ -78,6 +78,12 @@ html, body{
 	line-height: 30px;
 }
 /*footer*/
+.member-list-item{
+	height: 1.7rem;
+}
+.member-trait .avatarImg{
+	height: 1.7rem;
+}
 
 /*index*/
 .index-signup {
@@ -1423,6 +1429,9 @@ a{
 	z-index: 13;
 }
 /*news*/
+.wrap-navbar .wrap-videosubnavbar a{
+	padding: 0px;
+}
 /*member*/
 .wrap-member-header{
 	width: 100%;

@@ -51,97 +51,76 @@
     <!--member-header-->
     <div class="wrap-news-item">
         <ul>
-            <li class="news-item clearfix">
+            <li class="news-item articleItemTmpl clearfix" style="display: none">
                 <a href="news_detail.html" class="pull-left newsitem-img">
-                    <img src="./public/Images/newsitem.png" alt="">
+                    <img class="articleImg" src="http://sdf.img" alt="">
                 </a>
                 <div class="news-item-detail pull-right">
-                    <h3><a href="news_detail.html">硅谷的人本理念对我国产业园区发展的启示</a></h3>
-                    <p class="news-item-tag">
-                        <span>高科技</span>
-                    </p>
+                    <h3><a href="news_detail.html?articleId=1" class="articleTitle">标题标题</a></h3>
+                    <p class="news-item-tag"><span class="articleTags">高科技</span></p>
                     <div class="wrap-tagsnew clearfix">
                         <div class="pull-left clearfix">
-                            <img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person">
-                            <span class="pull-left color-grey">Bo Hong</span>
+                            <img src="http://bs.img" alt="" class="pull-left icon-person">
+                            <span class="pull-left color-grey articleAuthor">作者</span>
                         </div>
-                        <div class="pull-right">
-                            <span class="color-grey">August 17, 2017</span>
+                        <div class="pull-right"><span class="color-grey articleDate">8/17/2015</span>
                         </div>
                     </div>
                 </div>
-            </li><!-- news-item -->
+            </li>
         </ul>
     </div><!-- wrap-news-item -->
 </div><!-- container-fluid -->
 <!--{{footer.html}}-->
 <script>
     // 数据加载
-    var canload = true;
-        var memberId = 1;
-        var articleType = '行业洞察';
-        var isRecommend = false;
-        var keyword = '';
-        var page = 0;
-        var dropload = $('.container-fluid').dropload({
-            scrollArea : window,
-            threshold: 0,
-            loadDownFn : function(me){
-                if(!canload) {
-                    $(".dropload-load").text("加载完毕");
-                    return;
-                }
-                canload = false;
-                tag = 1;
-                page = page + 1;
-                $.get('http://47.91.241.71:9000/Article/Search',{
-                    memberId: memberId,
-                    page: page,
-                    articleType: articleType,
-                    keyword: keyword,
-                    isRecommend: isRecommend
-                })
-                .done(function(data) {
-                    var list = data.articles;
-                    if(data.hasMore){
-                        for(var i=0; i<list.length; i++) {
-                            var html = '<li class="news-item clearfix">'
-                                + '<a href="news_detail.html" class="pull-left newsitem-img">'
-                                + '<img src="'+list[i].imgUrl+'" alt="">'
-                                + '</a>'
-                                + '<div class="news-item-detail pull-right">'
-                                + '<h3><a href="news_detail.html">'+list[i].title+'</a></h3>'
-                                + '<p class="news-item-tag">'
-                                + '<a href="javascript:void(0);">高科技</a>'
-                                + '<a href="javascript:void(0);">高科技</a>'
-                                + '</p>'
-                                + '<div class="wrap-tagsnew clearfix">'
-                                + '<div class="pull-left clearfix">'
-                                + '<img src="'+list[i].authorIconUrl+'" alt="" class="pull-left icon-person">'
-                                + '<span class="pull-left color-grey">'+list[i].author+'</span>'
-                                + '</div>'
-                                + '<div class="pull-right">'
-                                + '<span class="color-grey">'+list[i].postTime+'</span>'
-                                + '</div>'
-                                + '</div>'
-                                + '</div>'
-                                + '</li>';
-                            $(".wrap-news-item ul").append(html);
+         page = 1
+        $('.container-fluid').dropload({
+            scrollArea: window,
+            loadDownFn: function (me) {
+                $get('/Article/Search',{
+                    p: page++
+                }, function (data) {
+                    if(data.Status == 2){
+                        var Body = data.Body
+                        if(Body && Body.length){
+                            var $items = []
+
+                            for(var i=0; i<Body.length; i++){
+                                var item = Body[i]
+                                $items.push(makeArticleItem(item))
+                            }
+
+                            $('.wrap-news-item>ul').append($items)
+                            me.resetload();
+
+                        }else{
+                            me.lock();
+                            me.noData();
+                            me.resetload();
                         }
-                        canload = true;
+                    }else{
+                        page--
+                        me.resetload();
+                        alert(data.Message)
                     }
+                }, function (error) {
                     me.resetload();
                 })
-                .fail(function(e) {
-                    console.log('error', JSON.stringify(e));
-                    me.resetload();
-                    canload = true;
-                })
-                .always(function() {
-                    //alert( "finished" );
-                });
             }
-        });
+        })
+
+        function makeArticleItem(dt) {
+            var $item = $('.articleItemTmpl').clone().removeClass('articleItemTmpl').css('display', 'block');
+            $item.find('.articleTitle').text(dt.Title);
+            $item.find('.articleDate').text(fmtDate1(dt.Timestamp));
+            $item.find('.articleTags').text(dt.Keywords);
+            $item.find('.articleAuthor').text(dt.Member.Name);
+            $item.find('.icon-person').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey);
+            $item.find('.articleImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)
+            $item.find('.articleTitle').attr('href', "news_detail.html?articleId="+dt.ArticleId);
+            return $item
+        }
     // 数据加载
 </script>
 </body>
