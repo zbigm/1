@@ -186,8 +186,9 @@
 //            $item.find('.articleDate').text(fmtDate1(dt.Timestamp))
 //            $item.find('.articleTags').text(dt.Keywords)
             $item.find('.memberName').text(dt.Name)
-            $item.find('.memberName').text(dt.Name) person-item
-            $item.find('.avatarImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.AvatarKey)
+            $item.find('.memberName').text(dt.Name)
+            $item.find('.avatarImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.AvatarKey);
+            $item.find('.person-item').attr('href','member_article.html?MemberId='+dt.MemberId)
             return $item
         }
     })

@@ -84,30 +84,25 @@
 </div>
 <script>
     // 数据加载
-        var memberId = 3;
-        var detailurl='http://47.91.241.71:9000/Account/Detail/'+memberId;
-        $.get(detailurl,{
-            memberId: memberId
-        })
-        .done(function(data) {
-            var accountDetailData = data.accountDetail;
-            if(accountDetailData){
-                $(".icon-person").attr('src', accountDetailData.imgsrc);
-                $("#member_infomation_name").html(accountDetailData.Name);
-                $("#member_infomation_company").html(accountDetailData.Name);
-                $("#member_infomation_mail").html(accountDetailData.Email);
-                $("#member_infomation_phone").html(accountDetailData.Phone);
-                $("#member_infomation_date").html(accountDetailData.RegisterDate);
+    $post('/Account/Search',{
+            MemberId:location.search.split("=")[1];
+        }, function (data) {
+            if(data.Status == 2){
+                var First = data.First
+                if(First){
+                    $(".icon-person").attr('src', accountDetailData.imgsrc);
+                    $("#member_infomation_name").html(accountDetailData.Name);
+                    $("#member_infomation_company").html(accountDetailData.Name);
+                    $("#member_infomation_mail").html(accountDetailData.Email);
+                    $("#member_infomation_phone").html(accountDetailData.Phone);
+                    $("#member_infomation_date").html(accountDetailData.RegisterDate);
+
+                }
+            }else{
+                alert(data.Message)
             }
+        }, function (error) {
         })
-        .fail(function(e) {
-            console.log('error', JSON.stringify(e));
-        })
-        .always(function() {
-            //alert( "finished" );
-        });
-        }
-        });
     // 数据加载
 </script>
 </body>

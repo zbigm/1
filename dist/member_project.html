@@ -52,22 +52,22 @@
     <div class="wrap-news-item">
         <ul>
             <li class="news-item articleItemTmpl clearfix" style="display: none">
-                <a href="news_detail.html" class="pull-left newsitem-img">
-                    <img class="articleImg" src="http://sdf.img" alt="">
-                </a>
-                <div class="news-item-detail pull-right">
-                    <h3><a href="news_detail.html?articleId=1" class="articleTitle">标题标题</a></h3>
-                    <p class="news-item-tag"><span class="articleTags">高科技</span></p>
-                    <div class="wrap-tagsnew clearfix">
-                        <div class="pull-left clearfix">
-                            <img src="http://bs.img" alt="" class="pull-left icon-person">
-                            <span class="pull-left color-grey articleAuthor">作者</span>
-                        </div>
-                        <div class="pull-right"><span class="color-grey articleDate">8/17/2015</span>
-                        </div>
+            <a href="news_detail.html" class="pull-left newsitem-img">
+                <img class="articleImg" src="http://sdf.img" alt="">
+            </a>
+            <div class="news-item-detail pull-right">
+                <h3><a href="news_detail.html?articleId=1" class="articleTitle">标题标题</a></h3>
+                <p class="news-item-tag"><span class="articleTags">高科技</span></p>
+                <div class="wrap-tagsnew clearfix">
+                    <div class="pull-left clearfix">
+                        <img src="http://bs.img" alt="" class="pull-left icon-person avatarKey">
+                        <span class="pull-left color-grey articleAuthor">作者</span>
+                    </div>
+                    <div class="pull-right"><span class="color-grey articleDate">8/17/2015</span>
                     </div>
                 </div>
-            </li>
+            </div>
+        </li>
         </ul>
     </div><!-- wrap-news-item -->
 </div><!-- container-fluid -->
@@ -140,13 +140,15 @@
         })
 
         function makeArticleItem(dt) {
-            var $item = $('.articleItemTmpl').clone().removeClass('articleItemTmpl').css('display', 'block');
-            $item.find('.articleTitle').text(dt.Title);
-            $item.find('.articleDate').text(fmtDate1(dt.Timestamp));
-            $item.find('.articleTags').text(dt.Keywords);
-            $item.find('.articleAuthor').text(dt.Member.Name);
-            $item.find('.icon-person').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey);
+           var $item = $('.articleItemTmpl').clone().removeClass('articleItemTmpl').css('display', 'block')
+            $item.find('.articleTitle').text(dt.Title)
+            $item.find('.articleTitle').attr('href','news_detail.html?articleId='+dt.ArticleId)
+            $item.find('.newsitem-img').attr('href','news_detail.html?articleId='+dt.ArticleId)
+            $item.find('.articleDate').text(fmtDate1(dt.Timestamp))
+            $item.find('.articleTags').text(dt.Keywords)
+            $item.find('.articleAuthor').text(dt.Member.Name)
             $item.find('.articleImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)
+            $item.find('.avatarKey').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey)
             return $item
         }
 

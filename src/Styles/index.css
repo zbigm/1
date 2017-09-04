@@ -454,11 +454,11 @@ a.person-item{
 }
 /*奇数*/
 li.member-list-item:nth-child(odd){
-	padding-right: 0.05rem;
+	padding-left: 0.05rem;
 }
 /*偶数*/
 li.member-list-item:nth-child(even){
-	padding-left: 0.05rem;
+	padding-right: 0.05rem;
 }
 .member-type .wrap-searchtag .active{
 	color: #fff;
