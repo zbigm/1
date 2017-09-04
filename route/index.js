@@ -3,7 +3,7 @@ var router = express.Router()
 
 var tag = require('../data/tag')
 var { account, accountDetail }  = require('../data/account')
-var article = require('../data/article')
+var { article, articleDetail } = require('../data/article')
 var video = require('../data/video')
 var project = require('../data/project')
 
@@ -69,6 +69,18 @@ router.get('/Article/Search', function (req, res) {
             isRecommend,
             keyword,
             page
+        }
+    })
+})
+
+router.get('/Article/Detail/:id', function (req, res) {
+    let articleId = req.params.articleId
+    console.log(req.query)
+
+    res.json({
+        articleDetail,
+        reqParam: {
+            articleId
         }
     })
 })
