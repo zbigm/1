@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="./public/Styles/css/vendor.min.css">
+    <link rel="stylesheet" href="./public/Styles/main.css">
+    <script src="./public/Scripts/main.js"></script>
+    <script src="./public/Scripts/vendor.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid logbg">
+        <!--背景图片-->
+        <div id="web-bg"></div>
+        <!--背景图片-->
+        <div class="wrap-log-box container">
+            <div class="wrap-log-header row clearfix">
+                <a class="backbtn pull-left" href="javascript:void(0);">
+                    <img src="./public/Images/backarrow.png" alt="">
+                </a>
+                <div class="log-title pull-left text-center">Login</div>
+            </div>
+        </div><!-- wrap-log-box -->
+        <div class="wrapinput-group">
+            <div class="row">
+                <div class="input-item-group">
+                    <div class="wrap-input-item inputbg clearfix">
+                        <span class="logico pull-left">
+                            <img src="./public/Images/accountico.png" alt="">
+                        </span>
+                        <input type="text" placeholder="Email | 邮箱" class="input-item username pull-left">
+                    </div>
+                    <div class="error">
+                        <span></span>
+                    </div>
+                </div>
+                <div class="input-item-group">
+                    <div class="wrap-input-item inputbg clearfix">
+                        <span class="logico pull-left">
+                            <img src="./public/Images/passwordico.png" alt="">
+                        </span>
+                        <input type="text" placeholder="Password | 密码" class="input-item password pull-left">
+                    </div>
+                    <div class="error">
+                        <span></span>
+                    </div>
+                </div>
+                <div class="input-item-group clearfix">
+                    <div class="wrap-input-item">
+                        <span class="pull-left codeimg">
+                            <img src="./public/Images/codeimg.png" alt="">
+                        </span>
+                        <div class="codeimgtext inputbg pull-right">
+                            <input type="number" placeholder="" class="input-item imgcode pull-left">
+                        </div>
+                    </div>
+                    <div class="error">
+                        <span></span>
+                    </div>
+                </div>
+                <div class="wrap-info-tip clearfix">
+                    <div class="pull-left">
+                        <a href="index_forget_pwd.html">
+                            <span>Forgotten Password</span>
+                            <i>忘记密码</i>
+                        </a>
+                    </div>
+                    <div class="pull-right">
+                        <a href="index_signup.html">
+                            <span class="text-right">Sign up</span>
+                            <i class="text-right">用户注册</i>
+                        </a>
+                    </div>
+                </div>
+                <div class="wrap-login">
+                    <button class="text-center loginBtn">Login | 登录</button>
+                </div>
+            </div>
+        </div><!-- container -->
+    </div><!-- logbg -->
+    <script src="./public/Scripts/lib/jquery-3.2.1.min.js"></script>
+    <script src="./public/Scripts/main.js"></script>
+
+    <script>
+        $(function () {
+            $('.loginBtn').click(function () {
+                var email = $('.username').val().trim()
+                var pwd = $('.password').val().trim()
+                var code = $('.imgcode').val().trim()
+                if( !email ){
+                    alert('请输入邮箱地址')
+                    return
+                }
+                if(!pwd){
+                    alert('请输入密码')
+                    return
+                }
+                if(!code){
+                    alert('请输入验证码')
+                    return
+                }
+                $post('/Account/Logon',{
+                    email: email,
+                    password: pwd,
+                    captcha: code
+                }, function (data) {
+                    if(data.Status == 2){
+                        location.href = 'index.html'
+                    }else{
+                        alert(data.Message)
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+</html>

@@ -1,7 +1,4 @@
-*{
-	margin: 0px;
-	padding: 0px;
-}
+/*news*/
 #loadmask{
 	width:100%;
     height:100%;
@@ -291,7 +288,7 @@ a{
 .line{
 	width: 1px;
 	display: inline;
-	background: #636363;
+	/*background: #636363;*/
 	height: 0.4rem;
 	margin-top: 0.12rem;
 }
@@ -529,3 +526,4 @@ a{
 	margin-top: -0.47rem;
 	z-index: 13;
 }
+/*news*/
