@@ -19,14 +19,14 @@
                 <div class="wrap-news-video video-broadcast">
                     <img src="./public/Images/videobroadcast.png" alt="">
                 </div>
-                <h3 class="video-broadcast-title">Recommend articleRecommend articleRecommend articleRecommend articleRecommend article</h3>
+                <h3 class="video-broadcast-title videoTitle">Recommend articleRecommend articleRecommend articleRecommend articleRecommend article</h3>
                 <div class="news-video-tag clearfix">
                     <div class="pull-left clearfix">
-                        <img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person">
-                        <span class="pull-left color-grey">Bo Hong</span>
+                        <img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person authorImg">
+                        <span class="pull-left color-grey authorName">Bo Hong</span>
                     </div>
                     <div class="pull-right">
-                        <span class="color-grey">August 17, 2017</span>
+                        <span class="color-grey authorDate">August 17, 2017</span>
                     </div>
                 </div>
             </div>
@@ -34,5 +34,25 @@
     </div>
 </div><!-- container-fluid -->
 <!--{{footer.html}}-->
+<script>
+    $(function(){
+        $get('/Video/GetById',{
+            VideoId: location.search.split('=')[1]
+        }, function (data) {
+            if(data.Status == 2){
+                var Body = data.First
+                $(".videoTitle").text(Body.Title)
+                $(".authorImg").attr("src", 'http://aaeca.img-us-west-1.aliyuncs.com/'+Body.Member.AvatarKey)
+                $(".authorName").text(Body.Member.Name)
+                $(".authorDate").text(fmtDate1(Body.Member.Timestamp))
+            }else{
+                alert(data.Message)
+            }
+            bool = true;
+        }, function (error) {
+            alert(error)
+        })
+    })
+</script>
 </body>
 </html>
