@@ -113,34 +113,35 @@
     </div><!-- wrap-navbar -->
     <div class="wrap-news-item">
         <ul>
-            <!--<li class="news-video-item clearfix">-->
-                <!--<div class="video-item-detail">-->
-                    <!--<div class="wrap-news-video">-->
-                        <!--<a class="wrap-video-introduction" href="person_video_detail.html">-->
-                            <!--<img src="./public/Images/newsvideo.png" alt="" class="pull-left icon-person">-->
-                            <!--<img src="./public/Images/broadcast.png" alt="" class="broadcast-btn">-->
-                            <!--<h4>Project and talent of the benign int eraction of suc-->
-<!--cessf Project and talent of the benign int </h4>-->
-                            <!--<span class="bggrey"></span>-->
-                        <!--</a>-->
-                    <!--</div>-->
-                    <!--<div class="news-video-tag clearfix">-->
-                        <!--<div class="pull-left clearfix">-->
-                            <!--<img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person">-->
-                            <!--<span class="pull-left color-grey">Bo Hong</span>-->
-                        <!--</div>-->
-                        <!--<div class="pull-right">-->
-                            <!--<span class="color-grey">August 17, 2017</span>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</li>&lt;!&ndash; news-video-item &ndash;&gt;-->
+            <li class="news-video-item clearfix articleItemTmpl" style="display:none;">
+                <div class="video-item-detail">
+                    <div class="wrap-news-video">
+                        <a class="wrap-video-introduction" href="person_video_detail.html">
+                            <img src="./public/Images/newsvideo.png" alt="" class="pull-left newsvedio">
+                            <img src="./public/Images/broadcast.png" alt="" class="broadcast-btn">
+                            <h4 class="video-title">Project and talent of the benign int eraction of suc
+                                cessf Project and talent of the benign int </h4>
+                            <span class="bggrey"></span>
+                        </a>
+                    </div>
+                    <div class="news-video-tag clearfix">
+                        <div class="pull-left clearfix">
+                            <img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person">
+                            <span class="pull-left color-grey namemember">Bo Hong</span>
+                        </div>
+                        <div class="pull-right">
+                            <span class="color-grey datamember">August 17, 2017</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
         </ul>
     </div><!-- wrap-news-item -->
 </div><!-- container-fluid -->
 <!--{{footer.html}}-->
 <script>
     $(function () {
+        newsReady();
         console.log('jquery version:', $.fn.jquery);
         // swiper 轮播图
         var mySwiper = new Swiper('.news-banner .swiper-container', {
@@ -159,71 +160,53 @@
         });     
         // swiper 滑动导航
         //分页加载数据
-        var canload = true;
-        var memberId = 1;
-        var videoType = '';
-        var isRecommend = false;
-        var keyword = '';
-        var page = 0;
-        var dropload = $('.container-fluid').dropload({
-            scrollArea : window,
-            threshold: 0,
-            loadDownFn : function(me){
-                if(!canload) {
-                    $(".dropload-load").text("加载完毕");
-                    return;
-                }
-                canload = false;
-                tag = 1;
-                page = page + 1;
-                $.get('http://47.91.241.71:9000/Video/Search',{
-                    memberId: memberId,
-                    page: page,
-                    videoType: videoType,
-                    keyword: keyword,
-                    isRecommend: isRecommend
-                })
-                    .done(function(data) {
-                        var list = data.videos;
-                        if(data.hasMore){
-                            for(var i=0; i<list.length; i++) {
-                                var html = '<li class="news-video-item clearfix">'
-                                    + '<div class="video-item-detail">'
-                                    + '<div class="wrap-news-video">'
-                                    + '<a class="wrap-video-introduction" href="person_video_detail.html">'
-                                    + '<img src="'+list[i].imgUrl+'" alt="" class="pull-left icon-person">'
-                                    + '<img src="./public/Images/broadcast.png" alt="" class="broadcast-btn">'
-                                    + '<h4>'+list[i].title+'</h4>'
-                                    + '<span class="bggrey"></span>'
-                                    + ' </a>'
-                                    + '</div>'
-                                    + '<div class="news-video-tag clearfix">'
-                                    + '<div class="pull-left clearfix">'
-                                    + '<img src="'+list[i].authorIconUrl+'" alt="" class="pull-left icon-person">'
-                                    + '<span class="pull-left color-grey">'+list[i].author+'</span>'
-                                    + '</div>'
-                                    + '<div class="pull-right">'
-                                    + '<span class="color-grey">'+list[i].postTime+'</span>'
-                                    + '</div>'
-                                    + '</div>'
-                                    + '</div>'
-                                    + '</li>'
-                                $(".wrap-news-item ul").append(html);
+        page = 1
+        $('.container-fluid').dropload({
+            scrollArea: window,
+            loadDownFn: function (me) {
+                $get('/Video/Search',{
+                    p: page++
+                }, function (data) {
+                    if(data.Status == 2){
+                        var Body = data.Body
+                        if(Body && Body.length){
+                            var $items = []
+
+                            for(var i=0; i<Body.length; i++){
+                                var item = Body[i]
+                                $items.push(makeArticleItem(item))
                             }
-                            canload = true;
+
+                            $('.wrap-news-item>ul').append($items)
+                            me.resetload();
+
+                        }else{
+                            me.lock();
+                            me.noData();
+                            me.resetload();
                         }
+                    }else{
+                        page--
                         me.resetload();
-                    })
-                    .fail(function(e) {
-                        console.log('error', JSON.stringify(e));
-                        me.resetload();
-                        canload = true;
-                    })
-                    .always(function() {
-                        //alert( "finished" );
-                    });
+                        alert(data.Message)
+                    }
+                }, function (error) {
+                    me.resetload();
+                })
             }
-        });
+        })
+
+        function makeArticleItem(dt) {
+            var $item = $('.articleItemTmpl').clone().removeClass('articleItemTmpl').css('display', 'block');
+            $item.find('.video-title').text(dt.Title);    //video title
+            $item.find('.namemember').text(dt.Member.Name);  //namemember
+            $item.find('.datamember').text(fmtDate1(dt.Timestamp));   //date
+            $item.find('.icon-person').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey);   //小头像
+            $item.find('.newsvedio').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)   // 视频地址
+            $item.find('.wrap-video-introduction').attr('href', "person_video_detail.html?VideoId="+dt.VideoId);
+            return $item
+        }
+
     })
 </script>
 </body>
