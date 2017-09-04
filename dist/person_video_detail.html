@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="./public/Styles/main.css">
     <script src="./public/Scripts/main.js"></script>
     <script src="./public/Scripts/vendor.min.js"></script>
+    <link href="http://vjs.zencdn.net/5.19/video-js.min.css" rel="stylesheet">
+    <script src="http://vjs.zencdn.net/5.19/video.min.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -17,7 +19,13 @@
         <div class="news-video-item clearfix">
             <div class="video-item-detail">
                 <div class="wrap-news-video video-broadcast">
-                    <img src="./public/Images/videobroadcast.png" alt="">
+                    <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="300" height="250"
+                           poster="http://video-js.zencoder.com/oceans-clip.png"
+                           data-setup="{}">
+                        <source src="http://aaeca.img-us-west-1.aliyuncs.com/AAECA/6SY2njKiKp.mp4" type='video/mp4' />
+                        <track kind="captions" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
+                        <track kind="subtitles" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
+                    </video>
                 </div>
                 <h3 class="video-broadcast-title videoTitle">Recommend articleRecommend articleRecommend articleRecommend articleRecommend article</h3>
                 <div class="news-video-tag clearfix">
@@ -74,6 +82,9 @@
                 $(".authorImg").attr("src", 'http://aaeca.img-us-west-1.aliyuncs.com/'+Body.Member.AvatarKey)
                 $(".authorName").text(Body.Member.Name)
                 $(".authorDate").text(fmtDate1(Body.Member.Timestamp))
+                $(".video-broadcast").find("video").attr("poster", 'http://aaeca.img-us-west-1.aliyuncs.com/'+Body.ImageKey)
+                $(".video-broadcast").find("source").attr("src", 'http://aaeca.img-us-west-1.aliyuncs.com/'+Body.Src)
+                var myPlayer = videojs('example_video_1')
             }else{
                 alert(data.Message)
             }
