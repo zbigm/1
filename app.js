@@ -33,6 +33,7 @@ app.use('/dist', express.static(path.join(__dirname, 'dist')));
 // app.use('/news', require('./route/news'))
 // app.use('/Member', require('./route/member'))
 app.use('/', require('./route/index'))
+app.use('/Account', require('./route/account'))
 
 
 // app.use('/', require('./routes/index'))

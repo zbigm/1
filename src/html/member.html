@@ -6,20 +6,10 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>AAECA</title>
-    <link href="../Styles/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="../Styles/lib/swiper/css/swiper-3.4.2.min.css">
-    <link rel="stylesheet" href="../Styles/main.css">
-    <link rel="stylesheet" href="../Styles/news.css">
-    <link rel="stylesheet" href="../Styles/index.css">
-    <link rel="stylesheet" href="../Styles/lib/dropload.css">
-    <script>
-        var apiPre = ''
-    </script>
-    <script src="../Scripts/lib/jquery-3.2.1.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="../Scripts/lib/FontSize.js"></script>
-    <script src="../Scripts/lib/swiper/js/swiper-3.4.2.min.js"></script>
-    <script src="../Scripts/lib/app.js"></script>
+    <link rel="stylesheet" href="./public/Styles/css/vendor.min.css">
+    <link rel="stylesheet" href="./public/Styles/main.css">
+    <script src="./public/Scripts/main.js"></script>
+    <script src="./public/Scripts/vendor.min.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -31,7 +21,7 @@
                         <button type="button" class="btn dropdown-toggle clearfix" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="pull-left search-text">Article</i>
                             <span class="caret select-caret pull-left">
-                                <img src="../Images/selectico.png" alt="">
+                                <img src="./public/Images/selectico.png" alt="">
                             </span>
                         </button>
                         <ul class="dropdown-menu">
@@ -44,7 +34,7 @@
             </div>
             <div class="wrap-search-text pull-right clearfix">
                 <span class="input-group-icon pull-left">
-                    <img src="../Images/lightsearch.png" alt="">
+                    <img src="./public/Images/lightsearch.png" alt="">
                 </span>
                 <input type="text" class="input-group-control pull-left" placeholder="Username">
             </div>
@@ -53,7 +43,7 @@
     <div class="wrap-member-introduction clearfix">
         <div class="pull-left member-introduction-img">
             <a href="javascript:void(0);">
-                <img src="../Images/member.png" alt="">
+                <img src="./public/Images/member.png" alt="">
             </a>
         </div>
         <div class="pull-right member-introduction-text">
@@ -88,7 +78,7 @@
     <div class="wrap-member-type-box">
         <div class="wrap-search-type container  member-type swiper-container">
             <ul class="wrap-searchtag clearfix swiper-wrapper">
-                <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left active">Insight</a>
+                <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">Insight</a>
                 <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">TopNews</a>
                 <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">TechExpress</a>
                 <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">Project</a>
@@ -96,48 +86,15 @@
         </div><!-- wrap-search-type -->
     </div><!-- wrap-member-type-box -->
     <div class="wrap-member-list container">
-        <ul class="clearfix">
-            <li class="pull-left col-xs-6 member-list-item">
+        <ul class="clearfix memberListUl">
+            <li class="pull-left col-xs-6 member-list-item itemTmpl" style="display: none">
                 <a class="person-item clearfix" href="member_article.html">
                     <div class="pull-left member-trait">
-                        <img src="../Images/submember.png" alt="">
+                        <img class="avatarImg" src="" alt="">
                     </div>
                     <div class="person-item-text pull-left">
-                        <span>鲍曼</span>
-                        <i>Mobile Inter...</i>
-                    </div>
-                </a>
-            </li>
-            <li class="pull-left col-xs-6 member-list-item">
-                <a class="person-item clearfix" href="member_article.html">
-                    <div class="pull-left member-trait">
-                        <img src="../Images/submember.png" alt="">
-                    </div>
-                    <div class="person-item-text pull-left">
-                        <span>鲍曼</span>
-                        <i>Mobile Inter...</i>
-                    </div>
-                </a>
-            </li>
-            <li class="pull-left col-xs-6 member-list-item">
-                <a class="person-item clearfix" href="member_article.html">
-                    <div class="pull-left member-trait">
-                        <img src="../Images/submember.png" alt="">
-                    </div>
-                    <div class="person-item-text pull-left">
-                        <span>鲍曼</span>
-                        <i>Mobile Inter...</i>
-                    </div>
-                </a>
-            </li>
-            <li class="pull-left col-xs-6 member-list-item">
-                <a class="person-item clearfix" href="member_article.html">
-                    <div class="pull-left member-trait">
-                        <img src="../Images/submember.png" alt="">
-                    </div>
-                    <div class="person-item-text pull-left">
-                        <span>鲍曼</span>
-                        <i>Mobile Inter...</i>
+                        <span class="memberName">鲍曼</span>
+                        <i class="memberCompany">Mobile Inter...</i>
                     </div>
                 </a>
             </li>
@@ -147,8 +104,6 @@
 <!--{{footer.html}}-->
 <script>
     $(function () {
-        console.log('jquery version:', $.fn.jquery);
-        // swiper 滑动导航
         var navBarSwiper = new Swiper ('.wrap-navbar .swiper-container', {
             slidesPerView: "auto"
         });
@@ -157,8 +112,133 @@
         });
         $(".wrap-navbar li").click(function(){
             $(this).addClass('active').siblings().removeClass('active');
-        });     
-        // swiper 滑动导航
+        });
+
+
+        page = 1
+        $('.container-fluid').dropload({
+            scrollArea: window,
+            loadDownFn: function (me) {
+                $post('/Account/Search',{
+                    p: page++
+                }, function (data) {
+                    if(data.Status == 2){
+                        var Body = data.Body
+                        if(Body && Body.length){
+                            var $items = []
+
+                            for(var i=0; i<Body.length; i++){
+                                var item = Body[i]
+                                $items.push(makeMemberItem(item))
+                            }
+
+                            $('.memberListUl').append($items)
+                            me.resetload();
+
+                        }else{
+                            me.lock();
+                            me.noData();
+                            me.resetload();
+                        }
+                    }else{
+                        page--
+                        me.resetload();
+                        alert(data.Message)
+                    }
+                }, function (error) {
+                    me.resetload();
+                })
+            }
+        })
+
+        function makeMemberItem(dt) {
+            var $item = $('.itemTmpl').clone().removeClass('itemTmpl').css('display', 'block')
+            $item.find('.memberCompany').text(dt.PersonalCompanyName)
+//            $item.find('.articleDate').text(fmtDate1(dt.Timestamp))
+//            $item.find('.articleTags').text(dt.Keywords)
+            $item.find('.memberName').text(dt.Name)
+            $item.find('.avatarImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.AvatarKey)
+            return $item
+        }
+
+
+
+        return
+
+
+
+        // memberType,  0 1 2 3  all
+        //     memberLevel,
+        //     keyword,
+        //     tagId,
+        //     page
+        // 数据加载
+        var canload = true;
+        var memberType = 0;
+        var memberLevel = '';
+        var tagId="";
+        var isRecommend = false;
+        var keyword = '';
+        var page = 0;
+        var dropload = $('.container-fluid').dropload({
+            scrollArea : window,
+            threshold: 0,
+            loadDownFn : function(me){
+                if(!canload) {
+                    $(".dropload-load").text("加载完毕");
+                    return;
+                }
+                canload = false;
+                tag = 1;
+                page = page + 1;
+                $.get('http://47.91.241.71:9000/Account/Search',{
+                    memberType: memberType,
+                    memberLevel:memberLevel,
+                    page: page,
+                    tagId: tagId,
+                    keyword: keyword,
+                    isRecommend: isRecommend
+                })
+                .done(function(data) {
+                    var list = data.accounts;
+                    if(data.hasMore){
+                        for(var i=0; i<list.length; i++) {
+                            var datatagshtml=list[i].tag.join(' ');
+                            var html = '<li class="pull-left col-xs-6 member-list-item">'
+                                + '<a class="person-item clearfix" href="member_article.html">'
+                                + '<div class="pull-left member-trait">'
+                                + '<img src="'+list[i].imgUrl+'" alt="">'
+                                + '</div>'
+                                + '<div class="person-item-text pull-left">'
+                                + '<span>'+list[i].name+'</span>'
+                                + '<i>'+datatagshtml+'</i>'
+                                + '</div>'
+                                + '</a>'
+                                + '</li>';
+                            $(".wrap-member-list ul").append(html);
+                        }
+                        canload = true;
+                    }
+                    me.resetload();
+                })
+                .fail(function(e) {
+                    console.log('error', JSON.stringify(e));
+                    me.resetload();
+                    canload = true;
+                })
+                .always(function() {
+                    //alert( "finished" );
+                });
+            }
+        });
+        // 数据加载
+        $(".wrap-navbar .swiper-slide").click(function() {
+            page = 0;
+            articleType = $(this).find("i").text();
+            canload = true;
+            $(".wrap-news-item ul").empty();
+            dropload.resetload();
+        })
     })
 </script>
 </body>

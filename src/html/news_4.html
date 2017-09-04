@@ -6,20 +6,10 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>AAECA</title>
-    <link href="../Styles/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="../Styles/lib/swiper/css/swiper-3.4.2.min.css">
-    <link rel="stylesheet" href="../Styles/main.css">
-    <link rel="stylesheet" href="../Styles/news.css">
-    <link rel="stylesheet" href="../Styles/lib/dropload.css">
-    <script>
-        var apiPre = ''
-    </script>
-    <script src="../Scripts/lib/jquery-3.2.1.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="../Scripts/lib/FontSize.js"></script>
-    <script src="../Scripts/lib/swiper/js/swiper-3.4.2.min.js"></script>
-    <script src="../Scripts/lib/dropload.min.js"></script>
-    <script src="../Scripts/lib/app.js"></script>
+    <link rel="stylesheet" href="./public/Styles/css/vendor.min.css">
+    <link rel="stylesheet" href="./public/Styles/main.css">
+    <script src="./public/Scripts/main.js"></script>
+    <script src="./public/Scripts/vendor.min.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -47,7 +37,7 @@
         </div>
         <div class="wrap-logsignbtn row">
             <div class="col-xs-6 persion-btn active">
-                <a class="logsignbtn" href="index_log.html">Login</a>
+                <a class="logsignbtn" href="index_login.html">Login</a>
             </div>
             <div class="col-xs-6  persion-btn">
                 <a class="logsignbtn" href="index_signup.html">Sign up</a>
@@ -60,19 +50,19 @@
         <div class="row news-header padding0">
             <div class="col-xs-4 padding0">
                 <span class="classify-icon">
-                    <img src="../Images/classifyicon.png" alt="">
+                    <img src="./public/Images/classifyicon.png" alt="">
                 </span>
                 <span class="cancel-icon">
-                    <img src="../Images/cancelicon.png" alt="">
+                    <img src="./public/Images/cancelicon.png" alt="">
                 </span>
             </div> 
             <div class="col-xs-4">
-                <img src="../Images/newslogo.png" alt="" class="news-logo">
+                <img src="./public/Images/newslogo.png" alt="" class="news-logo">
             </div>
             <div class="col-xs-4 padding0">
                 <span class="search-icon pull-right">
                     <a href="index_search.html">
-                        <img src="../Images/searchicon.png" alt="">
+                        <img src="./public/Images/searchicon.png" alt="">
                     </a>
                 </span>
             </div>   
@@ -83,17 +73,17 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                     <a href="javascript:void(0);">
-                        <img src="../Images/newsbanner1.png" alt="">
+                        <img src="./public/Images/newsbanner1.png" alt="">
                     </a>
                 </div>
                 <div class="swiper-slide">
                     <a href="javascript:void(0);">
-                        <img src="../Images/newsbanner1.png" alt="">
+                        <img src="./public/Images/newsbanner1.png" alt="">
                     </a>
                 </div>
                 <div class="swiper-slide">
                     <a href="javascript:void(0);">
-                        <img src="../Images/newsbanner1.png" alt="">
+                        <img src="./public/Images/newsbanner1.png" alt="">
                     </a>
                 </div>
             </div>
@@ -127,8 +117,8 @@
                 <!--<div class="video-item-detail">-->
                     <!--<div class="wrap-news-video">-->
                         <!--<a class="wrap-video-introduction" href="person_video_detail.html">-->
-                            <!--<img src="../Images/newsvideo.png" alt="" class="pull-left icon-person">-->
-                            <!--<img src="../Images/broadcast.png" alt="" class="broadcast-btn">-->
+                            <!--<img src="./public/Images/newsvideo.png" alt="" class="pull-left icon-person">-->
+                            <!--<img src="./public/Images/broadcast.png" alt="" class="broadcast-btn">-->
                             <!--<h4>Project and talent of the benign int eraction of suc-->
 <!--cessf Project and talent of the benign int </h4>-->
                             <!--<span class="bggrey"></span>-->
@@ -136,7 +126,7 @@
                     <!--</div>-->
                     <!--<div class="news-video-tag clearfix">-->
                         <!--<div class="pull-left clearfix">-->
-                            <!--<img src="../Images/newspeople.png" alt="" class="pull-left icon-person">-->
+                            <!--<img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person">-->
                             <!--<span class="pull-left color-grey">Bo Hong</span>-->
                         <!--</div>-->
                         <!--<div class="pull-right">-->
@@ -202,7 +192,7 @@
                                     + '<div class="wrap-news-video">'
                                     + '<a class="wrap-video-introduction" href="person_video_detail.html">'
                                     + '<img src="'+list[i].imgUrl+'" alt="" class="pull-left icon-person">'
-                                    + '<img src="../Images/broadcast.png" alt="" class="broadcast-btn">'
+                                    + '<img src="./public/Images/broadcast.png" alt="" class="broadcast-btn">'
                                     + '<h4>'+list[i].title+'</h4>'
                                     + '<span class="bggrey"></span>'
                                     + ' </a>'

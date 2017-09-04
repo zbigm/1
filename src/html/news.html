@@ -6,20 +6,10 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>AAECA</title>
-    <link href="../Styles/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="../Styles/lib/swiper/css/swiper-3.4.2.min.css">
-    <link rel="stylesheet" href="../Styles/main.css">
-    <link rel="stylesheet" href="../Styles/news.css">
-    <link rel="stylesheet" href="../Styles/lib/dropload.css">
-    <script>
-        var apiPre = ''
-    </script>
-    <script src="../Scripts/lib/jquery-3.2.1.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="../Scripts/lib/FontSize.js"></script>
-    <script src="../Scripts/lib/swiper/js/swiper-3.4.2.min.js"></script>
-    <script src="../Scripts/lib/dropload.min.js"></script>
-    <script src="../Scripts/lib/app.js"></script>
+    <link rel="stylesheet" href="./public/Styles/css/vendor.min.css">
+    <link rel="stylesheet" href="./public/Styles/main.css">
+    <script src="./public/Scripts/main.js"></script>
+    <script src="./public/Scripts/vendor.min.js"></script>
 </head>
 <body>
 
@@ -48,7 +38,7 @@
         </div>
         <div class="wrap-logsignbtn row">
             <div class="col-xs-6 persion-btn active">
-                <a class="logsignbtn" href="index_log.html">Login</a>
+                <a class="logsignbtn" href="index_login.html">Login</a>
             </div>
             <div class="col-xs-6  persion-btn">
                 <a class="logsignbtn" href="index_signup.html">Sign up</a>
@@ -62,19 +52,19 @@
         <div class="row news-header padding0">
             <div class="col-xs-4 padding0">
                 <span class="classify-icon">
-                    <img src="../Images/classifyicon.png" alt="">
+                    <img src="./public/Images/classifyicon.png" alt="">
                 </span>
                 <span class="cancel-icon">
-                    <img src="../Images/cancelicon.png" alt="">
+                    <img src="./public/Images/cancelicon.png" alt="">
                 </span>
             </div> 
             <div class="col-xs-4">
-                <img src="../Images/newslogo.png" alt="" class="news-logo">
+                <img src="./public/Images/newslogo.png" alt="" class="news-logo">
             </div>
             <div class="col-xs-4 padding0">
                 <span class="search-icon pull-right">
                     <a href="index_search.html">
-                        <img src="../Images/searchicon.png" alt="">
+                        <img src="./public/Images/searchicon.png" alt="">
                     </a>
                 </span>
             </div>   
@@ -85,17 +75,17 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                     <a href="javascript:void(0);">
-                        <img src="../Images/newsbanner1.png" alt="">
+                        <img src="./public/Images/newsbanner1.png" alt="">
                     </a>
                 </div>
                 <div class="swiper-slide">
                     <a href="javascript:void(0);">
-                        <img src="../Images/newsbanner1.png" alt="">
+                        <img src="./public/Images/newsbanner1.png" alt="">
                     </a>
                 </div>
                 <div class="swiper-slide">
                     <a href="javascript:void(0);">
-                        <img src="../Images/newsbanner1.png" alt="">
+                        <img src="./public/Images/newsbanner1.png" alt="">
                     </a>
                 </div>
             </div>
@@ -139,7 +129,23 @@
     </div><!-- wrap-navbar -->
     <div class="wrap-news-item">
         <ul>
-
+            <li class="news-item articleItemTmpl clearfix" style="display: none">
+                <a href="news_detail.html" class="pull-left newsitem-img">
+                    <img class="articleImg" src="http://sdf.img" alt="">
+                </a>
+                <div class="news-item-detail pull-right">
+                    <h3><a href="news_detail.html?articleId=1" class="articleTitle">标题标题</a></h3>
+                    <p class="news-item-tag"><span class="articleTags">高科技</span></p>
+                    <div class="wrap-tagsnew clearfix">
+                        <div class="pull-left clearfix">
+                            <img src="http://bs.img" alt="" class="pull-left icon-person">
+                            <span class="pull-left color-grey articleAuthor">作者</span>
+                        </div>
+                        <div class="pull-right"><span class="color-grey articleDate">8/17/2015</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
         </ul>
     </div><!-- wrap-news-item -->
     <!--<div class="loader">加载完毕</div>-->
@@ -147,95 +153,65 @@
 <!--{{footer.html}}-->
 <script>
     $(function () {
-        console.log('jquery version:', $.fn.jquery);
-        // swiper 轮播图
         var mySwiper = new Swiper('.news-banner .swiper-container', {
             autoplay: 5000,
             loop: true,
             // 如果需要分页器
             pagination: '.swiper-pagination'
         });      
-        // swiper 轮播图
-        // swiper 滑动导航
         var navBarSwiper = new Swiper ('.wrap-navbar .swiper-container', {
             slidesPerView: "auto"
         });
         $(".wrap-navbar li").click(function(){
             $(this).addClass('active').siblings().removeClass('active');
         });     
-        // swiper 滑动导航
-        //加载第一页
-        var canload = true;
-        var memberId = 1;
-        var articleType = '行业洞察';
-        var isRecommend = false;
-        var keyword = '';
-        var page = 0;
-        var dropload = $('.container-fluid').dropload({
-            scrollArea : window,
-            threshold: 0,
-            loadDownFn : function(me){
-                if(!canload) {
-                    $(".dropload-load").text("加载完毕");
-                    return;
-                }
-                canload = false;
-                tag = 1;
-                page = page + 1;
-                $.get('http://47.91.241.71:9000/Article/Search',{
-                    memberId: memberId,
-                    page: page,
-                    articleType: articleType,
-                    keyword: keyword,
-                    isRecommend: isRecommend
-                })
-                .done(function(data) {
-                    var list = data.articles;
-                    if(data.hasMore){
-                        for(var i=0; i<list.length; i++) {
-                            var html = '<li class="news-item clearfix">'
-                                + '<a href="news_detail.html" class="pull-left newsitem-img">'
-                                + '<img src="'+list[i].imgUrl+'" alt="">'
-                                + '</a>'
-                                + '<div class="news-item-detail pull-right">'
-                                + '<h3><a href="news_detail.html">'+list[i].title+'</a></h3>'
-                                + '<p class="news-item-tag">'
-                                + '<span>高科技</span>'
-                                + '</p>'
-                                + '<div class="wrap-tagsnew clearfix">'
-                                + '<div class="pull-left clearfix">'
-                                + '<img src="'+list[i].authorIconUrl+'" alt="" class="pull-left icon-person">'
-                                + '<span class="pull-left color-grey">'+list[i].author+'</span>'
-                                + '</div>'
-                                + '<div class="pull-right">'
-                                + '<span class="color-grey">'+list[i].postTime+'</span>'
-                                + '</div>'
-                                + '</div>'
-                                + '</div>'
-                                + '</li>';
-                            $(".wrap-news-item ul").append(html);
+
+        page = 1
+        $('.container-fluid').dropload({
+            scrollArea: window,
+            loadDownFn: function (me) {
+                $get('/Article/Search',{
+                    p: page++
+                }, function (data) {
+                    if(data.Status == 2){
+                        var Body = data.Body
+                        if(Body && Body.length){
+                            var $items = []
+
+                            for(var i=0; i<Body.length; i++){
+                                var item = Body[i]
+                                $items.push(makeArticleItem(item))
+                            }
+
+                            $('.wrap-news-item>ul').append($items)
+                            me.resetload();
+
+                        }else{
+                            me.lock();
+                            me.noData();
+                            me.resetload();
                         }
-                        canload = true;
+                    }else{
+                        page--
+                        me.resetload();
+                        alert(data.Message)
                     }
+                }, function (error) {
                     me.resetload();
                 })
-                .fail(function(e) {
-                    console.log('error', JSON.stringify(e));
-                    me.resetload();
-                    canload = true;
-                })
-                .always(function() {
-                    //alert( "finished" );
-                });
             }
-        });
-        $(".wrap-navbar .swiper-slide").click(function() {
-            page = 0;
-            articleType = $(this).find("i").text();
-            canload = true;
-            $(".wrap-news-item ul").empty();
-            dropload.resetload();
         })
+
+        function makeArticleItem(dt) {
+            var $item = $('.articleItemTmpl').clone().removeClass('articleItemTmpl').css('display', 'block')
+            $item.find('.articleTitle').text(dt.Title)
+            $item.find('.articleDate').text(fmtDate1(dt.Timestamp))
+            $item.find('.articleTags').text(dt.Keywords)
+            $item.find('.articleAuthor').text(dt.Member.Name)
+            $item.find('.articleImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)
+            return $item
+        }
+
     })
 </script>
 </body>

@@ -6,28 +6,21 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>AAECA</title>
-    <link href="../Styles/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="../Styles/lib/swiper/css/swiper-3.4.2.min.css">
-    <link rel="stylesheet" href="../Styles/main.css">
-    <link rel="stylesheet" href="../Styles/news.css">
-    <link rel="stylesheet" href="../Styles/member.css">
-    <link rel="stylesheet" href="../Styles/lib/dropload.css">
-    <script src="../Scripts/lib/jquery-3.2.1.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="../Scripts/lib/FontSize.js"></script>
-    <script src="../Scripts/lib/swiper/js/swiper-3.4.2.min.js"></script>
-    <script src="../Scripts/lib/app.js"></script>
+    <link rel="stylesheet" href="./public/Styles/css/vendor.min.css">
+    <link rel="stylesheet" href="./public/Styles/main.css">
+    <script src="./public/Scripts/main.js"></script>
+    <script src="./public/Scripts/vendor.min.js"></script>
 </head>
 <body>
 <div class="container-fluid">
 	<!--member-header-->
 	<div class="wrap-member-header">
 		<a href="member.html" class="backarrow">
-			<img src="../Images/backarrow.png"/>
+			<img src="./public/Images/backarrow.png"/>
 		</a>
 		<div class="wrap-user-icon">
 			<a href="member_information.html">
-                <img src="../Images/memberico.png"/>
+                <img src="./public/Images/memberico.png"/>
             </a>
 		</div>
 		<h3 class="text-center">Bowman</h3>
@@ -62,8 +55,8 @@
                 <div class="video-item-detail">
                     <div class="wrap-news-video">
                         <a class="wrap-video-introduction" href="person_video_detail.html">
-                            <img src="../Images/newsvideo.png" alt="" class="pull-left icon-person">
-                            <img src="../Images/broadcast.png" alt="" class="broadcast-btn">
+                            <img src="./public/Images/newsvideo.png" alt="" class="pull-left icon-person">
+                            <img src="./public/Images/broadcast.png" alt="" class="broadcast-btn">
                             <h4>Project and talent of the benign int eraction of suc
 cessf Project and talent of the benign int </h4>
                             <span class="bggrey"></span>
@@ -71,7 +64,7 @@ cessf Project and talent of the benign int </h4>
                     </div>
                     <div class="news-video-tag clearfix">
                         <div class="pull-left clearfix">
-                            <img src="../Images/newspeople.png" alt="" class="pull-left icon-person">
+                            <img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person">
                             <span class="pull-left color-grey">Bo Hong</span>
                         </div>
                         <div class="pull-right">
@@ -84,8 +77,8 @@ cessf Project and talent of the benign int </h4>
                 <div class="video-item-detail">
                     <div class="wrap-news-video">
                         <a class="wrap-video-introduction" href="person_video_detail.html">
-                            <img src="../Images/newsvideo.png" alt="" class="pull-left icon-person">
-                            <img src="../Images/broadcast.png" alt="" class="broadcast-btn">
+                            <img src="./public/Images/newsvideo.png" alt="" class="pull-left icon-person">
+                            <img src="./public/Images/broadcast.png" alt="" class="broadcast-btn">
                             <h4>Project and talent of the benign int eraction of suc
 cessf Project and talent of the benign int </h4>
                             <span class="bggrey"></span>
@@ -93,7 +86,7 @@ cessf Project and talent of the benign int </h4>
                     </div>
                     <div class="news-video-tag clearfix">
                         <div class="pull-left clearfix">
-                            <img src="../Images/newspeople.png" alt="" class="pull-left icon-person">
+                            <img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person">
                             <span class="pull-left color-grey">Bo Hong</span>
                         </div>
                         <div class="pull-right">
@@ -106,8 +99,8 @@ cessf Project and talent of the benign int </h4>
                 <div class="video-item-detail">
                     <div class="wrap-news-video">
                         <a class="wrap-video-introduction" href="person_video_detail.html">
-                            <img src="../Images/newsvideo.png" alt="" class="pull-left icon-person">
-                            <img src="../Images/broadcast.png" alt="" class="broadcast-btn">
+                            <img src="./public/Images/newsvideo.png" alt="" class="pull-left icon-person">
+                            <img src="./public/Images/broadcast.png" alt="" class="broadcast-btn">
                             <h4>Project and talent of the benign int eraction of suc
 cessf Project and talent of the benign int </h4>
                             <span class="bggrey"></span>
@@ -115,7 +108,7 @@ cessf Project and talent of the benign int </h4>
                     </div>
                     <div class="news-video-tag clearfix">
                         <div class="pull-left clearfix">
-                            <img src="../Images/newspeople.png" alt="" class="pull-left icon-person">
+                            <img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person">
                             <span class="pull-left color-grey">Bo Hong</span>
                         </div>
                         <div class="pull-right">
@@ -128,5 +121,76 @@ cessf Project and talent of the benign int </h4>
     </div><!-- wrap-news-item -->
 </div><!-- container-fluid -->
 <!--{{footer.html}}-->
+<script>
+    $(function () {
+        console.log('jquery version:', $.fn.jquery);
+        //分页加载数据
+        var canload = true;
+        var memberId = 1;
+        var videoType = '';
+        var isRecommend = false;
+        var keyword = '';
+        var page = 0;
+        var dropload = $('.container-fluid').dropload({
+            scrollArea : window,
+            threshold: 0,
+            loadDownFn : function(me){
+                if(!canload) {
+                    $(".dropload-load").text("加载完毕");
+                    return;
+                }
+                canload = false;
+                tag = 1;
+                page = page + 1;
+                $.get('http://47.91.241.71:9000/Video/Search',{
+                    memberId: memberId,
+                    page: page,
+                    videoType: videoType,
+                    keyword: keyword,
+                    isRecommend: isRecommend
+                })
+                    .done(function(data) {
+                        var list = data.videos;
+                        if(data.hasMore){
+                            for(var i=0; i<list.length; i++) {
+                                var html = '<li class="news-video-item clearfix">'
+                                    + '<div class="video-item-detail">'
+                                    + '<div class="wrap-news-video">'
+                                    + '<a class="wrap-video-introduction" href="person_video_detail.html">'
+                                    + '<img src="'+list[i].imgUrl+'" alt="" class="pull-left icon-person">'
+                                    + '<img src="./public/Images/broadcast.png" alt="" class="broadcast-btn">'
+                                    + '<h4>'+list[i].title+'</h4>'
+                                    + '<span class="bggrey"></span>'
+                                    + ' </a>'
+                                    + '</div>'
+                                    + '<div class="news-video-tag clearfix">'
+                                    + '<div class="pull-left clearfix">'
+                                    + '<img src="'+list[i].authorIconUrl+'" alt="" class="pull-left icon-person">'
+                                    + '<span class="pull-left color-grey">'+list[i].author+'</span>'
+                                    + '</div>'
+                                    + '<div class="pull-right">'
+                                    + '<span class="color-grey">'+list[i].postTime+'</span>'
+                                    + '</div>'
+                                    + '</div>'
+                                    + '</div>'
+                                    + '</li>'
+                                $(".wrap-news-item ul").append(html);
+                            }
+                            canload = true;
+                        }
+                        me.resetload();
+                    })
+                    .fail(function(e) {
+                        console.log('error', JSON.stringify(e));
+                        me.resetload();
+                        canload = true;
+                    })
+                    .always(function() {
+                        //alert( "finished" );
+                    });
+            }
+        });
+    })
+</script>
 </body>
 </html>
