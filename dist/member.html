@@ -186,88 +186,11 @@
 //            $item.find('.articleDate').text(fmtDate1(dt.Timestamp))
 //            $item.find('.articleTags').text(dt.Keywords)
             $item.find('.memberName').text(dt.Name)
-            $item.find('.avatarImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.AvatarKey)
+            $item.find('.memberName').text(dt.Name)
+            $item.find('.avatarImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.AvatarKey);
+            $item.find('.person-item').attr('href','member_article.html?MemberId='+dt.MemberId)
             return $item
         }
-
-
-
-        return
-
-
-
-        // memberType,  0 1 2 3  all
-        //     memberLevel,
-        //     keyword,
-        //     tagId,
-        //     page
-        // 数据加载
-        var canload = true;
-        var memberType = 0;
-        var memberLevel = '';
-        var tagId="";
-        var isRecommend = false;
-        var keyword = '';
-        var page = 0;
-        var dropload = $('.container-fluid').dropload({
-            scrollArea : window,
-            threshold: 0,
-            loadDownFn : function(me){
-                if(!canload) {
-                    $(".dropload-load").text("加载完毕");
-                    return;
-                }
-                canload = false;
-                tag = 1;
-                page = page + 1;
-                $.get('http://47.91.241.71:9000/Account/Search',{
-                    memberType: memberType,
-                    memberLevel:memberLevel,
-                    page: page,
-                    tagId: tagId,
-                    keyword: keyword,
-                    isRecommend: isRecommend
-                })
-                .done(function(data) {
-                    var list = data.accounts;
-                    if(data.hasMore){
-                        for(var i=0; i<list.length; i++) {
-                            var datatagshtml=list[i].tag.join(' ');
-                            var html = '<li class="pull-left col-xs-6 member-list-item">'
-                                + '<a class="person-item clearfix" href="member_article.html">'
-                                + '<div class="pull-left member-trait">'
-                                + '<img src="'+list[i].imgUrl+'" alt="">'
-                                + '</div>'
-                                + '<div class="person-item-text pull-left">'
-                                + '<span>'+list[i].name+'</span>'
-                                + '<i>'+datatagshtml+'</i>'
-                                + '</div>'
-                                + '</a>'
-                                + '</li>';
-                            $(".wrap-member-list ul").append(html);
-                        }
-                        canload = true;
-                    }
-                    me.resetload();
-                })
-                .fail(function(e) {
-                    console.log('error', JSON.stringify(e));
-                    me.resetload();
-                    canload = true;
-                })
-                .always(function() {
-                    //alert( "finished" );
-                });
-            }
-        });
-        // 数据加载
-        $(".wrap-navbar .swiper-slide").click(function() {
-            page = 0;
-            articleType = $(this).find("i").text();
-            canload = true;
-            $(".wrap-news-item ul").empty();
-            dropload.resetload();
-        })
     })
 </script>
 </body>

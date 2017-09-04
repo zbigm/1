@@ -78,4 +78,10 @@ html, body{
 	line-height: 30px;
 }
 /*footer*/
+.member-list-item{
+	height: 1.7rem;
+}
+.member-trait .avatarImg{
+	height: 1.7rem;
+}
 

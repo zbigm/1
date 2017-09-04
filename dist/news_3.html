@@ -113,22 +113,19 @@
     </div><!-- wrap-navbar -->
     <div class="wrap-news-item">
         <ul>
-            <li class="news-item clearfix articleItemTmpl">
-                <a href="javascript:void(0);" class="pull-left newsitem-img">
-                    <img class="articleImg" src="./public/Images/newsitem.png" alt="">
+            <li class="news-item articleItemTmpl clearfix" style="display: none">
+                <a href="news_detail.html" class="pull-left newsitem-img">
+                    <img class="articleImg" src="http://sdf.img" alt="">
                 </a>
                 <div class="news-item-detail pull-right">
-                    <h3><a class="articleTitle" href="javascript:void(0);">硅谷的人本理念对我国产业园区发展的启示</a></h3>
-                    <p class="news-tag-recommend">
-                        <a class="articleTags" href="javascript:void(0);">高科技</a>
-                    </p>
+                    <h3><a href="news_detail.html?articleId=1" class="articleTitle">标题标题</a></h3>
+                    <p class="news-item-tag"><span class="articleTags">高科技</span></p>
                     <div class="wrap-tagsnew clearfix">
                         <div class="pull-left clearfix">
-                            <img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person">
-                            <span class="pull-left color-grey articleAuthor">Bo Hong</span>
+                            <img src="http://bs.img" alt="" class="pull-left icon-person avatarKey">
+                            <span class="pull-left color-grey articleAuthor">作者</span>
                         </div>
-                        <div class="pull-right">
-                            <span class="color-grey articleDate">August 17, 2017</span>
+                        <div class="pull-right"><span class="color-grey articleDate">8/17/2015</span>
                         </div>
                     </div>
                 </div>
@@ -168,6 +165,7 @@
 </div>
 <script>
     $(function () {
+        newsReady()
         console.log('jquery version:', $.fn.jquery);
         // swiper 轮播图
         var mySwiper = new Swiper('.news-banner .swiper-container', {
@@ -225,10 +223,13 @@
         function makeArticleItem(dt) {
             var $item = $('.articleItemTmpl').clone().removeClass('articleItemTmpl').css('display', 'block')
             $item.find('.articleTitle').text(dt.Title)
+            $item.find('.articleTitle').attr('href','news_detail.html?articleId='+dt.ArticleId)
+            $item.find('.newsitem-img').attr('href','news_detail.html?articleId='+dt.ArticleId)
             $item.find('.articleDate').text(fmtDate1(dt.Timestamp))
             $item.find('.articleTags').text(dt.Keywords)
             $item.find('.articleAuthor').text(dt.Member.Name)
             $item.find('.articleImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)
+            $item.find('.avatarKey').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey)
             return $item
         }
 

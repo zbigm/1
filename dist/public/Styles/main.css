@@ -78,6 +78,12 @@ html, body{
 	line-height: 30px;
 }
 /*footer*/
+.member-list-item{
+	height: 1.7rem;
+}
+.member-trait .avatarImg{
+	height: 1.7rem;
+}
 
 /*index*/
 .index-signup {
@@ -535,11 +541,11 @@ a.person-item{
 }
 /*奇数*/
 li.member-list-item:nth-child(odd){
-	padding-right: 0.05rem;
+	padding-left: 0.05rem;
 }
 /*偶数*/
 li.member-list-item:nth-child(even){
-	padding-left: 0.05rem;
+	padding-right: 0.05rem;
 }
 .member-type .wrap-searchtag .active{
 	color: #fff;
@@ -902,7 +908,7 @@ li.member-list-item:nth-child(even){
     position:fixed;
     top:0.88rem;
     left:0;
-    z-index:2;
+    z-index:99;
     opacity:0.7;
     filter: alpha(opacity=70);
     display: none;
@@ -1246,7 +1252,7 @@ a{
 	top:0.88rem;
 	width: 100%;
 	left: 0%;
-	z-index: 10;
+	z-index: 999999;
 }
 .wrap-news-modal{
 	padding-top: 0.94rem;
@@ -1423,6 +1429,9 @@ a{
 	z-index: 13;
 }
 /*news*/
+.wrap-navbar .wrap-videosubnavbar a{
+	padding: 0px;
+}
 /*member*/
 .wrap-member-header{
 	width: 100%;

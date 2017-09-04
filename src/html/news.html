@@ -17,19 +17,19 @@
     <!-- modal -->
     <div class="wrap-news-modal">
         <div class="news-modal row">
-            <a href="news_3.html" class="col-xs-4 modal-item active">
+            <a href="news.html" class="col-xs-4 modal-item active">
                 <span class="article-icon">
                     <em class="news-ico"></em>
                     <i>Article</i>
                 </span>
             </a>
-            <a href="news_4.html" class="col-xs-4 modal-item">
+            <a href="news_6.html" class="col-xs-4 modal-item">
                 <span class="video-icon">
                     <em class="news-ico"></em>
                     <i>Video</i>
                 </span>
             </a>
-            <a href="news_6.html" class="col-xs-4 modal-item">
+            <a href="news_3.html" class="col-xs-4 modal-item">
                 <span class="recommend-icon">
                     <em class="news-ico"></em>
                     <i>Recommend</i>
@@ -97,28 +97,28 @@
         <div class="swiper-container">
             <ul class="swiper-wrapper clearfix">
                 <li class="swiper-slide active">
-                    <a href="javascript:void(0);">
+                    <a href="news.html">
                         <span>javascript</span>
                         <i>行业洞察</i>
                     </a>
                     <div class="linebottom"></div>
                 </li>
                 <li class="swiper-slide">
-                    <a href="javascript:void(0);">
+                    <a href="news_type2.html">
                         <span>javascript</span>
                         <i>前沿热点</i>
                     </a>
                     <div class="linebottom"></div>
                 </li>
                 <li class="swiper-slide">
-                    <a href="javascript:void(0);">
+                    <a href="news_type3.html">
                         <span>javascript</span>
                         <i>科技创新</i>
                     </a>
                     <div class="linebottom"></div>
                 </li>
                 <li class="swiper-slide">
-                    <a href="javascript:void(0);">
+                    <a href="news_type4.html">
                         <span>javascript</span>
                         <i>快乐大本营</i>
                     </a>
@@ -154,6 +154,7 @@
 <!--{{footer.html}}-->
 <script>
     $(function () {
+        newsReady()
         var mySwiper = new Swiper('.news-banner .swiper-container', {
             autoplay: 5000,
             loop: true,
@@ -165,7 +166,7 @@
         });
         $(".wrap-navbar li").click(function(){
             $(this).addClass('active').siblings().removeClass('active');
-        });     
+        });
 
         page = 1;
         var articleType = 1;
@@ -191,7 +192,7 @@
 
                         }else{
                             me.lock();
-//                            me.noData();
+                            me.noData();
                             me.resetload();
                         }
                     }else{
@@ -208,6 +209,8 @@
         function makeArticleItem(dt) {
             var $item = $('.articleItemTmpl').clone().removeClass('articleItemTmpl').css('display', 'block')
             $item.find('.articleTitle').text(dt.Title)
+            $item.find('.articleTitle').attr('href','news_detail.html?articleId='+dt.ArticleId)
+            $item.find('.newsitem-img').attr('href','news_detail.html?articleId='+dt.ArticleId)
             $item.find('.articleDate').text(fmtDate1(dt.Timestamp))
             $item.find('.articleTags').text(dt.Keywords)
             $item.find('.articleAuthor').text(dt.Member.Name)
@@ -215,11 +218,6 @@
             $item.find('.avatarKey').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey)
             return $item
         }
-        $(".wrap-navbar li").click(function(){
-            articleType = $(this).find("a").text();
-            page = 1;
-            dropload.resetload();
-        })
 
     })
 </script>

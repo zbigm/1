@@ -71,8 +71,8 @@
     <div class="row wrap-navbar">
         <div class="swiper-container wrap-videosubnavbar">
             <ul class="swiper-wrapper clearfix">
-                <li class="swiper-slide active">
-                    <a href="javascript:void(0);">
+                <li class="swiper-slide">
+                    <a href="news_6.html">
                         <span>Insight</span>
                         <i>行业洞察</i>
                     </a>
@@ -85,8 +85,8 @@
                     </a>
                     <div class="linebottom"></div>
                 </li>
-                <li class="swiper-slide">
-                    <a href="news_6_2.html">
+                <li class="swiper-slide active">
+                    <a href="javascript:void(0);">
                         <span>Tech Express</span>
                         <i>科技快讯</i>
                     </a>
@@ -154,7 +154,7 @@ cessf Project and talent of the benign int </h4>
 </div>
 <script>
     $(function () {
-        newsReady();
+        newsReady()
         console.log('jquery version:', $.fn.jquery);
         // swiper 滑动导航
         var navBarSwiper = new Swiper ('.wrap-navbar .swiper-container', {
@@ -166,7 +166,7 @@ cessf Project and talent of the benign int </h4>
         // swiper 滑动导航
         // 数据加载
         page = 1
-        var videoType = 1;
+        var videoType = 3;
         $('.container-fluid').dropload({
             scrollArea: window,
             loadDownFn: function (me) {
