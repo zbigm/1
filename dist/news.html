@@ -129,24 +129,25 @@
     </div><!-- wrap-navbar -->
     <div class="wrap-news-item">
         <ul>
-            <li class="news-item articleItemTmpl clearfix" style="display: none">
-                <a href="news_detail.html" class="pull-left newsitem-img">
-                    <img class="articleImg" src="http://sdf.img" alt="">
-                </a>
-                <div class="news-item-detail pull-right">
-                    <h3><a href="news_detail.html?articleId=1" class="articleTitle">标题标题</a></h3>
-                    <p class="news-item-tag"><span class="articleTags">高科技</span></p>
-                    <div class="wrap-tagsnew clearfix">
-                        <div class="pull-left clearfix">
-                            <img src="http://bs.img" alt="" class="pull-left icon-person">
-                            <span class="pull-left color-grey articleAuthor">作者</span>
-                        </div>
-                        <div class="pull-right"><span class="color-grey articleDate">8/17/2015</span>
-                        </div>
+
+        </ul>
+        <li class="news-item articleItemTmpl clearfix" style="display: none">
+            <a href="news_detail.html" class="pull-left newsitem-img">
+                <img class="articleImg" src="http://sdf.img" alt="">
+            </a>
+            <div class="news-item-detail pull-right">
+                <h3><a href="news_detail.html?articleId=1" class="articleTitle">标题标题</a></h3>
+                <p class="news-item-tag"><span class="articleTags">高科技</span></p>
+                <div class="wrap-tagsnew clearfix">
+                    <div class="pull-left clearfix">
+                        <img src="http://bs.img" alt="" class="pull-left icon-person avatarKey">
+                        <span class="pull-left color-grey articleAuthor">作者</span>
+                    </div>
+                    <div class="pull-right"><span class="color-grey articleDate">8/17/2015</span>
                     </div>
                 </div>
-            </li>
-        </ul>
+            </div>
+        </li>
     </div><!-- wrap-news-item -->
     <!--<div class="loader">加载完毕</div>-->
 </div><!-- container-fluid -->
@@ -195,12 +196,14 @@
             $(this).addClass('active').siblings().removeClass('active');
         });     
 
-        page = 1
-        $('.container-fluid').dropload({
+        page = 1;
+        var articleType = 1;
+        var dropload = $('.container-fluid').dropload({
             scrollArea: window,
             loadDownFn: function (me) {
                 $get('/Article/Search',{
-                    p: page++
+                    p: page++,
+                    articleType: articleType
                 }, function (data) {
                     if(data.Status == 2){
                         var Body = data.Body
@@ -217,7 +220,7 @@
 
                         }else{
                             me.lock();
-                            me.noData();
+//                            me.noData();
                             me.resetload();
                         }
                     }else{
@@ -238,8 +241,14 @@
             $item.find('.articleTags').text(dt.Keywords)
             $item.find('.articleAuthor').text(dt.Member.Name)
             $item.find('.articleImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)
+            $item.find('.avatarKey').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey)
             return $item
         }
+        $(".wrap-navbar li").click(function(){
+            articleType = $(this).find("a").text();
+            page = 1;
+            dropload.resetload();
+        })
 
     })
 </script>
