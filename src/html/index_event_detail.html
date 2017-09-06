@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>AAECA</title>
+    <title></title>
     <link rel="stylesheet" href="./public/Styles/css/vendor.min.css">
     <link rel="stylesheet" href="./public/Styles/main.css">
     <script src="./public/Scripts/main.js"></script>
@@ -14,25 +14,19 @@
 <div class="container-fluid">
     <div class="container">
         <div class="row news-article-detail">
-            <h4>Project and talent of the benign int eraction of suc
+            <h4 class="eventTitle">Project and talent of the benign int eraction of suc
 cessf Project and talent of the benign int </h4>
             <div class="article-sidebar clearfix">
                 <div class="pull-left clearfix">
-                    <img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person">
-                    <span class="pull-left color-grey">Bo Hong</span>
+                    <img src="./public/Images/newspeople.png" alt="" class="eventAuthorIcon pull-left icon-person">
+                    <span class="pull-left color-grey authorName">Bo Hong</span>
                 </div>
                 <div class="pull-right">
-                    <span class="color-grey">August 17, 2017</span>
+                    <span class="color-grey authorDate">August 17, 2017</span>
                 </div>
             </div><!-- article-sidebar -->
-            <div class="wrap-news-article">
-                <p>Project and talent of the benign int eraction of suc
-cessf Project and talent of the benign int</p>
-                <div class="news-article-img">
-                    <img src="./public/Images/articleimg.png" alt="">
-                </div>
-                <p>Project and talent of the benign int eraction of suc
-cessf Project and talent of the benign int</p>
+            <div class="wrap-news-article eventContent">
+
             </div>
             <div class="wrap-disclaimer">
                 <div class="disclaimer-text">The disclaimer: asserts that the company won't be held responsible for any inaccuracies</div>
@@ -56,10 +50,10 @@ cessf Project and talent of the benign int</p>
                     <div class="wrap-tagsnew clearfix">
                         <div class="pull-left clearfix">
                             <img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person">
-                            <span class="pull-left color-grey">Bo Hong</span>
+                            <span class="pull-left color-grey">--Bo Hong</span>
                         </div>
                         <div class="pull-right">
-                            <span class="color-grey">August 17, 2017</span>
+                            <span class="color-grey"></span>
                         </div>
                     </div>
                 </div>
@@ -88,6 +82,31 @@ cessf Project and talent of the benign int</p>
     </div><!-- wrap-news-item -->
 </div><!-- container-fluid -->
 <!--{{footer.html}}-->
+<script>
+    $(function () {
+        var activityId = location.search.split('=')[1]
+        console.log(activityId)
+
+
+        $get('/Activity/GetById',{
+            activityId: activityId
+        },function (data) {
+            if(data.Status == 2){
+                let detail = data.First
+                if(!detail){
+                    return
+                }
+                document.title=detail.Subtitle;
+                $('.eventTitle').text(detail.Title)
+                $('.eventContent').html(detail.Content)
+                var iconImgUrl = ''
+                $('.authorDate').text(fmtDate1(detail.Timestamp))
+            }else{
+                alert(data.Message)
+            }
+        })
+    })
+</script>
 
 </body>
 </html>

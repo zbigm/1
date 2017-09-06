@@ -16,18 +16,19 @@
     <div class="wrap-news-item">
         <ul>
             <li class="news-item clearfix itemTmpl" style="display: none">
-                <a href="news_detail.html" class="pull-left newsitem-img">
-                    <img src="./public/Images/newsitem.png" alt="">
+                <a href="index_event_detail.html" class="pull-left newsitem-img">
+                    <img class="eventImg" style="width:135px;height: 82px;" src="" alt="">
                 </a>
                 <div class="news-item-detail pull-right">
                     <h3>
-	                    	<a href="news_detail.html" class="lineheight35">
-	                    		硅谷的人本理念对我国产业园区发展的启示
+	                    	<a href="index_event_detail.html" class="lineheight35">
+                                <div class="eventTitle"></div>
+                                <div class="eventSubTitle"></div>
 	                    	</a>
                     </h3>
                     <div class="wrap-tagsnew clearfix">
                         <div class="pull-left">
-                            <span class="color-grey">August 17, 2017</span>
+                            <span class="color-grey eventDate"></span>
                         </div>
                     </div>
                 </div>
@@ -35,7 +36,7 @@
 
 
         </ul>
-    </div><!-- wrap-news-item -->
+    </div><!-- wrap-nrews-item -->
 </div><!-- container-fluid -->
 <div class="wrap-footer">
     <div class="container">
@@ -70,6 +71,17 @@
 <script>
     $(function () {
 
+        function makeItem(item) {
+            var $item = $('.itemTmpl').clone().removeClass('itemTmpl').css('display', 'block')
+            var imgSrc = 'http://aaeca.img-us-west-1.aliyuncs.com/'+item.ImageKey + '@!w280h180'
+            $item.find('.eventImg').attr('src',imgSrc)
+            $item.find('.eventTitle').text(item.Title)
+            $item.find('.eventSubTitle').text(item.Subtitle)
+            $item.find('.eventDate').text(fmtDate1(item.Timestamp))
+            $item.find('a').attr('href', 'index_event_detail.html?id='+item.ActivityId)
+            return $item
+        }
+
         var page = 1
         $('.container-fluid').dropload({
             scrollArea: window,
@@ -84,8 +96,7 @@
 
                             for(var i=0; i<Body.length; i++){
                                 var item = Body[i]
-                                var $item = $('.itemTmpl').clone().removeClass('itemTmpl').css('display', 'block')
-                                $items.push($item)
+                                $items.push(makeItem(item))
                             }
 
                             $('.wrap-news-item>ul').append($items)

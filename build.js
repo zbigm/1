@@ -63,8 +63,9 @@ function joinFile(paths, dilm) {
 let jq = path.join(srcDir, 'Scripts/lib/jquery-3.2.1.min.js')
 let dropload = path.join(srcDir, 'Scripts/lib/dropload.min.js')
 let swiper = path.join(srcDir,'Scripts/lib/swiper/js/swiper-3.4.2.min.js')
+let bootstrapjs = path.join(srcDir, 'Scripts/lib/bootstrap.min.js')
 let vendorjs = path.join(distDir, 'public/Scripts/vendor.min.js')
-fs.writeFileSync(vendorjs, joinFile([jq,dropload, swiper],';\n'), 'utf8')
+fs.writeFileSync(vendorjs, joinFile([jq,dropload, swiper,bootstrapjs],';\n'), 'utf8')
 
 // let initjs = path.join(srcDir, 'Scripts/init.js')
 // let tgtInitjs = path.join(distDir, 'Scripts/init.js')
@@ -74,7 +75,10 @@ let mainjs = path.join(srcDir, 'Scripts/main.js')
 let tgtMainjs = path.join(distDir, 'public/Scripts/main.js')
 fs.writeFileSync(tgtMainjs,fs.readFileSync(mainjs))
 
-// css
+// let bootstrapjs = path.join(srcDir, 'Scripts/lib/bootstrap.min.js')
+// let tgTbootstrapjs = path.join(distDir, 'public/Scripts/bootstrap.min.js')
+// fs.writeFileSync(tgTbootstrapjs,fs.readFileSync(bootstrapjs))
+// // css
 // let srcCssDir = path.join(srcDir, "Styles")
 // let distCssDir = path.join(distDir, "Styles")
 // fse.copySync(srcCssDir, distCssDir)

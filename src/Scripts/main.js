@@ -76,8 +76,12 @@ Date.prototype.Format = function (fmt) { //author: meizz
 function fmtDate1(dateStr) {
     // dateStr: "/Date(1504489057000)/"
     var date = new Date(parseInt(dateStr.match(/\d+/)[0]))
-    var fmted = date.Format('M/d/yyyy')
-    return fmted
+    var year =  date.getFullYear()
+    var month = date.getMonth();
+    var day = date.getDate();
+    var mthStr = ["January","February","March","April","May","June","July","August","September","October","November","December"][month]
+
+    return mthStr + ' ' + day + ', ' + year
 }
 
 

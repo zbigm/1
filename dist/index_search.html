@@ -27,7 +27,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="#">Article</a></li>
                             <li><a href="#">Video</a></li>
-                            <li><a href="#">Members</a></li>
+                            <li><a href="#">Member</a></li>
                         </ul>
                   </div><!-- /btn-group -->
                 </div><!-- /input-group -->
@@ -36,18 +36,16 @@
                 <span class="input-group-icon pull-left">
                     <img src="./public/Images/lightsearch.png" alt="">
                 </span>
-                <input type="text" class="input-group-control pull-left" placeholder="Username">
+                <input type="text" class="input-group-control pull-left searchInput" placeholder="Please enter the content">
             </div>
         </div><!-- wrap-search-header -->
         <div class="wrap-search-type">
             <div class="search-type">Article Type</div>
             <div class="wrap-member-type-box">
                 <div class="wrap-search-type container  member-type swiper-container">
-                    <ul class="wrap-searchtag clearfix swiper-wrapper">
-                        <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left active">Insight</a>
-                        <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">TopNews</a>
-                        <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">TechExpress</a>
-                        <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">Project</a>
+                    <ul class="wrap-searchtag clearfix swiper-wrapper searchTags" style="min-height: 45px;">
+                        <!--<a href="javascript:void(0);" class="swiper-slide tagbtn pull-left active">&nbsp;</a>-->
+                        <!--<a href="javascript:void(0);" class="swiper-slide tagbtn pull-left active">Insight</a>-->
                     </ul>
                 </div><!-- wrap-search-type -->
             </div><!-- wrap-member-type-box -->
@@ -64,12 +62,104 @@
                     <p>please check other</p>
                 </div>
                 <div class="wrap-no-result-btn clearfix">
-                    <a class="pull-left tagbtn" href="javascript:void(0);">articletag</a>
-                    <a class="pull-right tagbtn" href="javascript:void(0);">错负责</a>
+                    <!--<a class="pull-left tagbtn" href="javascript:void(0);">articletag</a>-->
+                    <!--<a class="pull-right tagbtn" href="javascript:void(0);">错负责</a>-->
                 </div>
             </div>
         </div>
     </div><!-- container -->
+
+
+    <div class="wrap-news-item articleWrap">
+        <ul>
+            <li class="news-item articleItemTmpl clearfix" style="display: none">
+                <a href="news_detail.html" class="pull-left newsitem-img">
+                    <img class="articleImg" src="http://sdf.img" alt="">
+                </a>
+                <div class="news-item-detail pull-right">
+                    <h3><a href="news_detail.html?articleId=1" class="articleTitle">标题标题</a></h3>
+                    <p class="news-item-tag"><span class="articleTags">高科技</span></p>
+                    <div class="wrap-tagsnew clearfix">
+                        <div class="pull-left clearfix">
+                            <img src="http://bs.img" alt="" class="pull-left icon-person avatarKey">
+                            <span class="pull-left color-grey articleAuthor">作者</span>
+                        </div>
+                        <div class="pull-right"><span class="color-grey articleDate">8/17/2015</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <!--<li class="news-item clearfix">-->
+                <!--<a href="news_detail.html" class="pull-left newsitem-img">-->
+                    <!--<img src="./public/Images/newsitem.png" alt="">-->
+                <!--</a>-->
+                <!--<div class="news-item-detail pull-right">-->
+                    <!--<h3><a href="news_detail.html">硅谷的人本理念对我国产业园区发展的启示</a></h3>-->
+                    <!--<p class="news-item-tag">-->
+                        <!--<span>高科技</span>-->
+                    <!--</p>-->
+                    <!--<div class="wrap-tagsnew clearfix">-->
+                        <!--<div class="pull-left clearfix">-->
+                            <!--<img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person">-->
+                            <!--<span class="pull-left color-grey">Bo Hong</span>-->
+                        <!--</div>-->
+                        <!--<div class="pull-right">-->
+                            <!--<span class="color-grey">August 17, 2017</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</li>&lt;!&ndash; news-item &ndash;&gt;-->
+        </ul>
+    </div><!-- wrap-news-item -->
+
+
+    <div class="wrap-member-list container memberWrap">
+        <ul class="clearfix">
+            <li class="pull-left col-xs-6 member-list-item">
+                <a class="person-item clearfix" href="javascript:void(0);">
+                    <div class="pull-left member-trait">
+                        <img src="./public/Images/submember.png" alt="">
+                    </div>
+                    <div class="person-item-text pull-left">
+                        <span>鲍曼</span>
+                        <i>Mobile Inter...</i>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div><!-- wrap-member-list -->
+
+    <div class="wrap-news-item videoWrap">
+        <ul>
+            <li class="news-video-item clearfix">
+                <div class="video-item-detail">
+                    <div class="wrap-news-video">
+                        <a class="wrap-video-introduction" href="person_video_detail.html">
+                            <img src="./public/Images/newsvideo.png" alt="" class="pull-left icon-person">
+                            <img src="./public/Images/broadcast.png" alt="" class="broadcast-btn">
+                            <h4>Project and talent of the benign int eraction of suc
+                                cessf Project and talent of the benign int </h4>
+                            <span class="bggrey"></span>
+                        </a>
+                    </div>
+                    <div class="news-video-tag clearfix">
+                        <div class="pull-left clearfix">
+                            <img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person">
+                            <span class="pull-left color-grey">Bo Hong</span>
+                        </div>
+                        <div class="pull-right">
+                            <span class="color-grey">August 17, 2017</span>
+                        </div>
+                    </div>
+                </div>
+            </li><!-- news-video-item -->
+
+
+        </ul>
+    </div><!-- wrap-news-item -->
+
+
 </div><!-- container-fluid -->
 <div class="wrap-footer">
     <div class="container">
@@ -103,7 +193,6 @@
 </div>
 <script>
     $(function () {
-        console.log('jquery version:', $.fn.jquery);
         // swiper 滑动导航
         var navBarSwiper = new Swiper ('.wrap-member-type-box .swiper-container', {
             slidesPerView: "auto"
@@ -112,6 +201,165 @@
             $(this).addClass('active').siblings().removeClass('active');
         });     
         // swiper 滑动导航
+        $('.dropdown-toggle').dropdown()
+        $(".dropdown-menu li").click(function(){
+            var text = $(this).find("a").text()
+            $(".btn .search-text").text(text)
+            if(text == 'Article'){
+                setTags(articleTags)
+            }else if(text == 'Video'){
+                setTags(videoTags)
+
+            }else if(text == 'Member'){
+                setTags(memberTags)
+
+            }
+        })
+
+        $('.searchTags').on('click', '>a', function () {
+            var keyword = $('.searchInput').val().trim()
+            var type = $(".btn .search-text").text()
+            var tag = $(this).text()
+
+            $(this).siblings().removeClass('active')
+            $(this).addClass('active')
+//            alert(type + ' ' + tag + ' ' + $(this).data('tid') + ' ' + keyword)
+
+            doSearch()
+        })
+
+        function setTags(tagsObj) {
+            var tgs = []
+
+            var tags = []
+            for(var k in tagsObj){
+                tags.push([tagsObj[k], k])
+            }
+
+            for(var i=0; i<tags.length; i++){
+                var $tg = $('<a href="javascript:void(0);"></a>').addClass('swiper-slide tagbtn pull-left').text(tags[i][0]).data('tid',tags[i][1])
+                tgs.push($tg)
+            }
+            $('.searchTags').empty().append(tgs)
+        }
+
+        var articleTags = {
+            1: 'Insight',
+            2: 'TopNews',
+            3: 'TechExpress',
+            4: 'Project'
+        }
+        var videoTags = {
+            1: 'Insight',
+            2: 'TopNews',
+            3: 'TechExpress',
+            4: 'Project'
+        }
+        var memberTags = {
+            1: 'Big Data',
+            2: 'AI',
+            3: 'Mobile Internet',
+            4: 'Cloud Tech'
+        }
+
+        $('.searchInput').keydown(function(e) {
+            if (e.keyCode == 13) {
+                doSearch()
+            }
+        })
+
+
+        function doSearch(){
+            var page = 1;
+
+
+            $('.articleWrap>ul').empty()
+            $('.videoWrap>ul').empty()
+            $('.memberWrap>ul').empty()
+
+            if(dropload){
+                dropload.unlock();
+                dropload.noData(false)
+                dropload.resetload()
+            }
+
+
+
+
+            var keyword = $('.searchInput').val().trim()
+            var type = $(".btn .search-text").text()
+            var tag = $('.searchTags>a.active').text()
+            var $fn = $get
+
+            var url = '/' + type + '/Search'
+            var dt = {
+                keyword: keyword
+            }
+            if(type == 'Article'){
+                dt.articleType = tag
+            }else if(type == 'Video'){
+                dt.videoType = tag
+            }else if( type == 'Member'){
+                $fn = $post
+            }
+
+            var articleType = 1;
+            var dropload = $('.container-fluid').dropload({
+                scrollArea: window,
+                loadDownFn: function (me) {
+                    dt.p = (page++)
+                    $fn(url, dt, function (data) {
+                        if(data.Status == 2){
+                            var Body = data.Body
+                            if(Body && Body.length){
+
+                                me.resetload();
+
+                            }else{
+                                me.lock();
+                                me.noData();
+                                me.resetload();
+                            }
+                        }else{
+                            page--
+                            me.resetload();
+                            alert(data.Message)
+                        }
+                    }, function (error) {
+                        me.resetload();
+                    })
+                }
+            })
+
+            function makeDt(type, Body) {
+                if(type == 'Article'){
+                    var $items = []
+
+                    for(var i=0; i<Body.length; i++){
+                        var item = Body[i]
+                        $items.push(makeArticleItem(item))
+                    }
+
+                    $('.articleWrap>ul').append($items)
+                }
+            }
+
+            function makeArticleItem(dt) {
+                var $item = $('.articleItemTmpl').clone().removeClass('articleItemTmpl').css('display', 'block')
+                $item.find('.articleTitle').text(dt.Title)
+                $item.find('.articleTitle').attr('href','news_detail.html?articleId='+dt.ArticleId)
+                $item.find('.newsitem-img').attr('href','news_detail.html?articleId='+dt.ArticleId)
+                $item.find('.articleDate').text(fmtDate1(dt.Timestamp))
+                $item.find('.articleTags').text(dt.Keywords)
+                $item.find('.articleAuthor').text(dt.Member.Name)
+                $item.find('.articleImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)
+                $item.find('.avatarKey').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey)
+                return $item
+            }
+        }
+
+        //
+        $(".dropdown-menu li").children().first().click()
     })
 </script>
 </body>
