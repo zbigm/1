@@ -92,6 +92,76 @@ body{
 	height: 1.7rem;
 }
 
+.sharebtn{
+	width: 1rem;
+	height: 1rem;
+	border-radius: 50%;
+	background:rgba(34,234,0,0.7);
+	color: #fff;
+	line-height: 1rem;
+	text-align: center;
+	font-size: 0.2rem;
+}
+.wrap-share-box{
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	left: 0px;
+	z-index: 100000000000;
+}
+.cancelshare{
+	height: 0.7rem;
+	line-height: 0.7rem;
+	text-align: center;
+	color: #ccc;
+	font-size: 0.25rem;
+	background: #fff;
+	display: block;
+	width: 100%;
+}
+.wrap-share{
+	height: 2rem;
+	width: 100%;
+	background: #d5d5d5;
+	padding-top: 0.6rem;
+}
+.bdshare-button-style1-32 .sharebtns{
+	width: 20% !important;
+	float: left;
+}
+.bdshare-button-style1-32 a{
+	margin: 0px auto !important;
+	float: none !important;
+	display: block;
+	width: 1rem !important;
+	height: 1rem !important;
+	/*background: none !important;*/
+}
+.bdshare-button-style1-32 a.bds_twi{
+	background-image: url(../Images/twitter.png) !important;
+	background-position: 0 0;
+	background-size: auto 100%;
+}
+.bdshare-button-style1-32 a.bds_fbook{
+	background-image: url(../Images/facebook.png) !important;
+	background-position: 0 0;
+	background-size: auto 100%;
+}
+.bdshare-button-style1-32 a.bds_weixin{
+	background-image: url(../Images/wechat.png) !important;
+	background-position: 0 0;
+	background-size: auto 100%;
+}
+.bdshare-button-style1-32 a.bds_qzone{
+	background-image: url(../Images/ins.png) !important;
+	background-position: 0 0;
+	background-size: auto 100%;
+}
+.bdshare-button-style1-32 a.bds_tsina{
+	background-image: url(../Images/weibo.png) !important;
+	background-position: 0 0;
+	background-size: auto 100%;
+}
 /*index*/
 .index-signup {
 	padding: 0 0.25rem;
@@ -913,7 +983,7 @@ li.member-list-item:nth-child(even){
     height:100%;
     background-color:#000;
     position:fixed;
-    top:0.88rem;
+    top:0;
     left:0;
     z-index:99;
     opacity:0.7;
