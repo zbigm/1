@@ -610,6 +610,6 @@ li.member-list-item:nth-child(even){
 }
 .index-search .wrap-member-type-box .wrap-search-type{
 	padding-top: 0px;
-	padding-left: 15px;
+	padding-left: 0.23rem;
 }
 /*index*/

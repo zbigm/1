@@ -30,5 +30,92 @@
             <button class="submit cansubmit">Next</button>
         </div>
     </div>
+
+    <script>
+
+        $(function () {
+            var count = 3;
+            var timer;
+            $("body").on("click", ".getcode", function() {
+                var email = $(".input-list .email").val().trim();
+                if (!email) {
+                    alert('请先输入邮箱');
+                    return;
+                }
+                else{
+                    var emailReg = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+                    if(!emailReg.test(email)){
+                        alert('请输入有效的邮箱地址')
+                        return
+                    }
+                }
+                $post('/Mail/SendVerificationCode',{
+                    email: email
+                }, function (data) {
+                    if(data.Status != 2){
+                        alert(data.Message)
+                    }
+                })
+                $(this).removeClass("getcode");
+                timer = setInterval(function(){
+                    count = count - 1;
+                    $(".auth-code").text('Count ('+count+')');
+                    if (count === 0) {
+                        clearInterval(timer);
+                        $(".auth-code").text('Auth-Code');
+                        $(".auth-code").addClass("getcode");
+                        count = 3;
+                    }
+                }, 1000)
+
+            })
+
+            $('.cansubmit').click(function () {
+                var email = $('.email').val().trim()
+                var pwd = $('.password1').val().trim()
+                var confirmPwd = $('.password2').val().trim()
+                var code = $('.code').val().trim()
+                if( !email ){
+                    alert('请输入邮箱地址')
+                    return
+                }
+//                else{
+//                    var emailReg = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+//                    if(!emailReg.test(email)){
+//                        alert('请输入有效的邮箱地址')
+//                        return
+//                    }
+//                }
+
+                if(!code){
+                    alert('请输入验证码')
+                    return
+                }
+                if (!pwd || !confirmPwd) {
+                    alert('请输入密码');
+                    return;
+                }
+                if (pwd != confirmPwd) {
+                    alert('两次输入的密码不一样');
+                    return;
+                }
+                $post('/Account/ResetPassword',{
+                    email: email,
+                    password: pwd,
+                    confirmPassword: confirmPwd,
+                    verificationCode: code
+                }, function (data) {
+                    if(data.Status == 2){
+                        alert('修改成功，请重新登录')
+                        location.href = 'index_login.html'
+                    }else{
+                        alert(data.Message)
+                    }
+                })
+            })
+
+
+        })
+    </script>
 </body>
 </html>

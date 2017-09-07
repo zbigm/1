@@ -112,7 +112,8 @@
                     captcha: code
                 }, function (data) {
                     if(data.Status == 2){
-                        location.href = 'index.html'
+                        alert('登录成功，即将前往首页')
+                        //location.href = 'index.html'
                     }else{
                         alert(data.Message)
                     }

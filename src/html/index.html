@@ -93,5 +93,16 @@
         </div>
     </div>
     <script src="./public/Scripts/vendor.min.js"></script>
+    <script>
+        $(function () {
+            $get('/Account/GetLogonStatus',function (data) {
+                if(data.Status == 2){
+                    console.log('logedin: ', data)
+                }else {
+                    console.log('status: ', data)
+                }
+            })
+        })
+    </script>
 </body>
 </html>

@@ -69,26 +69,29 @@
         </div>
     </div><!-- container -->
 
+    <div class="result-list">
+
+    </div>
 
     <div class="wrap-news-item articleWrap">
         <ul>
-            <li class="news-item articleItemTmpl clearfix" style="display: none">
-                <a href="news_detail.html" class="pull-left newsitem-img">
-                    <img class="articleImg" src=" " alt="">
-                </a>
-                <div class="news-item-detail pull-right">
-                    <h3><a href="news_detail.html?articleId=1" class="articleTitle">标题标题</a></h3>
-                    <p class="news-item-tag"><span class="articleTags">高科技</span></p>
-                    <div class="wrap-tagsnew clearfix">
-                        <div class="pull-left clearfix">
-                            <img src=" " alt="" class="pull-left icon-person avatarKey">
-                            <span class="pull-left color-grey articleAuthor">作者</span>
-                        </div>
-                        <div class="pull-right"><span class="color-grey articleDate">8/17/2015</span>
-                        </div>
-                    </div>
-                </div>
-            </li>
+            <!--<li class="news-item articleItemTmpl clearfix" style="display: none">-->
+                <!--<a href="news_detail.html" class="pull-left newsitem-img">-->
+                    <!--<img class="articleImg" src=" " alt="">-->
+                <!--</a>-->
+                <!--<div class="news-item-detail pull-right">-->
+                    <!--<h3><a href="news_detail.html?articleId=1" class="articleTitle">标题标题</a></h3>-->
+                    <!--<p class="news-item-tag"><span class="articleTags">高科技</span></p>-->
+                    <!--<div class="wrap-tagsnew clearfix">-->
+                        <!--<div class="pull-left clearfix">-->
+                            <!--<img src=" " alt="" class="pull-left icon-person avatarKey">-->
+                            <!--<span class="pull-left color-grey articleAuthor">作者</span>-->
+                        <!--</div>-->
+                        <!--<div class="pull-right"><span class="color-grey articleDate">8/17/2015</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</li>-->
 
 
         </ul>
@@ -98,15 +101,15 @@
     <div class="wrap-member-list container memberWrap" style="padding: 0 15px;">
         <ul class="clearfix">
             <li class="pull-left col-xs-6 member-list-item memberItemTmpl" style="display: none">
-                <a class="person-item clearfix" href="member_article.html">
-                    <div class="pull-left member-trait">
-                        <img class="avatarImg" src="" alt="">
-                    </div>
-                    <div class="person-item-text pull-left">
-                        <span class="memberName"></span>
-                        <i class="memberTags"></i>
-                    </div>
-                </a>
+                <!--<a class="person-item clearfix" href="member_article.html">-->
+                    <!--<div class="pull-left member-trait">-->
+                        <!--<img class="avatarImg" src="" alt="">-->
+                    <!--</div>-->
+                    <!--<div class="person-item-text pull-left">-->
+                        <!--<span class="memberName"></span>-->
+                        <!--<i class="memberTags"></i>-->
+                    <!--</div>-->
+                <!--</a>-->
             </li>
 
         </ul>
@@ -151,45 +154,15 @@
 
 
 </div><!-- container-fluid -->
-<div class="wrap-footer">
-    <div class="container">
-        <ul class="row">
-            <li class="col-xs-3 active">
-                <a href="index.html">
-                    <span class="home-footer"></span>
-                    <i>Home</i>
-                </a>
-            </li>
-            <li class="col-xs-3 news_actv">
-                <a href="news.html">
-                    <span class="news-footer"></span>
-                    <i>News</i>
-                </a>
-            </li>
-            <li class="col-xs-3 member_actv">
-                <a href="member.html">
-                    <span class="members-footer"></span>
-                    <i>Members</i>
-                </a>
-            </li>
-            <li class="col-xs-3 person_actv">
-                <a href="person_not_loggedin.html">
-                    <span class="me-footer"></span>
-                    <i>Me</i>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
 <script>
     $(function () {
         // swiper 滑动导航
-        var navBarSwiper = new Swiper ('.wrap-member-type-box .swiper-container', {
-            slidesPerView: "auto"
-        });
-        $(".wrap-navbar li").click(function(){
-            $(this).addClass('active').siblings().removeClass('active');
-        });     
+//        var navBarSwiper = new Swiper ('.wrap-member-type-box .swiper-container', {
+//            slidesPerView: "auto"
+//        });
+//        $(".wrap-navbar li").click(function(){
+//            $(this).addClass('active').siblings().removeClass('active');
+//        });
         // swiper 滑动导航
         $('.dropdown-toggle').dropdown()
         $(".dropdown-menu li").click(function(){
@@ -207,6 +180,10 @@
         })
 
         $('.searchTags').on('click', '>a', function () {
+            if($('.onRequesting:visible').length){
+                return
+            }
+
             var keyword = $('.searchInput').val().trim()
             var type = $(".btn .search-text").text()
             var tag = $(this).text()
@@ -227,7 +204,11 @@
             }
 
             for(var i=0; i<tags.length; i++){
-                var $tg = $('<a href="javascript:void(0);"></a>').addClass('swiper-slide tagbtn pull-left').text(tags[i][0]).data('tid',tags[i][1])
+                var $tg = $('<a href="javascript:void(0);"></a>')
+                    .addClass('swiper-slide tagbtn ' + ' tagBtn'+i)
+                    .css({display: 'inline-block',width: 'atuo'})
+                    .text(tags[i][0]).data('tid',tags[i][1])
+//                var $taWrap = $('<div></div>').css({'width': '25%',textAlign: 'center'}).append($tg)
                 tgs.push($tg)
             }
             $('.searchTags').empty().append(tgs)
@@ -262,9 +243,7 @@
         function doSearch() {
             var page = 1;
 
-            $('.articleWrap>ul>li:gt(0)').remove()
-            $('.videoWrap>ul>li:gt(0)').remove()
-            $('.memberWrap>ul>li:gt(0)').remove()
+            $('.result-list').empty()
 
             $('.loadMore').off()
             $('.noMore').hide()
@@ -315,6 +294,10 @@
                         $('.noMore').hide()
 
                         makeDt(type, ret)
+
+                        $('.result-list .memberItem:even').css({float: 'left', marginLeft: '0.21px'})
+                        $('.result-list .memberItem:odd').css({float: 'right'})
+
                     }else{
                         $('.loadMore').hide()
                         $('.noMore').show()
@@ -336,7 +319,7 @@
                     var item = data[i]
                     $items.push(makeArticleItem(item))
                 }
-                $('.articleWrap>ul').append($items)
+                $('.result-list').append($items)
             }else if (type == 'Video') {
                 for (var i = 0; i < data.length; i++) {
                     var item = data[i]
@@ -348,11 +331,11 @@
                     var item = data[i]
                     $items.push(makeMemberItem(item))
                 }
-                $('.memberWrap>ul').append($items)
+                $('.result-list').append($items)
             }
         }
 
-        function makeArticleItem(dt) {
+        function xxxmakeArticleItem(dt) {
             var $item = $('.articleItemTmpl').clone().removeClass('articleItemTmpl').css('display', 'block')
             $item.find('.articleTitle').text(dt.Title)
             $item.find('.articleTitle').attr('href','news_detail.html?articleId='+dt.ArticleId)
@@ -376,7 +359,7 @@
             return $item
         }
 
-        function makeMemberItem(dt) {
+        function xmakeMemberItem(dt) {
             var $item = $('.memberItemTmpl').clone().removeClass('itemTmpl').css('display', 'block')
             var tagsStr = ''
             if(dt.tags && dt.tags.length){
@@ -401,5 +384,271 @@
         $(".dropdown-menu li").children().first().click()
     })
 </script>
+
+
+
+<!-- -->
+
+<style>
+    a.tagbtn{
+        display: inline-block;
+        text-align: center;
+        margin-right: 0.22rem;
+        font-size: 0.26rem;
+    }
+    .tagBtn0{
+        width: 1.3rem;
+    }
+    .tagBtn1{
+        width: 1.6rem;
+    }
+    .tagBtn2{
+        width: 2.06rem;
+    }
+    .tagBtn3{
+        width: 1.46rem;
+    }
+    a:hover, a:visited, a:link, a:active {
+        text-decoration: none;
+        color: #3c3c3c;
+    }
+    .eventItemTmpl, .articleItemTmpl, .memberItemTmpl , .videoItemTmpl{
+        display: none;
+    }
+    .row0{
+        overflow: hidden;
+    }
+    .fl{
+        float: left;
+    }
+    .fr{
+        float: right;
+    }
+    .center-img-wrap{
+        position: relative;
+        overflow: hidden;
+    }
+    .center-img-wrap>img{
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+    /** article **/
+    .articleItem{
+        padding: 0.30rem 0.22rem 0.30rem 0.22rem;
+        margin-bottom: 0.09rem;
+        background-color: #fff;
+
+    }
+    .articleImgWrap{
+        width: 2.7rem;
+        height: 1.66rem;
+    }
+    .articleTextWrap{
+        position: relative;
+        width: 4rem;
+        height: 1.66rem;
+    }
+    .articleTitle{
+        font-size: 0.26rem;
+        max-height: 0.72rem;
+        overflow: hidden;
+        margin-bottom: 0.15rem;
+    }
+    .articleTags{
+        max-height: 0.32rem;
+        font-size: 0.22rem;
+        color: #118ff6;
+        margin-bottom: 0.15rem;
+        white-space:nowrap;
+    }
+    .articleInfo{
+        position: absolute;
+        bottom: 0;
+        overflow: hidden;
+        width: 100%;
+        height: 0.54rem;
+    }
+    .articleAuthorIcon{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0.43rem;
+        height: 0.43rem;
+        border-radius: 50%;
+    }
+    .articleAuthorIcon>img{
+        width: 100%;
+        height: 100%;
+
+    }
+    .articleAuthor{
+        position: absolute;
+        left: 0.58rem;
+        top: 0.20rem;
+        font-size: 0.21rem;
+        color: #909090;
+    }
+    .articleDate{
+        position: absolute;
+        right: 0;
+        top: 0.20rem;
+        font-size: 0.19rem;
+        color: #909090;
+    }
+    /** end article **/
+
+    /** member **/
+
+
+</style>
+
+<div class="eventItem eventItemTmpl">
+    <div>
+        <div class="eventImgWrap">
+            <img src="" alt="">
+        </div>
+        <div class="eventTextWrap">
+            <div class="eventTitle"></div>
+            <div class="eventSubTitle"></div>
+            <div class="eventDate"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function makeArticleItem(dt) {
+        var $item = $('.articleItemTmpl').clone().removeClass('articleItemTmpl')
+        $item.find('.articleTitle').text(dt.Title)
+        $item.find('.articleLink').attr('href','news_detail.html?articleId='+dt.ArticleId)
+        $item.find('.articleDate').text(fmtDate1(dt.Timestamp))
+        $item.find('.articleTags').text(dt.Keywords)
+        $item.find('.articleAuthor').text(dt.Member.Name)
+        $item.find('.articleImgWrap>img').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)
+        $item.find('.articleAuthorIcon>img').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey)
+        return $item
+    }
+</script>
+<div class="articleItem articleItemTmpl">
+    <a href="" class="articleLink">
+        <div class="row0">
+            <div class="articleImgWrap center-img-wrap fl">
+                <img src="" alt="">
+            </div>
+            <div class="articleTextWrap fr">
+                <div class="articleTitle"></div>
+                <div class="articleTags"></div>
+                <div class="articleInfo">
+                    <div class="articleAuthorIcon">
+                        <img src="" alt="">
+                    </div>
+                    <div class="articleAuthor"></div>
+                    <div class="articleDate"></div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+
+
+<style>
+
+    .memberItem{
+        width: 3.43rem;
+        height: 1.7rem;
+        position: relative;
+        float: left;
+        margin: 0.30rem 0 0.30rem 0.21rem;
+    }
+    .memberImgWrap{
+        width: 50%;
+        height: 1.7rem;
+        position: relative;
+        overflow: hidden;
+
+    }
+    .memberImgWrap>img{
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+    }
+    .memberTextWrap{
+        width: 50%;
+        height: 1.7rem;
+        background: #f6f6f6;
+        overflow: hidden;
+        position: relative;
+    }
+    .memberName{
+        position: absolute;
+        top: 0.49rem;
+        left: 0.26rem;
+        font-size: 0.28rem;
+        color: #646464;
+    }
+    .memberTags{
+        position: absolute;
+        top: 0.95rem;
+        left: 0.26rem;
+        font-size: 0.24rem;
+        color: #118ff6;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+</style>
+<script>
+    function makeMemberItem(dt) {
+        var $item = $('.memberItemTmpl').clone().removeClass('memberItemTmpl')
+        var tagsStr = ''
+        if(dt.tags && dt.tags.length){
+            for(var i=0; i<dt.tags.length; i++){
+                tagsStr += dt.tags[i][EnglishName]
+                tagsStr += ' '
+            }
+        }
+        $item.find('.memberTags').text(tagsStr)
+        $item.find('.memberName').text(dt.Name)
+        $item.find('.memberImgWrap>img').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.AvatarKey+'@!w170h170');
+        $item.find('.memberLink').attr('href','member_article.html?MemberId='+dt.MemberId)
+        return $item
+    }
+</script>
+<div class="memberItem memberItemTmpl">
+    <a href="" class="memberLink">
+        <div class="row0">
+            <div class="memberImgWrap fl">
+                <img src="" alt="">
+            </div>
+            <div class="memberTextWrap fl">
+                <div class="memberName"></div>
+                <div class="memberTags"></div>
+            </div>
+        </div>
+    </a>
+</div>
+
+
+<div class="videoItem videoItemTmpl">
+    <div>
+        <div class="videoImgWrap">
+            <img src="" alt="" class="videoImg" >
+            <img src="" alt="" class="videoPlayIcon">
+        </div>
+        <div class="videoInfo">
+            <div class="videoAuthorIcon"></div>
+            <div class="videoAuthorName"></div>
+            <div class="videoPostDate"></div>
+        </div>
+    </div>
+</div>
+
+
+
+
 </body>
 </html>
