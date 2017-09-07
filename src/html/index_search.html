@@ -69,51 +69,12 @@
         </div>
     </div><!-- container -->
 
+    <!-- result -->
     <div class="result-list">
 
     </div>
 
-    <div class="wrap-news-item articleWrap">
-        <ul>
-            <!--<li class="news-item articleItemTmpl clearfix" style="display: none">-->
-                <!--<a href="news_detail.html" class="pull-left newsitem-img">-->
-                    <!--<img class="articleImg" src=" " alt="">-->
-                <!--</a>-->
-                <!--<div class="news-item-detail pull-right">-->
-                    <!--<h3><a href="news_detail.html?articleId=1" class="articleTitle">标题标题</a></h3>-->
-                    <!--<p class="news-item-tag"><span class="articleTags">高科技</span></p>-->
-                    <!--<div class="wrap-tagsnew clearfix">-->
-                        <!--<div class="pull-left clearfix">-->
-                            <!--<img src=" " alt="" class="pull-left icon-person avatarKey">-->
-                            <!--<span class="pull-left color-grey articleAuthor">作者</span>-->
-                        <!--</div>-->
-                        <!--<div class="pull-right"><span class="color-grey articleDate">8/17/2015</span>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</li>-->
 
-
-        </ul>
-    </div><!-- wrap-news-item -->
-
-
-    <div class="wrap-member-list container memberWrap" style="padding: 0 15px;">
-        <ul class="clearfix">
-            <li class="pull-left col-xs-6 member-list-item memberItemTmpl" style="display: none">
-                <!--<a class="person-item clearfix" href="member_article.html">-->
-                    <!--<div class="pull-left member-trait">-->
-                        <!--<img class="avatarImg" src="" alt="">-->
-                    <!--</div>-->
-                    <!--<div class="person-item-text pull-left">-->
-                        <!--<span class="memberName"></span>-->
-                        <!--<i class="memberTags"></i>-->
-                    <!--</div>-->
-                <!--</a>-->
-            </li>
-
-        </ul>
-    </div><!-- wrap-member-list -->
 
     <div class="wrap-news-item videoWrap">
         <ul>
@@ -295,8 +256,8 @@
 
                         makeDt(type, ret)
 
-                        $('.result-list .memberItem:even').css({float: 'left', marginLeft: '0.21px'})
-                        $('.result-list .memberItem:odd').css({float: 'right'})
+                        $('.result-list .memberItem:even').css({float: 'left', marginLeft: '0.21rem', marginRight: '0'})
+                        $('.result-list .memberItem:odd').css({float: 'right', marginLeft: '0', marginRight: '0.21rem'})
 
                     }else{
                         $('.loadMore').hide()
@@ -335,18 +296,7 @@
             }
         }
 
-        function xxxmakeArticleItem(dt) {
-            var $item = $('.articleItemTmpl').clone().removeClass('articleItemTmpl').css('display', 'block')
-            $item.find('.articleTitle').text(dt.Title)
-            $item.find('.articleTitle').attr('href','news_detail.html?articleId='+dt.ArticleId)
-            $item.find('.newsitem-img').attr('href','news_detail.html?articleId='+dt.ArticleId)
-            $item.find('.articleDate').text(fmtDate1(dt.Timestamp))
-            $item.find('.articleTags').text(dt.Keywords)
-            $item.find('.articleAuthor').text(dt.Member.Name)
-            $item.find('.articleImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)
-            $item.find('.avatarKey').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey)
-            return $item
-        }
+
 
         function makeVideoItem(dt) {
             var $item = $('.videoItemTmpl').clone().removeClass('articleItemTmpl').css('display', 'block');
@@ -359,25 +309,7 @@
             return $item
         }
 
-        function xmakeMemberItem(dt) {
-            var $item = $('.memberItemTmpl').clone().removeClass('itemTmpl').css('display', 'block')
-            var tagsStr = ''
-            if(dt.tags && dt.tags.length){
-                for(var i=0; i<dt.tags.length; i++){
-                    tagsStr += dt.tags[i][EnglishName]
-                    tagsStr += ' '
-                }
-            }
-            $item.find('.memberTags').text(tagsStr)
-//            $item.find('.memberCompany').text(dt.PersonalCompanyName)
-//            $item.find('.articleDate').text(fmtDate1(dt.Timestamp))
-//            $item.find('.articleTags').text(dt.Keywords)
-            $item.find('.memberName').text(dt.Name)
-            $item.find('.memberName').text(dt.Name)
-            $item.find('.avatarImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.AvatarKey+'@!w170h170');
-            $item.find('.person-item').attr('href','member_article.html?MemberId='+dt.MemberId)
-            return $item
-        }
+
 
 
         //
