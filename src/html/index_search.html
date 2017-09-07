@@ -51,7 +51,7 @@
             </div><!-- wrap-member-type-box -->
         </div><!-- wrap-search-type -->
     </div><!-- wrap-search-title -->
-    <div class="container">
+    <div class="container noMore" style="display: none">
         <div class="row">
             <div class="col-xs-12 wrap-no-result">
                 <div class="text-center">
@@ -74,14 +74,14 @@
         <ul>
             <li class="news-item articleItemTmpl clearfix" style="display: none">
                 <a href="news_detail.html" class="pull-left newsitem-img">
-                    <img class="articleImg" src="http://sdf.img" alt="">
+                    <img class="articleImg" src=" " alt="">
                 </a>
                 <div class="news-item-detail pull-right">
                     <h3><a href="news_detail.html?articleId=1" class="articleTitle">标题标题</a></h3>
                     <p class="news-item-tag"><span class="articleTags">高科技</span></p>
                     <div class="wrap-tagsnew clearfix">
                         <div class="pull-left clearfix">
-                            <img src="http://bs.img" alt="" class="pull-left icon-person avatarKey">
+                            <img src=" " alt="" class="pull-left icon-person avatarKey">
                             <span class="pull-left color-grey articleAuthor">作者</span>
                         </div>
                         <div class="pull-right"><span class="color-grey articleDate">8/17/2015</span>
@@ -90,55 +90,37 @@
                 </div>
             </li>
 
-            <!--<li class="news-item clearfix">-->
-                <!--<a href="news_detail.html" class="pull-left newsitem-img">-->
-                    <!--<img src="./public/Images/newsitem.png" alt="">-->
-                <!--</a>-->
-                <!--<div class="news-item-detail pull-right">-->
-                    <!--<h3><a href="news_detail.html">硅谷的人本理念对我国产业园区发展的启示</a></h3>-->
-                    <!--<p class="news-item-tag">-->
-                        <!--<span>高科技</span>-->
-                    <!--</p>-->
-                    <!--<div class="wrap-tagsnew clearfix">-->
-                        <!--<div class="pull-left clearfix">-->
-                            <!--<img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person">-->
-                            <!--<span class="pull-left color-grey">Bo Hong</span>-->
-                        <!--</div>-->
-                        <!--<div class="pull-right">-->
-                            <!--<span class="color-grey">August 17, 2017</span>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</li>&lt;!&ndash; news-item &ndash;&gt;-->
+
         </ul>
     </div><!-- wrap-news-item -->
 
 
-    <div class="wrap-member-list container memberWrap">
+    <div class="wrap-member-list container memberWrap" style="padding: 0 15px;">
         <ul class="clearfix">
-            <li class="pull-left col-xs-6 member-list-item">
-                <a class="person-item clearfix" href="javascript:void(0);">
+            <li class="pull-left col-xs-6 member-list-item memberItemTmpl" style="display: none">
+                <a class="person-item clearfix" href="member_article.html">
                     <div class="pull-left member-trait">
-                        <img src="./public/Images/submember.png" alt="">
+                        <img class="avatarImg" src="" alt="">
                     </div>
                     <div class="person-item-text pull-left">
-                        <span>鲍曼</span>
-                        <i>Mobile Inter...</i>
+                        <span class="memberName"></span>
+                        <i class="memberTags"></i>
                     </div>
                 </a>
             </li>
+
         </ul>
     </div><!-- wrap-member-list -->
 
     <div class="wrap-news-item videoWrap">
         <ul>
-            <li class="news-video-item clearfix">
+            <li class="news-video-item clearfix videoItemTmpl" style="display:none;">
                 <div class="video-item-detail">
                     <div class="wrap-news-video">
                         <a class="wrap-video-introduction" href="person_video_detail.html">
-                            <img src="./public/Images/newsvideo.png" alt="" class="pull-left icon-person">
+                            <img src="./public/Images/newsvideo.png" alt="" class="pull-left newsvedio">
                             <img src="./public/Images/broadcast.png" alt="" class="broadcast-btn">
-                            <h4>Project and talent of the benign int eraction of suc
+                            <h4 class="video-title">Project and talent of the benign int eraction of suc
                                 cessf Project and talent of the benign int </h4>
                             <span class="bggrey"></span>
                         </a>
@@ -146,10 +128,10 @@
                     <div class="news-video-tag clearfix">
                         <div class="pull-left clearfix">
                             <img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person">
-                            <span class="pull-left color-grey">Bo Hong</span>
+                            <span class="pull-left color-grey namemember"></span>
                         </div>
                         <div class="pull-right">
-                            <span class="color-grey">August 17, 2017</span>
+                            <span class="color-grey datamember"></span>
                         </div>
                     </div>
                 </div>
@@ -158,6 +140,14 @@
 
         </ul>
     </div><!-- wrap-news-item -->
+
+
+    <div style="padding: 0 0 15px 0;">
+        <div class="loadMore" style="text-align: center;cursor: pointer;display: none;">点击加载更多</div>
+        <div class="onRequesting" style="text-align: center;display: none;">正在请求数据...</div>
+    </div>
+
+
 
 
 </div><!-- container-fluid -->
@@ -175,12 +165,12 @@
         $('.dropdown-toggle').dropdown()
         $(".dropdown-menu li").click(function(){
             var text = $(this).find("a").text()
+            $('.search-type').text(text + ' Type')
             $(".btn .search-text").text(text)
             if(text == 'Article'){
                 setTags(articleTags)
             }else if(text == 'Video'){
                 setTags(videoTags)
-
             }else if(text == 'Member'){
                 setTags(memberTags)
 
@@ -240,21 +230,17 @@
         })
 
 
-        function doSearch(){
+        function doSearch() {
             var page = 1;
 
+            $('.articleWrap>ul>li:gt(0)').remove()
+            $('.videoWrap>ul>li:gt(0)').remove()
+            $('.memberWrap>ul>li:gt(0)').remove()
 
-            $('.articleWrap>ul').empty()
-            $('.videoWrap>ul').empty()
-            $('.memberWrap>ul').empty()
-
-            if(dropload){
-                dropload.unlock();
-                dropload.noData(false)
-                dropload.resetload()
-            }
-
-
+            $('.loadMore').off()
+            $('.noMore').hide()
+            $('.loadMore').hide()
+            $('.onRequesting').show()
 
 
             var keyword = $('.searchInput').val().trim()
@@ -262,72 +248,125 @@
             var tag = $('.searchTags>a.active').text()
             var $fn = $get
 
-            var url = '/' + type + '/Search'
+            var url = '/' + (type == 'Member' ? 'Account' : type) + '/Search'
             var dt = {
-                keyword: keyword
+                keyword: keyword,
+                p: page++
             }
-            if(type == 'Article'){
+            if (type == 'Article') {
                 dt.articleType = tag
-            }else if(type == 'Video'){
+            } else if (type == 'Video') {
                 dt.videoType = tag
-            }else if( type == 'Member'){
+            } else if (type == 'Member') {
                 $fn = $post
             }
 
-            var articleType = 1;
-            var dropload = $('.container-fluid').dropload({
-                scrollArea: window,
-                loadDownFn: function (me) {
-                    dt.p = (page++)
-                    $fn(url, dt, function (data) {
-                        if(data.Status == 2){
-                            var Body = data.Body
-                            if(Body && Body.length){
-
-                                me.resetload();
-
-                            }else{
-                                me.lock();
-                                me.noData();
-                                me.resetload();
-                            }
-                        }else{
-                            page--
-                            me.resetload();
-                            alert(data.Message)
-                        }
-                    }, function (error) {
-                        me.resetload();
-                    })
-                }
+            $('.loadMore').click(function () {
+                $('.onRequesting').show()
+                $(this).hide()
+                dt.p = page++
+                reqData($fn, url, type, dt)
             })
 
-            function makeDt(type, Body) {
-                if(type == 'Article'){
-                    var $items = []
+            reqData($fn,url, type, dt)
 
-                    for(var i=0; i<Body.length; i++){
-                        var item = Body[i]
-                        $items.push(makeArticleItem(item))
+            //
+        }
+
+
+        function reqData($fn,url, type, dt) {
+            $fn(url,{
+                dt
+            },function (data) {
+                $('.onRequesting').hide()
+                if(data.Status == 2){
+                    var ret = data.Body
+                    if(ret && ret.length){
+                        $('.loadMore').show()
+                        $('.noMore').hide()
+
+                        makeDt(type, ret)
+                    }else{
+                        $('.loadMore').hide()
+                        $('.noMore').show()
                     }
-
-                    $('.articleWrap>ul').append($items)
+                }else{
+                    $('.loadMore').show()
+                    $('.noMore').hide()
+                    alert(data.Message)
                 }
-            }
+            },function () {
+                $('.onRequesting').hide()
+            })
+        }
 
-            function makeArticleItem(dt) {
-                var $item = $('.articleItemTmpl').clone().removeClass('articleItemTmpl').css('display', 'block')
-                $item.find('.articleTitle').text(dt.Title)
-                $item.find('.articleTitle').attr('href','news_detail.html?articleId='+dt.ArticleId)
-                $item.find('.newsitem-img').attr('href','news_detail.html?articleId='+dt.ArticleId)
-                $item.find('.articleDate').text(fmtDate1(dt.Timestamp))
-                $item.find('.articleTags').text(dt.Keywords)
-                $item.find('.articleAuthor').text(dt.Member.Name)
-                $item.find('.articleImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)
-                $item.find('.avatarKey').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey)
-                return $item
+        function makeDt(type, data) {
+            var $items = []
+            if (type == 'Article') {
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i]
+                    $items.push(makeArticleItem(item))
+                }
+                $('.articleWrap>ul').append($items)
+            }else if (type == 'Video') {
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i]
+                    $items.push(makeVideoItem(item))
+                }
+                $('.videoWrap>ul').append($items)
+            }else if (type == 'Member') {
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i]
+                    $items.push(makeMemberItem(item))
+                }
+                $('.memberWrap>ul').append($items)
             }
         }
+
+        function makeArticleItem(dt) {
+            var $item = $('.articleItemTmpl').clone().removeClass('articleItemTmpl').css('display', 'block')
+            $item.find('.articleTitle').text(dt.Title)
+            $item.find('.articleTitle').attr('href','news_detail.html?articleId='+dt.ArticleId)
+            $item.find('.newsitem-img').attr('href','news_detail.html?articleId='+dt.ArticleId)
+            $item.find('.articleDate').text(fmtDate1(dt.Timestamp))
+            $item.find('.articleTags').text(dt.Keywords)
+            $item.find('.articleAuthor').text(dt.Member.Name)
+            $item.find('.articleImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)
+            $item.find('.avatarKey').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey)
+            return $item
+        }
+
+        function makeVideoItem(dt) {
+            var $item = $('.videoItemTmpl').clone().removeClass('articleItemTmpl').css('display', 'block');
+            $item.find('.video-title').text(dt.Title);    //video title
+            $item.find('.namemember').text(dt.Member.Name);  //namemember
+            $item.find('.datamember').text(fmtDate1(dt.Timestamp));   //date
+            $item.find('.icon-person').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey);   //小头像
+            $item.find('.newsvedio').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)   // 视频地址
+            $item.find('.wrap-video-introduction').attr('href', "person_video_detail.html?VideoId="+dt.VideoId);
+            return $item
+        }
+
+        function makeMemberItem(dt) {
+            var $item = $('.memberItemTmpl').clone().removeClass('itemTmpl').css('display', 'block')
+            var tagsStr = ''
+            if(dt.tags && dt.tags.length){
+                for(var i=0; i<dt.tags.length; i++){
+                    tagsStr += dt.tags[i][EnglishName]
+                    tagsStr += ' '
+                }
+            }
+            $item.find('.memberTags').text(tagsStr)
+//            $item.find('.memberCompany').text(dt.PersonalCompanyName)
+//            $item.find('.articleDate').text(fmtDate1(dt.Timestamp))
+//            $item.find('.articleTags').text(dt.Keywords)
+            $item.find('.memberName').text(dt.Name)
+            $item.find('.memberName').text(dt.Name)
+            $item.find('.avatarImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.AvatarKey+'@!w170h170');
+            $item.find('.person-item').attr('href','member_article.html?MemberId='+dt.MemberId)
+            return $item
+        }
+
 
         //
         $(".dropdown-menu li").children().first().click()

@@ -38,6 +38,10 @@
         </ul>
     </div><!-- wrap-nrews-item -->
 </div><!-- container-fluid -->
+<div style="padding: 25px 0 15px 0;">
+    <div class="loadMore" style="text-align: center;cursor: pointer;display: none;">点击加载更多</div>
+    <div class="onRequesting" style="text-align: center;display: none;">正在请求数据...</div>
+</div>
 <!--{{footer.html}}-->
 <script>
     $(function () {
@@ -53,41 +57,53 @@
             return $item
         }
 
-        var page = 1
-        $('.container-fluid').dropload({
-            scrollArea: window,
-            loadDownFn: function (me) {
-                $get('/Activity/Search',{
-                    p: page++
-                }, function (data) {
-                    if(data.Status == 2){
-                        var Body = data.Body
-                        if(Body && Body.length){
-                            var $items = []
 
-                            for(var i=0; i<Body.length; i++){
-                                var item = Body[i]
-                                $items.push(makeItem(item))
-                            }
 
-                            $('.wrap-news-item>ul').append($items)
-                            me.resetload();
-
-                        }else{
-                            me.lock(); // 锁定
-                            me.noData(); // 无数据
-                            me.resetload();
-                        }
-                    }else{
-                        page--
-                        me.resetload();
-                        alert(data.Message)
-                    }
-                }, function (error) {
-                    me.resetload();
-                })
-            }
+        $('.loadMore').click(function () {
+            $('.onRequesting').show()
+            $(this).hide()
+            reqData()
         })
+
+        $('.loadMore').hide()
+        $('.onRequesting').show()
+        var page = 1
+        function reqData() {
+            $get('/Activity/Search',{
+                p: page++
+            }, function (data) {
+                $('.onRequesting').hide()
+                if(data.Status == 2){
+                    var Body = data.Body
+                    if(Body && Body.length){
+                        $('.loadMore').show()
+                        $('.noMore').hide()
+                        var $items = []
+
+                        for(var i=0; i<Body.length; i++){
+                            var item = Body[i]
+                            $items.push(makeItem(item))
+                        }
+
+                        $('.wrap-news-item>ul').append($items)
+
+                    }else{
+                        $('.loadMore').hide()
+                        $('.noMore').show()
+                    }
+                }else{
+                    $('.onRequesting').hide()
+                    alert(data.Message)
+                }
+            }, function (error) {
+                $('.onRequesting').hide()
+            })
+        }
+
+        reqData()
+
+
+
 
     })
 </script>

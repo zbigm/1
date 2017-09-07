@@ -6,16 +6,21 @@
 	-webkit-tap-highlight-color: transparent;
 }
 html, body{
-	height: 100%;
+	/*height: 100%;*/
     position: relative;
-    padding-bottom: 1rem;
+    /*padding-bottom: 1rem;*/
+}
+body{
+	padding-bottom: 60px;
+
 }
 /*footer*/
 .wrap-footer{
 	position: fixed;
 	width: 100%;
 	bottom: 0%;
-	padding: 0.18rem 0px 0.1rem;
+	/*padding: 0.18rem 0px 0.1rem;*/
+	padding: 10px 0 5px 0;
 	background: #fff;
 	z-index: 9999999;
 }
@@ -24,8 +29,10 @@ html, body{
 	text-align: center;
 }
 .wrap-footer ul li span{
-	width: 0.47rem;
-	height: 0.41rem;
+	/*width: 0.47rem;*/
+	/*height: 0.41rem;*/
+	width: 24px;
+	height: 20px;
 	display: block;
 	margin:0 auto;
 }
@@ -42,7 +49,7 @@ html, body{
 	background-size: 100% 100%;
 }
 .wrap-footer ul li.active .home-footer{
-	background: url(../Images/fixhomeactive.png) no-repeat left center;
+	background: url(../Images/fixhomeactive.png) no-repeat center center;
 	background-size: 100% 100%;
 }
 .wrap-footer ul li .news-footer{
