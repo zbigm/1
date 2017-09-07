@@ -222,6 +222,8 @@ var uploader = new plupload.Uploader({
         },
 
         Error: function(up, err) {
+            alert('upload failed:\n' + JSON.stringify(err))
+            return
             if (err.code == -600) {
                 document.getElementById('console').appendChild(document.createTextNode("\n选择的文件太大了,可以根据应用情况，在upload.js 设置一下上传的最大大小"));
             }
