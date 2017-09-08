@@ -1,109 +1,40 @@
-<style>
-    .eventItemTmpl, .articleItemTmpl, .memberItemTmpl , .videoItemTmpl{
-        display: none;
-    }
-    .row0{
-        overflow: hidden;
-    }
-    .fl{
-        float: left;
-    }
-    .fr{
-        float: right;
-    }
-    .center-img-wrap{
-        position: relative;
-        overflow: hidden;
-    }
-    .center-img-wrap>img{
-        position: absolute;
-        width: 100%;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
-    }
-    /** article **/
-    .articleItem{
-
-    }
-    .articleImgWrap{
-        width: 2.7rem;
-        height: 1.66rem;
-    }
-    .articleTextWrap{
-        position: relative;
-        width: 4rem;
-        height: 1.66rem;
-    }
-    .articleTitle{
-        font-size: 0.26rem;
-        max-height: 0.72rem;
-        overflow: hidden;
-        margin-bottom: 0.15rem;
-    }
-    .articleTags{
-        max-height: 0.32rem;
-        font-size: 0.22rem;
-        color: #118ff6;
-        margin-bottom: 0.15rem;
-        white-space:nowrap;
-    }
-    .articleInfo{
-        position: absolute;
-        bottom: 0;
-        overflow: hidden;
-    }
-    .articleAuthorIcon>img{
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 0.43rem;
-        height: 0.43rem;
-    }
-    .articleAuthor{
-        position: absolute;
-        left: 0.58rem;
-        bottom: 0.15rem;
-        font-size: 0.22rem;
-        color: #909090;
-    }
-    .articleDate{
-        position: absolute;
-        right: 0.58rem;
-        bottom: 0.15rem;
-        font-size: 0.22rem;
-        color: #909090;
-    }
-
-
-</style>
-
-<div class="eventItem eventItemTmpl">
-    <div>
-        <div class="eventImgWrap">
-            <img src="" alt="">
+<div class="news-video-item clearfix videoItemTmpl" style="display:none;">
+    <div class="video-item-detail">
+        <div class="wrap-news-video">
+            <a class="wrap-video-introduction" href="person_video_detail.html">
+                <img src="./public/Images/newsvideo.png" alt="" class="pull-left newsvedio">
+                <img src="./public/Images/broadcast.png" alt="" class="broadcast-btn">
+                <h4 class="video-title"> </h4>
+                <span class="bggrey"></span>
+            </a>
         </div>
-        <div class="eventTextWrap">
-            <div class="eventTitle"></div>
-            <div class="eventSubTitle"></div>
-            <div class="eventDate"></div>
+        <div class="news-video-tag clearfix">
+            <div class="pull-left clearfix">
+                <img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person">
+                <span class="pull-left color-grey namemember"></span>
+            </div>
+            <div class="pull-right">
+                <span class="color-grey datamember"></span>
+            </div>
         </div>
     </div>
 </div>
 
-<script>
-    function makeArticleItem(dt) {
-        var $item = $('.articleItemTmpl').clone().removeClass('articleItemTmpl')
-        $item.find('.articleTitle').text(dt.Title)
-        $item.find('.articleLink').attr('href','news_detail.html?articleId='+dt.ArticleId)
-        $item.find('.articleDate').text(fmtDate1(dt.Timestamp))
-        $item.find('.articleTags').text(dt.Keywords)
-        $item.find('.articleAuthor').text(dt.Member.Name)
-        $item.find('.articleImgWrap>img').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)
-        $item.find('.articleAuthorIcon').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey)
-        return $item
-    }
-</script>
+
+<div class="memberItem memberItemTmpl">
+    <a href="" class="memberLink">
+        <div class="row0">
+            <div class="memberImgWrap fl">
+                <img src="" alt="">
+            </div>
+            <div class="memberTextWrap fl">
+                <div class="memberName"></div>
+                <div class="memberTags"></div>
+            </div>
+        </div>
+    </a>
+</div>
+
 <div class="articleItem articleItemTmpl">
     <a href="" class="articleLink">
         <div class="row0">
@@ -125,29 +56,17 @@
     </a>
 </div>
 
-<div class="memberItem memberItemTmpl">
+
+
+<div class="eventItem eventItemTmpl">
     <div>
-        <div class="memberImgWrap">
+        <div class="eventImgWrap">
             <img src="" alt="">
         </div>
-        <div class="memberTextWrap">
-            <div class="memberName"></div>
-            <div class="memberTags"></div>
-        </div>
-    </div>
-</div>
-
-
-<div class="videoItem videoItemTmpl">
-    <div>
-        <div class="videoImgWrap">
-            <img src="" alt="" class="videoImg" >
-            <img src="" alt="" class="videoPlayIcon">
-        </div>
-        <div class="videoInfo">
-            <div class="videoAuthorIcon"></div>
-            <div class="videoAuthorName"></div>
-            <div class="videoPostDate"></div>
+        <div class="eventTextWrap">
+            <div class="eventTitle"></div>
+            <div class="eventSubTitle"></div>
+            <div class="eventDate"></div>
         </div>
     </div>
 </div>

@@ -18,17 +18,17 @@
             <div class="wrap-select-box pull-left">
                 <div class="input-group">
                     <div class="input-group-btn">
-                        <button type="button" class="btn dropdown-toggle clearfix" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="pull-left search-text">Article</i>
-                            <span class="caret select-caret pull-left">
+                        <button style="outline: none;"  type="button" class="btn dropdown-toggle clearfix" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="pull-left search-text">Member</i>
+                            <span style="visibility: hidden" class="caret select-caret pull-left">
                                 <img src="./public/Images/selectico.png" alt="">
                             </span>
                         </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Article</a></li>
-                            <li><a href="#">Video</a></li>
-                            <li><a href="#">Members</a></li>
-                        </ul>
+                        <!--<ul class="dropdown-menu">-->
+                            <!--<li><a href="#">Member</a></li>-->
+                            <!--<li><a href="#">Video</a></li>-->
+                            <!--<li><a href="#">Article</a></li>-->
+                        <!--</ul>-->
                   </div><!-- /btn-group -->
                 </div><!-- /input-group -->
             </div>
@@ -85,21 +85,33 @@
             </ul>
         </div><!-- wrap-search-type -->
     </div><!-- wrap-member-type-box -->
-    <div class="wrap-member-list container">
-        <ul class="clearfix memberListUl">
-            <li class="pull-left col-xs-6 member-list-item itemTmpl" style="display: none">
-                <a class="person-item clearfix" href="member_article.html">
-                    <div class="pull-left member-trait">
-                        <img class="avatarImg" src="" alt="">
-                    </div>
-                    <div class="person-item-text pull-left">
-                        <span class="memberName">鲍曼</span>
-                        <i class="memberCompany">Mobile Inter...</i>
-                    </div>
-                </a>
-            </li>
-        </ul>
-    </div><!-- wrap-member-list -->
+
+    <div class="result-list">
+
+    </div>
+
+    <div style="padding: 0 0 15px 0;">
+        <div class="loadMore" style="text-align: center;cursor: pointer;display: none;">点击加载更多</div>
+        <div class="onRequesting" style="text-align: center;display: none;">正在请求数据...</div>
+    </div>
+
+
+
+    <!--<div class="wrap-member-list container">-->
+        <!--<ul class="clearfix memberListUl">-->
+            <!--<li class="pull-left col-xs-6 member-list-item itemTmpl" style="display: none">-->
+                <!--<a class="person-item clearfix" href="member_article.html">-->
+                    <!--<div class="pull-left member-trait">-->
+                        <!--<img class="avatarImg" src="" alt="">-->
+                    <!--</div>-->
+                    <!--<div class="person-item-text pull-left">-->
+                        <!--<span class="memberName">鲍曼</span>-->
+                        <!--<i class="memberCompany">Mobile Inter...</i>-->
+                    <!--</div>-->
+                <!--</a>-->
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</div>&lt;!&ndash; wrap-member-list &ndash;&gt;-->
 </div><!-- container-fluid -->
 <!--{{footer.html}}-->
 <script>
@@ -111,62 +123,114 @@
             slidesPerView: "auto"
         });
         $(".wrap-navbar li").click(function(){
+            if($($this).data('clicked')) return;
+
             $(this).addClass('active').siblings().removeClass('active');
+            $($this).data('clicked',true)
+
+            $('.btn.dropdown-toggle').off()
         });
 
 
         getTags0(function (tags) {
-            debugger
+            //debugger
         })
 
 
-        page = 1
-        $('.container-fluid').dropload({
-            scrollArea: window,
-            loadDownFn: function (me) {
-                $post('/Account/Search',{
-                    p: page++
-                }, function (data) {
-                    if(data.Status == 2){
-                        var Body = data.Body
-                        if(Body && Body.length){
-                            var $items = []
+        var page = 1
 
-                            for(var i=0; i<Body.length; i++){
-                                var item = Body[i]
-                                $items.push(makeMemberItem(item))
-                            }
+        function reqData() {
+            $post('/Account/Search',{
+                p: page++
+            },function (data) {
+                $('.onRequesting').hide()
+                if(data.Status == 2){
+                    var ret = data.Body
+                    if(ret && ret.length){
+                        $('.loadMore').show()
+                        $('.noMore').hide()
 
-                            $('.memberListUl').append($items)
-                            me.resetload();
-
-                        }else{
-                            me.lock();
-                            me.noData();
-                            me.resetload();
+                        var $items = []
+                        for (var i = 0; i < ret.length; i++) {
+                            var item = ret[i]
+                            $items.push(makeMemberItem(item))
                         }
+                        $('.result-list').append($items)
+
+                        $('.result-list .memberItem:even').css({float: 'left', marginLeft: '0.21rem', marginRight: '0'})
+                        $('.result-list .memberItem:odd').css({float: 'right', marginLeft: '0', marginRight: '0.21rem'})
+
                     }else{
-                        page--
-                        me.resetload();
-                        alert(data.Message)
+                        $('.loadMore').hide()
+                        $('.noMore').show()
                     }
-                }, function (error) {
-                    me.resetload();
-                })
-            }
+                }else{
+                    $('.loadMore').show()
+                    $('.noMore').hide()
+                    alert(data.Message)
+                }
+            },function () {
+                $('.onRequesting').hide()
+            })
+        }
+
+        $('.loadMore').click(function () {
+            $('.onRequesting').show()
+            $(this).hide()
+            reqData()
         })
 
-        function makeMemberItem(dt) {
-            var $item = $('.itemTmpl').clone().removeClass('itemTmpl').css('display', 'block')
-            $item.find('.memberCompany').text(dt.PersonalCompanyName)
-//            $item.find('.articleDate').text(fmtDate1(dt.Timestamp))
-//            $item.find('.articleTags').text(dt.Keywords)
-            $item.find('.memberName').text(dt.Name)
-            $item.find('.memberName').text(dt.Name)
-            $item.find('.avatarImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.AvatarKey);
-            $item.find('.person-item').attr('href','member_article.html?MemberId='+dt.MemberId)
-            return $item
-        }
+
+        reqData()
+
+
+
+//        $('.container-fluid').dropload({
+//            scrollArea: window,
+//            loadDownFn: function (me) {
+//                $post('/Account/Search',{
+//                    p: page++
+//                }, function (data) {
+//                    if(data.Status == 2){
+//                        var Body = data.Body
+//                        if(Body && Body.length){
+//                            var $items = []
+//
+//                            for(var i=0; i<Body.length; i++){
+//                                var item = Body[i]
+//                                $items.push(makeMemberItem(item))
+//                            }
+//
+//                            $('.memberListUl').append($items)
+//                            me.resetload();
+//
+//                        }else{
+//                            me.lock();
+//                            me.noData();
+//                            me.resetload();
+//                        }
+//                    }else{
+//                        page--
+//                        me.resetload();
+//                        alert(data.Message)
+//                    }
+//                }, function (error) {
+//                    me.resetload();
+//                })
+//            }
+//        })
+
+//        function makeMemberItem(dt) {
+//            var $item = $('.itemTmpl').clone().removeClass('itemTmpl').css('display', 'block')
+//            $item.find('.memberCompany').text(dt.PersonalCompanyName)
+////            $item.find('.articleDate').text(fmtDate1(dt.Timestamp))
+////            $item.find('.articleTags').text(dt.Keywords)
+//            $item.find('.memberName').text(dt.Name)
+//            $item.find('.memberName').text(dt.Name)
+//            $item.find('.avatarImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.AvatarKey);
+//            $item.find('.person-item').attr('href','member_article.html?MemberId='+dt.MemberId)
+//            return $item
+//        }
     })
 </script>
 </body>

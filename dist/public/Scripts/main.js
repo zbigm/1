@@ -142,36 +142,22 @@ function getTags0(cb) {
     })
 }
 
-function makeEventItem(dt){
 
-}
-
-function xmakeArticleItem(dt) {
-    var $item = $('.articleItemTmpl').clone().removeClass('articleItemTmpl').css('display', 'block')
+// make
+function makeArticleItem(dt) {
+    var $item = $('.articleItemTmpl').clone().removeClass('articleItemTmpl')
     $item.find('.articleTitle').text(dt.Title)
-    $item.find('.articleTitle').attr('href','news_detail.html?articleId='+dt.ArticleId)
-    $item.find('.newsitem-img').attr('href','news_detail.html?articleId='+dt.ArticleId)
+    $item.find('.articleLink').attr('href','news_detail.html?articleId='+dt.ArticleId)
     $item.find('.articleDate').text(fmtDate1(dt.Timestamp))
     $item.find('.articleTags').text(dt.Keywords)
     $item.find('.articleAuthor').text(dt.Member.Name)
-    $item.find('.articleImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)
-    $item.find('.avatarKey').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey)
+    $item.find('.articleImgWrap>img').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)
+    $item.find('.articleAuthorIcon>img').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey)
     return $item
 }
 
-function makeVideoItem(dt) {
-    var $item = $('.videoItemTmpl').clone().removeClass('articleItemTmpl').css('display', 'block');
-    $item.find('.video-title').text(dt.Title);    //video title
-    $item.find('.namemember').text(dt.Member.Name);  //namemember
-    $item.find('.datamember').text(fmtDate1(dt.Timestamp));   //date
-    $item.find('.icon-person').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey);   //小头像
-    $item.find('.newsvedio').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)   // 视频地址
-    $item.find('.wrap-video-introduction').attr('href', "person_video_detail.html?VideoId="+dt.VideoId);
-    return $item
-}
-
-function xxxmakeMemberItem(dt) {
-    var $item = $('.memberItemTmpl').clone().removeClass('itemTmpl').css('display', 'block')
+function makeMemberItem(dt) {
+    var $item = $('.memberItemTmpl').clone().removeClass('memberItemTmpl')
     var tagsStr = ''
     if(dt.tags && dt.tags.length){
         for(var i=0; i<dt.tags.length; i++){
@@ -181,13 +167,18 @@ function xxxmakeMemberItem(dt) {
     }
     $item.find('.memberTags').text(tagsStr)
     $item.find('.memberName').text(dt.Name)
-    $item.find('.memberName').text(dt.Name)
-    $item.find('.avatarImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.AvatarKey+'@!w170h170');
-    $item.find('.person-item').attr('href','member_article.html?MemberId='+dt.MemberId)
+    $item.find('.memberImgWrap>img').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.AvatarKey+'@!w170h170');
+    $item.find('.memberLink').attr('href','member_article.html?MemberId='+dt.MemberId)
     return $item
 }
 
-function makeProjectItem(dt) {
-
+function makeVideoItem(dt) {
+    var $item = $('.videoItemTmpl').clone().removeClass('videoItemTmpl').css('display', 'block');
+    $item.find('.video-title').text(dt.Title);    //video title
+    $item.find('.namemember').text(dt.Member.Name);  //namemember
+    $item.find('.datamember').text(fmtDate1(dt.Timestamp));   //date
+    $item.find('.icon-person').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey);   //小头像
+    $item.find('.newsvedio').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)   // 视频地址
+    $item.find('.wrap-video-introduction').attr('href', "person_video_detail.html?VideoId="+dt.VideoId);
+    return $item
 }
-

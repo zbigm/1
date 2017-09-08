@@ -75,35 +75,34 @@
     </div>
 
 
+    <!--<div class="wrap-news-item videoWrap">-->
+        <!--<ul>-->
+            <!--<li class="news-video-item clearfix videoItemTmpl" style="display:none;">-->
+                <!--<div class="video-item-detail">-->
+                    <!--<div class="wrap-news-video">-->
+                        <!--<a class="wrap-video-introduction" href="person_video_detail.html">-->
+                            <!--<img src="./public/Images/newsvideo.png" alt="" class="pull-left newsvedio">-->
+                            <!--<img src="./public/Images/broadcast.png" alt="" class="broadcast-btn">-->
+                            <!--<h4 class="video-title">Project and talent of the benign int eraction of suc-->
+                                <!--cessf Project and talent of the benign int </h4>-->
+                            <!--<span class="bggrey"></span>-->
+                        <!--</a>-->
+                    <!--</div>-->
+                    <!--<div class="news-video-tag clearfix">-->
+                        <!--<div class="pull-left clearfix">-->
+                            <!--<img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person">-->
+                            <!--<span class="pull-left color-grey namemember"></span>-->
+                        <!--</div>-->
+                        <!--<div class="pull-right">-->
+                            <!--<span class="color-grey datamember"></span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</li>&lt;!&ndash; news-video-item &ndash;&gt;-->
 
-    <div class="wrap-news-item videoWrap">
-        <ul>
-            <li class="news-video-item clearfix videoItemTmpl" style="display:none;">
-                <div class="video-item-detail">
-                    <div class="wrap-news-video">
-                        <a class="wrap-video-introduction" href="person_video_detail.html">
-                            <img src="./public/Images/newsvideo.png" alt="" class="pull-left newsvedio">
-                            <img src="./public/Images/broadcast.png" alt="" class="broadcast-btn">
-                            <h4 class="video-title">Project and talent of the benign int eraction of suc
-                                cessf Project and talent of the benign int </h4>
-                            <span class="bggrey"></span>
-                        </a>
-                    </div>
-                    <div class="news-video-tag clearfix">
-                        <div class="pull-left clearfix">
-                            <img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person">
-                            <span class="pull-left color-grey namemember"></span>
-                        </div>
-                        <div class="pull-right">
-                            <span class="color-grey datamember"></span>
-                        </div>
-                    </div>
-                </div>
-            </li><!-- news-video-item -->
 
-
-        </ul>
-    </div><!-- wrap-news-item -->
+        <!--</ul>-->
+    <!--</div>&lt;!&ndash; wrap-news-item &ndash;&gt;-->
 
 
     <div style="padding: 0 0 15px 0;">
@@ -286,7 +285,7 @@
                     var item = data[i]
                     $items.push(makeVideoItem(item))
                 }
-                $('.videoWrap>ul').append($items)
+                $('.result-list').append($items)
             }else if (type == 'Member') {
                 for (var i = 0; i < data.length; i++) {
                     var item = data[i]
@@ -296,289 +295,10 @@
             }
         }
 
-
-
-        function makeVideoItem(dt) {
-            var $item = $('.videoItemTmpl').clone().removeClass('articleItemTmpl').css('display', 'block');
-            $item.find('.video-title').text(dt.Title);    //video title
-            $item.find('.namemember').text(dt.Member.Name);  //namemember
-            $item.find('.datamember').text(fmtDate1(dt.Timestamp));   //date
-            $item.find('.icon-person').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey);   //小头像
-            $item.find('.newsvedio').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)   // 视频地址
-            $item.find('.wrap-video-introduction').attr('href', "person_video_detail.html?VideoId="+dt.VideoId);
-            return $item
-        }
-
-
-
-
         //
         $(".dropdown-menu li").children().first().click()
     })
 </script>
-
-
-
-<!-- -->
-
-<style>
-    a.tagbtn{
-        display: inline-block;
-        text-align: center;
-        margin-right: 0.22rem;
-        font-size: 0.26rem;
-    }
-    .tagBtn0{
-        width: 1.3rem;
-    }
-    .tagBtn1{
-        width: 1.6rem;
-    }
-    .tagBtn2{
-        width: 2.06rem;
-    }
-    .tagBtn3{
-        width: 1.46rem;
-    }
-    a:hover, a:visited, a:link, a:active {
-        text-decoration: none;
-        color: #3c3c3c;
-    }
-    .eventItemTmpl, .articleItemTmpl, .memberItemTmpl , .videoItemTmpl{
-        display: none;
-    }
-    .row0{
-        overflow: hidden;
-    }
-    .fl{
-        float: left;
-    }
-    .fr{
-        float: right;
-    }
-    .center-img-wrap{
-        position: relative;
-        overflow: hidden;
-    }
-    .center-img-wrap>img{
-        position: absolute;
-        width: 100%;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
-    }
-    /** article **/
-    .articleItem{
-        padding: 0.30rem 0.22rem 0.30rem 0.22rem;
-        margin-bottom: 0.09rem;
-        background-color: #fff;
-
-    }
-    .articleImgWrap{
-        width: 2.7rem;
-        height: 1.66rem;
-    }
-    .articleTextWrap{
-        position: relative;
-        width: 4rem;
-        height: 1.66rem;
-    }
-    .articleTitle{
-        font-size: 0.26rem;
-        max-height: 0.72rem;
-        overflow: hidden;
-        margin-bottom: 0.15rem;
-    }
-    .articleTags{
-        max-height: 0.32rem;
-        font-size: 0.22rem;
-        color: #118ff6;
-        margin-bottom: 0.15rem;
-        white-space:nowrap;
-    }
-    .articleInfo{
-        position: absolute;
-        bottom: 0;
-        overflow: hidden;
-        width: 100%;
-        height: 0.54rem;
-    }
-    .articleAuthorIcon{
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 0.43rem;
-        height: 0.43rem;
-        border-radius: 50%;
-    }
-    .articleAuthorIcon>img{
-        width: 100%;
-        height: 100%;
-
-    }
-    .articleAuthor{
-        position: absolute;
-        left: 0.58rem;
-        top: 0.20rem;
-        font-size: 0.21rem;
-        color: #909090;
-    }
-    .articleDate{
-        position: absolute;
-        right: 0;
-        top: 0.20rem;
-        font-size: 0.19rem;
-        color: #909090;
-    }
-    /** end article **/
-
-    /** member **/
-
-
-</style>
-
-<div class="eventItem eventItemTmpl">
-    <div>
-        <div class="eventImgWrap">
-            <img src="" alt="">
-        </div>
-        <div class="eventTextWrap">
-            <div class="eventTitle"></div>
-            <div class="eventSubTitle"></div>
-            <div class="eventDate"></div>
-        </div>
-    </div>
-</div>
-
-<script>
-    function makeArticleItem(dt) {
-        var $item = $('.articleItemTmpl').clone().removeClass('articleItemTmpl')
-        $item.find('.articleTitle').text(dt.Title)
-        $item.find('.articleLink').attr('href','news_detail.html?articleId='+dt.ArticleId)
-        $item.find('.articleDate').text(fmtDate1(dt.Timestamp))
-        $item.find('.articleTags').text(dt.Keywords)
-        $item.find('.articleAuthor').text(dt.Member.Name)
-        $item.find('.articleImgWrap>img').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)
-        $item.find('.articleAuthorIcon>img').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey)
-        return $item
-    }
-</script>
-<div class="articleItem articleItemTmpl">
-    <a href="" class="articleLink">
-        <div class="row0">
-            <div class="articleImgWrap center-img-wrap fl">
-                <img src="" alt="">
-            </div>
-            <div class="articleTextWrap fr">
-                <div class="articleTitle"></div>
-                <div class="articleTags"></div>
-                <div class="articleInfo">
-                    <div class="articleAuthorIcon">
-                        <img src="" alt="">
-                    </div>
-                    <div class="articleAuthor"></div>
-                    <div class="articleDate"></div>
-                </div>
-            </div>
-        </div>
-    </a>
-</div>
-
-
-
-<style>
-
-    .memberItem{
-        width: 3.43rem;
-        height: 1.7rem;
-        position: relative;
-        float: left;
-        margin: 0.30rem 0 0.30rem 0.21rem;
-    }
-    .memberImgWrap{
-        width: 50%;
-        height: 1.7rem;
-        position: relative;
-        overflow: hidden;
-
-    }
-    .memberImgWrap>img{
-        width: 100%;
-        position: absolute;
-        top: 50%;
-        left:50%;
-        transform: translate(-50%,-50%);
-    }
-    .memberTextWrap{
-        width: 50%;
-        height: 1.7rem;
-        background: #f6f6f6;
-        overflow: hidden;
-        position: relative;
-    }
-    .memberName{
-        position: absolute;
-        top: 0.49rem;
-        left: 0.26rem;
-        font-size: 0.28rem;
-        color: #646464;
-    }
-    .memberTags{
-        position: absolute;
-        top: 0.95rem;
-        left: 0.26rem;
-        font-size: 0.24rem;
-        color: #118ff6;
-        overflow: hidden;
-        white-space: nowrap;
-    }
-</style>
-<script>
-    function makeMemberItem(dt) {
-        var $item = $('.memberItemTmpl').clone().removeClass('memberItemTmpl')
-        var tagsStr = ''
-        if(dt.tags && dt.tags.length){
-            for(var i=0; i<dt.tags.length; i++){
-                tagsStr += dt.tags[i][EnglishName]
-                tagsStr += ' '
-            }
-        }
-        $item.find('.memberTags').text(tagsStr)
-        $item.find('.memberName').text(dt.Name)
-        $item.find('.memberImgWrap>img').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.AvatarKey+'@!w170h170');
-        $item.find('.memberLink').attr('href','member_article.html?MemberId='+dt.MemberId)
-        return $item
-    }
-</script>
-<div class="memberItem memberItemTmpl">
-    <a href="" class="memberLink">
-        <div class="row0">
-            <div class="memberImgWrap fl">
-                <img src="" alt="">
-            </div>
-            <div class="memberTextWrap fl">
-                <div class="memberName"></div>
-                <div class="memberTags"></div>
-            </div>
-        </div>
-    </a>
-</div>
-
-
-<div class="videoItem videoItemTmpl">
-    <div>
-        <div class="videoImgWrap">
-            <img src="" alt="" class="videoImg" >
-            <img src="" alt="" class="videoPlayIcon">
-        </div>
-        <div class="videoInfo">
-            <div class="videoAuthorIcon"></div>
-            <div class="videoAuthorName"></div>
-            <div class="videoPostDate"></div>
-        </div>
-    </div>
-</div>
-
 
 
 

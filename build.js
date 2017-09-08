@@ -19,6 +19,8 @@ let distDir = path.join(__dirname, 'dist')
 let srcHtmlDir = path.join(srcDir, 'html')
 let distHtmlDir = path.join(distDir,'')
 let footerStr = fs.readFileSync(path.join(srcHtmlDir, 'part', 'footer.html'), 'utf8')
+let itemStr = fs.readFileSync(path.join(srcHtmlDir, 'part', 'item.html'), 'utf8')
+
 fs.readdirSync(srcHtmlDir).forEach( html => {
     let filePath = path.join(srcHtmlDir, html)
     if(fs.statSync(filePath).isFile()){
@@ -26,8 +28,9 @@ fs.readdirSync(srcHtmlDir).forEach( html => {
         let fileStr = fs.readFileSync(filePath, 'utf8')
         let tgtFileStr = fileStr.replace(/<!--{{footer.html}}-->/, getFootStr(html))
 
+        let tgtFileStr2 = tgtFileStr.replace(/<\/body>/, itemStr + '\n</body>')
         let tgtFile = path.join(distHtmlDir, html)
-        fs.writeFileSync(tgtFile, tgtFileStr, 'utf8')
+        fs.writeFileSync(tgtFile, tgtFileStr2, 'utf8')
         // console.log(html, '\n', filePath, '\n', tgtFile)
     }
 })

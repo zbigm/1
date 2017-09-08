@@ -92,6 +92,168 @@ body{
 	height: 1.7rem;
 }
 
+/** tmplItem **/
+
+ a.tagbtn{
+	 display: inline-block;
+	 text-align: center;
+	 margin-right: 0.22rem;
+	 font-size: 0.26rem;
+ }
+.tagBtn0{
+	width: 1.3rem;
+}
+.tagBtn1{
+	width: 1.6rem;
+}
+.tagBtn2{
+	width: 2.06rem;
+}
+.tagBtn3{
+	width: 1.46rem;
+}
+a:hover, a:visited, a:link, a:active {
+	text-decoration: none;
+	color: #3c3c3c;
+}
+.eventItemTmpl, .articleItemTmpl, .memberItemTmpl , .videoItemTmpl{
+	display: none;
+}
+.row0{
+	overflow: hidden;
+}
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+.center-img-wrap{
+	position: relative;
+	overflow: hidden;
+}
+.center-img-wrap>img{
+	position: absolute;
+	width: 100%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+/** article **/
+.articleItem{
+	padding: 0.30rem 0.22rem 0.30rem 0.22rem;
+	margin-bottom: 0.09rem;
+	background-color: #fff;
+
+}
+.articleImgWrap{
+	width: 2.7rem;
+	height: 1.66rem;
+}
+.articleTextWrap{
+	position: relative;
+	width: 4rem;
+	height: 1.66rem;
+}
+.articleTitle{
+	font-size: 0.26rem;
+	max-height: 0.72rem;
+	overflow: hidden;
+	margin-bottom: 0.15rem;
+}
+.articleTags{
+	max-height: 0.32rem;
+	font-size: 0.22rem;
+	color: #118ff6;
+	margin-bottom: 0.15rem;
+	white-space:nowrap;
+}
+.articleInfo{
+	position: absolute;
+	bottom: 0;
+	overflow: hidden;
+	width: 100%;
+	height: 0.54rem;
+}
+.articleAuthorIcon{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 0.43rem;
+	height: 0.43rem;
+	border-radius: 50%;
+}
+.articleAuthorIcon>img{
+	width: 100%;
+	height: 100%;
+
+}
+.articleAuthor{
+	position: absolute;
+	left: 0.58rem;
+	top: 0.20rem;
+	font-size: 0.21rem;
+	color: #909090;
+}
+.articleDate{
+	position: absolute;
+	right: 0;
+	top: 0.20rem;
+	font-size: 0.19rem;
+	color: #909090;
+}
+/** end article **/
+
+
+
+ .memberItem{
+	 width: 3.43rem;
+	 height: 1.7rem;
+	 position: relative;
+	 float: left;
+	 margin: 0.30rem 0 0.30rem 0.21rem;
+ }
+.memberImgWrap{
+	width: 50%;
+	height: 1.7rem;
+	position: relative;
+	overflow: hidden;
+
+}
+.memberImgWrap>img{
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	left:50%;
+	transform: translate(-50%,-50%);
+}
+.memberTextWrap{
+	width: 50%;
+	height: 1.7rem;
+	background: #f6f6f6;
+	overflow: hidden;
+	position: relative;
+}
+.memberName{
+	position: absolute;
+	top: 0.49rem;
+	left: 0.26rem;
+	font-size: 0.28rem;
+	color: #646464;
+}
+.memberTags{
+	position: absolute;
+	top: 0.95rem;
+	left: 0.26rem;
+	font-size: 0.24rem;
+	color: #118ff6;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+
+/** tmplItem end **/
+
 .sharebtn{
 	width: 1rem;
 	height: 1rem;
