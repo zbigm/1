@@ -55,7 +55,7 @@
     </div>
     <div class="row wrap-navbar member-navbar">
         <div class="swiper-container">
-            <ul class="swiper-wrapper clearfix">
+            <ul class="swiper-wrapper clearfix typeWrap1">
                 <li class="swiper-slide active">
                     <b>All</b>
                     <div class="linebottom"></div>
@@ -77,7 +77,7 @@
     </div><!-- wrap-navbar -->
     <div class="wrap-member-type-box">
         <div class="wrap-search-type container  member-type swiper-container">
-            <ul class="wrap-searchtag clearfix swiper-wrapper">
+            <ul class="wrap-searchtag clearfix swiper-wrapper tagsWrap2">
                 <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">Insight</a>
                 <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">TopNews</a>
                 <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">TechExpress</a>
@@ -152,25 +152,40 @@
             slidesPerView: "auto"
         });
         $(".wrap-navbar li").click(function(){
-            if($($this).data('clicked')) return;
 
             $(this).addClass('active').siblings().removeClass('active');
-            $($this).data('clicked',true)
 
-            $('.btn.dropdown-toggle').off()
         });
 
 
         getTags0(function (tags) {
             //debugger
         })
+        
+        $('.typeWrap1').on('click','li', function () {
+            $('.result-list').empty()
+            page = 1
+            var type = $(this).find('b').text()
+            reqData(type, '')
+        })
+
+        $('.tagsWrap2').on('click','a',function () {
+            $('.result-list').empty()
+            page = 1
+            var tag = $(this).text()
+            reqData('', tag)
+        })
 
 
         var page = 1
 
-        function reqData() {
+        function reqData(type, tag) {
+            $('.loadMore').hide()
+            $('.onRequesting').show()
             $post('/Account/Search',{
-                p: page++
+                p: page++,
+                type: type || '',
+                tag: tag || ''
             },function (data) {
                 $('.onRequesting').hide()
                 if(data.Status == 2){

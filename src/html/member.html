@@ -133,13 +133,15 @@
             //debugger
         })
         
-        $('.typeWrap1>li').click(function () {
+        $('.typeWrap1').on('click','li', function () {
+            $('.result-list').empty()
             page = 1
             var type = $(this).find('b').text()
             reqData(type, '')
         })
 
-        $('.tagsWrap2>a').click(function () {
+        $('.tagsWrap2').on('click','a',function () {
+            $('.result-list').empty()
             page = 1
             var tag = $(this).text()
             reqData('', tag)
@@ -149,6 +151,8 @@
         var page = 1
 
         function reqData(type, tag) {
+            $('.loadMore').hide()
+            $('.onRequesting').show()
             $post('/Account/Search',{
                 p: page++,
                 type: type || '',
