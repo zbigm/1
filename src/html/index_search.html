@@ -139,6 +139,20 @@
             }
         })
 
+        var articleTags = {
+            1: 'Insight',
+            2: 'TopNews',
+            3: 'TechExpress',
+            4: 'Project'
+        }
+        var videoTags = {
+            1: 'Insight',
+            2: 'TopNews',
+            3: 'TechExpress',
+        }
+        
+        var memberTags = {}
+
         $('.searchTags').on('click', '>a', function () {
             if($('.onRequesting:visible').length){
                 return
@@ -174,24 +188,7 @@
             $('.searchTags').empty().append(tgs)
         }
 
-        var articleTags = {
-            1: 'Insight',
-            2: 'TopNews',
-            3: 'TechExpress',
-            4: 'Project'
-        }
-        var videoTags = {
-            1: 'Insight',
-            2: 'TopNews',
-            3: 'TechExpress',
-            4: 'Project'
-        }
-        var memberTags = {
-            1: 'Big Data',
-            2: 'AI',
-            3: 'Mobile Internet',
-            4: 'Cloud Tech'
-        }
+       
 
         $('.searchInput').keydown(function(e) {
             if (e.keyCode == 13) {
