@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AAECA</title>
+    <link rel="stylesheet" href="./public/Styles/css/vendor.min.css">
+    <link rel="stylesheet" href="./public/Styles/main.css">
+    <script src="./public/Scripts/main.js"></script>
+    <script src="./public/Scripts/vendor.min.js"></script>
+</head>
+<body>
+    <div class="info-title">
+        <div class="return-wrap">
+            <img class="return" src="./public/Images/return.png" alt="">
+        </div>      
+        Info
+        <span class="save saveBtn" style="display: none;">save</span>
+    </div>
+    <div class="person-info">
+        <div class="info-list">
+            <span class="left col-xs-3">Icon</span>
+            <span class="right col-xs-9"><img class="person" src="./public/Images/zhangc.png"></span>
+        </div>
+        <div class="info-list">
+            <span class="left col-xs-3">Name</span>
+            <input value="" class="right col-xs-9 nameInput"/>
+        </div>
+        <div class="info-list">
+            <span class="left col-xs-3">Uint</span>
+            <input value="" class="right col-xs-9 companyInput"/>
+        </div>
+        <div class="info-list">
+            <span class="left col-xs-3">Position</span>
+            <input value="" class="right col-xs-9 positionInput"/>
+        </div>
+        <div class="info-list">
+            <span class="left col-xs-3">E-main</span>
+            <span class="right col-xs-9"></span>
+        </div>
+        <div class="info-list">
+            <span class="left col-xs-3">Phone</span>
+            <input value="18810971174" class="right col-xs-9 phoneInput"/>
+        </div>
+        <div class="info-list">
+            <span class="left col-xs-5">Registration Date</span>
+            <span class="right col-xs-7"></span>
+        </div>
+        <div class="info-list">
+            <span class="left col-xs-4">Introduction </span>
+            <input value="" class="right col-xs-8 introInput">
+        </div>
+    </div>
+
+    <script>
+
+        $('input').focus(function () {
+            $('.saveBtn').show()
+        })
+        
+        $('.savebtn').click(function () {
+
+            var personInfo = {
+                name:  $('.nameinput').val(),
+                personalCompanyName: $('.companyInput').val(),
+                enterpriseContact: $('.companyInput').val(),
+                phoneNumber: $('.phoneInput').val(),
+                introduce: $('.introInput').val()
+            }
+            
+            $post('', personInfo, function (data) {
+
+            })
+
+        })
+
+        $get('/Account/GetById',{
+            memberId: ''
+        },function (data) {
+            if(data.Status == 2){
+                $('.nameinput').val(data.name)
+                $('.companyInput').val(data.personalCompanyName)
+                $('.companyInput').val(data.enterpriseContact)
+                $('.phoneInput').val()
+                $('.introInput').val()
+            }else{
+                alert(data.Message)
+            }
+
+        })
+    </script>
+</body>
+</html>

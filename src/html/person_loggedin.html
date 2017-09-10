@@ -10,17 +10,22 @@
     <link rel="stylesheet" href="./public/Styles/main.css">
     <script src="./public/Scripts/main.js"></script>
     <script src="./public/Scripts/vendor.min.js"></script>
+    <style>
+        .wrap-user-icon img{
+            border: 0;
+        }
+    </style>
 </head>
 <body>
     <div class="person-nologin person-login">
         <div class="wrap-member-header">
             <div class="wrap-user-icon">
-                <a href="person_loggedin_unit_info.html">
-                    <img src="./public/Images/memberico.png"/>
+                <a href="person_info.html">
+                    <img src="" class="avatarImg"/>
                 </a>
             </div>
-            <h3 class="text-center">Bowman</h3>
-            <h4 class="text-center">Mobile Internet</h4>
+            <h3 class="text-center personName" ></h3>
+            <h4 class="text-center personTags"></h4>
         </div><!--wrap-member-header-->
         <div class="person-list">
             <div class="col-xs-4 article">
@@ -43,13 +48,13 @@
             </div>
         </div>
         <div class="list">
-            <div class="item">
-                <img src="./public/Images/Vip.png">My Vip
-                <span>
-                    <span class="date">2018-08-09到期</span>
-                    <img src="./public/Images/next.png">
-                </span>
-            </div>
+            <!--<div class="item">-->
+                <!--<img src="./public/Images/Vip.png">My Vip-->
+                <!--<span>-->
+                    <!--<span class="date">2018-08-09到期</span>-->
+                    <!--<img src="./public/Images/next.png">-->
+                <!--</span>-->
+            <!--</div>-->
             <a href="person_loggedin_help.html">
                 <div class="item">
                     <img src="./public/Images/Help.png">Help
@@ -65,5 +70,45 @@
         </div>
     </div>
     <!--{{footer.html}}-->
+    <script>
+        $(function () {
+            var memberId = localStorage.getItem('memberId')
+            $get('/Account/GetById', {
+                memberId: memberId
+            }, function (data) {
+                if(data.Status == 2){
+//                    debugger
+                    data = data.First
+                    // set data
+                    var memberType = data.MemberType
+
+                    $('.personName').text(data.Name)
+
+                    var tagsStr = ''
+                    if(data.Tags && data.Tags.length){
+                        for(var i=0; i<data.Tags.length; i++){
+                            tagsStr += data.Tags[i]['EnglishName']
+                            tagsStr += ' '
+                        }
+                    }
+                    $('.personTags').text(tagsStr)
+
+                    $('.avatarImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+data.AvatarKey+'@!w170h170');
+
+                }else{
+                    alert(data.Message)
+                }
+            })
+
+            //
+            $get('/Member/Account/Statistics', function (data) {
+                if(data.Status == 2){
+                    // set data
+                }else{
+                   // alert(data.Message)
+                }
+            })
+        })
+    </script>
 </body>
 </html>

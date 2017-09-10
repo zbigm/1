@@ -10,29 +10,36 @@
     <link rel="stylesheet" href="./public/Styles/main.css">
     <script src="./public/Scripts/main.js"></script>
     <script src="./public/Scripts/vendor.min.js"></script>
+    <style>
+        .searchBar{
+            position: relative;
+            z-index: 99999;
+            background: #FFF;
+        }
+    </style>
 </head>
 <body>
 
 <div class="container-fluid ">
     <!-- modal -->
     <div class="wrap-news-modal">
-        <div class="news-modal row">
-            <a href="news.html" class="col-xs-4 modal-item active">
-                <span class="article-icon">
+        <div class="news-modal row  navWrap">
+            <a href="avascript:void(0);" class="col-xs-4 modal-item">
+                <span class="recommend-icon">
                     <em class="news-ico"></em>
-                    <i>Article</i>
+                    <i>Recommend</i>
                 </span>
             </a>
-            <a href="news_6.html" class="col-xs-4 modal-item">
+            <a href="avascript:void(0);" class="col-xs-4 modal-item">
                 <span class="video-icon">
                     <em class="news-ico"></em>
                     <i>Video</i>
                 </span>
             </a>
-            <a href="news_3.html" class="col-xs-4 modal-item">
-                <span class="recommend-icon">
+            <a href="avascript:void(0);" class="col-xs-4 modal-item active">
+                <span class="article-icon">
                     <em class="news-ico"></em>
-                    <i>Recommend</i>
+                    <i>Article</i>
                 </span>
             </a>
         </div>
@@ -48,7 +55,7 @@
     <div id="loadmask"></div>
     <!-- modal -->
 
-    <div class="container">
+    <div class="container searchBar">
         <div class="row news-header padding0">
             <div class="col-xs-4 padding0">
                 <span class="classify-icon">
@@ -93,31 +100,53 @@
             <div class="swiper-pagination"></div>
         </div>
     </div><!--/news-banner -->
-    <div class="row wrap-navbar">
+
+    <div class="row wrap-navbar catgWrapBar" style="display: none;">
+        <div class="swiper-container wrap-subnavbar">
+            <ul class="swiper-wrapper clearfix">
+                <li class="swiper-slide active">
+                    <a href="javascript:void(0);">
+                        <span>Article</span>
+                        <i>文章</i>
+                    </a>
+                    <div class="linebottom"></div>
+                </li>
+                <li class="swiper-slide">
+                    <a href="javascript:void(0);">
+                        <span>Video</span>
+                        <i>视频</i>
+                    </a>
+                    <div class="linebottom"></div>
+                </li>
+            </ul>
+        </div>
+    </div><!-- wrap-navbar -->
+
+    <div class="row wrap-navbar newsTypeWrap">
         <div class="swiper-container">
             <ul class="swiper-wrapper clearfix tagsWrap1">
-                <li class="swiper-slide active">
+                <li class="swiper-slide active" data-type="1">
                     <a href="javascript:void(0)">
                         <span>Insight</span>
                         <i>行业洞察</i>
                     </a>
                     <div class="linebottom"></div>
                 </li>
-                <li class="swiper-slide">
+                <li class="swiper-slide" data-type="2">
                     <a href="javascript:void(0)">
                         <span>Top News</span>
                         <i>前沿热点</i>
                     </a>
                     <div class="linebottom"></div>
                 </li>
-                <li class="swiper-slide">
+                <li class="swiper-slide" data-type="3">
                     <a href="javascript:void(0)">
                         <span>Tech Express</span>
                         <i>科技创新</i>
                     </a>
                     <div class="linebottom"></div>
                 </li>
-                <li class="swiper-slide">
+                <li class="swiper-slide projectItemType" data-type="4">
                     <a href="javascript:void(0)">
                         <span>Project</span>
                         <i>项目</i>
@@ -127,6 +156,9 @@
             </ul>
         </div>
     </div><!-- wrap-navbar -->
+
+
+
 
     <div class="result-list">
     </div>
@@ -159,7 +191,7 @@
                 </a>
             </li>
             <li class="col-xs-3 person_actv">
-                <a href="person_not_loggedin.html">
+                <a href="javascript:void(0);" class="meBtn">
                     <span class="me-footer"></span>
                     <i>Me</i>
                 </a>
@@ -167,6 +199,29 @@
         </ul>
     </div>
 </div>
+<script>
+    $(function () {
+        $get('/Account/GetLogonStatus',function (data) {
+            if(data.Status == 2){
+                var memberId = '14'
+                localStorage.setItem('memberId', memberId)
+            }else {
+                console.log(data.Message)
+            }
+
+
+            localStorage.setItem('memberId', 14)
+        })
+
+        $('.meBtn').click(function () {
+            if(localStorage.getItem('memberId')){
+                location.href = 'person_loggedin.html'
+            }else {
+                location.href = 'person_not_loggedin.html'
+            }
+        })
+    })
+</script>
 <script>
     $(function () {
         newsReady()
@@ -184,38 +239,108 @@
             $(this).addClass('active').siblings().removeClass('active');
         });
 
-        $('.tagsWrap1').on('click','li', function () {
-            var tag = $(this).find('span').text()
-            page = 1
-            $('.result-list').empty()
-            reqData(tag)
+
+        $('.catgWrapBar li').click(function () {
+            newsCatg = $(this).find('span').text()
+            type = ''
+
+            doSearch()
         })
 
-        var page = 1
 
-        function reqData(tag) {
-            $('.loadMore').hide()
-            $('.onRequesting').show()
-            $get('/Article/Search',{
+        var newsCatg = 'Article'
+        var page = 1
+        var type = 1  // Insight
+        var isRecommend = 0
+
+        // Insight Topnews HighTech Project
+        $('.tagsWrap1').on('click','li', function () {
+            type = $(this).data('type')
+            doSearch()
+        })
+
+        // Article , Video , Recommend
+        $('.navWrap').on('click', '>a', function () {
+            $(this).addClass('active').siblings().removeClass('active')
+            var text = $(this).find('i').text().trim()
+
+            isRecommend = 0
+            type = 1
+
+            if(text === 'Article'){
+                newsCatg = 'Article'
+
+                $('.news-banner').show()
+                $('.newsTypeWrap').show()
+                $('.projectItemType').show()
+                $('.catgWrapBar').hide()
+
+            }else if(text == 'Video'){
+                newsCatg = 'Video'
+                $('.news-banner').hide()
+                $('.newsTypeWrap').show()
+                $('.projectItemType').hide()
+                $('.catgWrapBar').hide()
+            }else if(text == 'Recommend'){
+                newsCatg = 'Article'
+                $('.news-banner').show()
+                $('.newsTypeWrap').hide()
+                $('.catgWrapBar').show()
+                isRecommend = 1
+                type = ''
+
+            }
+
+            doSearch()
+
+            $(".cancel-icon").click()
+
+        })
+
+        function doSearch() {
+            page = 1;
+
+            $('.result-list').empty()
+
+            $('.loadMore').off().hide()
+            $('.noMore').hide()
+
+            var tag = $('.searchTags>a.active').text()
+
+            var url = '/' + newsCatg + '/Search'
+            var dt = {
                 p: page++,
-                tag
-            },function (data) {
+                isRecommend: isRecommend
+            }
+            if (newsCatg == 'Article') {
+                dt.articleType = type
+            } else if (newsCatg == 'Video') {
+                dt.videoType = type
+            }
+
+            $('.loadMore').off().click(function () {
+                $(this).hide()
+                dt.p = page++
+                reqData( url, dt)
+            })
+
+            reqData(url, dt)
+
+        }
+
+
+        function reqData(url, dt) {
+            $('.onRequesting').show()
+            $get(url,dt,function (data) {
                 $('.onRequesting').hide()
                 if(data.Status == 2){
                     var ret = data.Body
                     if(ret && ret.length){
+
+                        makeDt(ret)
+
                         $('.loadMore').show()
                         $('.noMore').hide()
-
-                        var $items = []
-                        for (var i = 0; i < ret.length; i++) {
-                            var item = ret[i]
-                            $items.push(makeArticleItem(item))
-                        }
-                        $('.result-list').append($items)
-
-                        $('.result-list .memberItem:even').css({float: 'left', marginLeft: '0.21rem', marginRight: '0'})
-                        $('.result-list .memberItem:odd').css({float: 'right', marginLeft: '0', marginRight: '0.21rem'})
 
                     }else{
                         $('.loadMore').hide()
@@ -231,67 +356,24 @@
             })
         }
 
-        $('.loadMore').click(function () {
-            $('.onRequesting').show()
-            $(this).hide()
-            reqData()
-        })
+        function makeDt( data) {
+            var $items = []
+            if (newsCatg == 'Article' || newsCatg == 'Recommend') {
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i]
+                    $items.push(makeArticleItem(item))
+                }
+                $('.result-list').append($items)
+            }else if (newsCatg == 'Video') {
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i]
+                    $items.push(makeVideoItem(item))
+                }
+                $('.result-list').append($items)
+            }
+        }
 
-
-        reqData()
-
-
-//
-//        page = 1;
-//        var articleType = 1;
-//        var dropload = $('.container-fluid').dropload({
-//            scrollArea: window,
-//            loadDownFn: function (me) {
-//                $get('/Article/Search',{
-//                    p: page++,
-//                    articleType: articleType
-//                }, function (data) {
-//                    if(data.Status == 2){
-//                        var Body = data.Body
-//                        if(Body && Body.length){
-//                            var $items = []
-//
-//                            for(var i=0; i<Body.length; i++){
-//                                var item = Body[i]
-//                                $items.push(makeArticleItem(item))
-//                            }
-//
-//                            $('.wrap-news-item>ul').append($items)
-//                            me.resetload();
-//
-//                        }else{
-//                            me.lock();
-//                            me.noData();
-//                            me.resetload();
-//                        }
-//                    }else{
-//                        page--
-//                        me.resetload();
-//                        alert(data.Message)
-//                    }
-//                }, function (error) {
-//                    me.resetload();
-//                })
-//            }
-//        })
-
-//        function makeArticleItem(dt) {
-//            var $item = $('.articleItemTmpl').clone().removeClass('articleItemTmpl').css('display', 'block')
-//            $item.find('.articleTitle').text(dt.Title)
-//            $item.find('.articleTitle').attr('href','news_detail.html?articleId='+dt.ArticleId)
-//            $item.find('.newsitem-img').attr('href','news_detail.html?articleId='+dt.ArticleId)
-//            $item.find('.articleDate').text(fmtDate1(dt.Timestamp))
-//            $item.find('.articleTags').text(dt.Keywords)
-//            $item.find('.articleAuthor').text(dt.Member.Name)
-//            $item.find('.articleImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)
-//            $item.find('.avatarKey').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey)
-//            return $item
-//        }
+        doSearch()
 
     })
 </script>

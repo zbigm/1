@@ -56,19 +56,19 @@
     <div class="row wrap-navbar member-navbar">
         <div class="swiper-container">
             <ul class="swiper-wrapper clearfix typeWrap1">
-                <li class="swiper-slide active">
+                <li class="swiper-slide active" data-level="">
                     <b>All</b>
                     <div class="linebottom"></div>
                 </li>
-                <li class="swiper-slide">
+                <li class="swiper-slide" data-level="-1">
                     <b>Secretary General</b>
                     <div class="linebottom"></div>
                 </li>
-                <li class="swiper-slide">
+                <li class="swiper-slide" data-level="2">
                     <b>Diretors</b>
                     <div class="linebottom"></div>
                 </li>
-                <li class="swiper-slide">
+                <li class="swiper-slide" data-level="1">
                     <b>Members</b>
                     <div class="linebottom"></div>
                 </li>
@@ -78,10 +78,7 @@
     <div class="wrap-member-type-box">
         <div class="wrap-search-type container  member-type swiper-container">
             <ul class="wrap-searchtag clearfix swiper-wrapper tagsWrap2">
-                <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">Insight</a>
-                <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">TopNews</a>
-                <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">TechExpress</a>
-                <a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">Project</a>
+                <!--<a href="javascript:void(0);" class="swiper-slide tagbtn pull-left">Insight</a>-->
             </ul>
         </div><!-- wrap-search-type -->
     </div><!-- wrap-member-type-box -->
@@ -135,7 +132,7 @@
                 </a>
             </li>
             <li class="col-xs-3 person_actv">
-                <a href="person_not_loggedin.html">
+                <a href="javascript:void(0);" class="meBtn">
                     <span class="me-footer"></span>
                     <i>Me</i>
                 </a>
@@ -145,47 +142,89 @@
 </div>
 <script>
     $(function () {
+        $get('/Account/GetLogonStatus',function (data) {
+            if(data.Status == 2){
+                var memberId = '14'
+                localStorage.setItem('memberId', memberId)
+            }else {
+                console.log(data.Message)
+            }
+
+
+            localStorage.setItem('memberId', 14)
+        })
+
+        $('.meBtn').click(function () {
+            if(localStorage.getItem('memberId')){
+                location.href = 'person_loggedin.html'
+            }else {
+                location.href = 'person_not_loggedin.html'
+            }
+        })
+    })
+</script>
+<script>
+    $(function () {
         var navBarSwiper = new Swiper ('.wrap-navbar .swiper-container', {
             slidesPerView: "auto"
         });
         var navBarSwiper = new Swiper ('.wrap-member-type-box .swiper-container', {
             slidesPerView: "auto"
         });
-        $(".wrap-navbar li").click(function(){
+//        $(".wrap-navbar li").click(function(){
+//
+//            $(this).addClass('active').siblings().removeClass('active');
+//
+//        });
 
-            $(this).addClass('active').siblings().removeClass('active');
+        getTags0(function (tgs) {
+            var $tgs = []
+            for(var i=0; i<tgs.length; i++){
 
-        });
+                var $tg = $('<a href="javascript:void(0);"></a>')
+                    .addClass('swiper-slide tagbtn pull-left' + ' tagBtn'+(i++))
+                    .css({display: 'inline-block',width: 'atuo'})
+                    .text(tgs[i]['EnglishName']).data('val',tgs[i]['TagId'])
+                $tgs.push($tg)
+            }
 
-
-        getTags0(function (tags) {
-            //debugger
+            $('.tagsWrap2').empty().append($tgs)
         })
         
         $('.typeWrap1').on('click','li', function () {
+            $(this).toggleClass('active').siblings().removeClass('active')
             $('.result-list').empty()
             page = 1
-            var type = $(this).find('b').text()
-            reqData(type, '')
+            reqData()
         })
 
         $('.tagsWrap2').on('click','a',function () {
+            $(this).toggleClass('active').siblings().removeClass('active')
             $('.result-list').empty()
             page = 1
-            var tag = $(this).text()
-            reqData('', tag)
+            reqData()
         })
+
 
 
         var page = 1
 
-        function reqData(type, tag) {
+        function reqData() {
+
+            var memberLevel = $('.typeWrap1>li.active').data('level')
+            if(memberLevel == -1){
+                $('.result-list').empty()
+                return
+            }
+            var tagId = $('.tagsWrap2>a.active').data('val')
+
+
             $('.loadMore').hide()
             $('.onRequesting').show()
             $post('/Account/Search',{
                 p: page++,
-                type: type || '',
-                tag: tag || ''
+                memberLevel: memberLevel,
+                parentTagId: tagId
             },function (data) {
                 $('.onRequesting').hide()
                 if(data.Status == 2){
@@ -219,7 +258,6 @@
         }
 
         $('.loadMore').click(function () {
-            $('.onRequesting').show()
             $(this).hide()
             reqData()
         })

@@ -12,83 +12,85 @@
     <script src="./public/Scripts/vendor.min.js"></script>
 </head>
 <body>
-<div class="container-fluid">
-    <div class="container">
-        <div class="row">
-            <h3 class="main-title text-center">CONSTITUTION OF AAECA</h3>
-            <div class="wrap-charter-content">
-                <div class="charter-item">
-                    <h4 class="main-subtitle text-center">Chapter 1  General Rules</h4>
-                    <p>Article 1. The name of the Association is American Asian Econo-
-    mic and Cultural Association or AAECA.</p>
-    <p>Article 1. The name of the Association is American Asian Econo-
-    mic and Cultural Association or AAECA.</p>
-                </div>
-                <div class="charter-item">
-                    <h4 class="main-subtitle text-center">Chapter 1  General Rules</h4>
-                    <p class="text-indent">Article 1. The name of the Association is American Asian Econo-
-    mic and Cultural Association or AAECA.</p>
-    <p>Article 1. The name of the Association is American Asian Econo-
-    mic and Cultural Association or AAECA.</p>
-                </div>
-            </div>
+    <div class="info-title">
+        <div class="return-wrap">
+            <img class="return" src="./public/Images/return.png" alt="">
+        </div>      
+        Info
+        <span class="save saveBtn" style="display: none;">save</span>
+    </div>
+    <div class="person-info">
+        <div class="info-list">
+            <span class="left col-xs-3">Icon</span>
+            <span class="right col-xs-9"><img class="person" src="./public/Images/zhangc.png"></span>
+        </div>
+        <div class="info-list">
+            <span class="left col-xs-3">Name</span>
+            <input value="" class="right col-xs-9 nameInput"/>
+        </div>
+        <div class="info-list">
+            <span class="left col-xs-3">Uint</span>
+            <input value="" class="right col-xs-9 companyInput"/>
+        </div>
+        <div class="info-list">
+            <span class="left col-xs-3">Position</span>
+            <input value="" class="right col-xs-9 positionInput"/>
+        </div>
+        <div class="info-list">
+            <span class="left col-xs-3">E-main</span>
+            <span class="right col-xs-9"></span>
+        </div>
+        <div class="info-list">
+            <span class="left col-xs-3">Phone</span>
+            <input value="18810971174" class="right col-xs-9 phoneInput"/>
+        </div>
+        <div class="info-list">
+            <span class="left col-xs-5">Registration Date</span>
+            <span class="right col-xs-7"></span>
+        </div>
+        <div class="info-list">
+            <span class="left col-xs-4">Introduction </span>
+            <input value="" class="right col-xs-8 introInput">
         </div>
     </div>
-</div><!-- container-fluid -->
-<div class="wrap-footer">
-    <div class="container">
-        <ul class="row">
-            <li class="col-xs-3 active">
-                <a href="index.html">
-                    <span class="home-footer"></span>
-                    <i>Home</i>
-                </a>
-            </li>
-            <li class="col-xs-3 news_actv">
-                <a href="news.html">
-                    <span class="news-footer"></span>
-                    <i>News</i>
-                </a>
-            </li>
-            <li class="col-xs-3 member_actv">
-                <a href="member.html">
-                    <span class="members-footer"></span>
-                    <i>Members</i>
-                </a>
-            </li>
-            <li class="col-xs-3 person_actv">
-                <a href="javascript:void(0);" class="meBtn">
-                    <span class="me-footer"></span>
-                    <i>Me</i>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
-<script>
-    $(function () {
-        $get('/Account/GetLogonStatus',function (data) {
+
+    <script>
+
+        $('input').focus(function () {
+            $('.saveBtn').show()
+        })
+        
+        $('.savebtn').click(function () {
+
+            var personInfo = {
+                name:  $('.nameinput').val(),
+                personalCompanyName: $('.companyInput').val(),
+                enterpriseContact: $('.companyInput').val(),
+                phoneNumber: $('.phoneInput').val(),
+                introduce: $('.introInput').val()
+            }
+            
+            $post('', personInfo, function (data) {
+
+            })
+
+        })
+
+        $get('/Account/GetById',{
+            memberId: ''
+        },function (data) {
             if(data.Status == 2){
-                var memberId = '14'
-                localStorage.setItem('memberId', memberId)
-            }else {
-                console.log(data.Message)
+                $('.nameinput').val(data.name)
+                $('.companyInput').val(data.personalCompanyName)
+                $('.companyInput').val(data.enterpriseContact)
+                $('.phoneInput').val()
+                $('.introInput').val()
+            }else{
+                alert(data.Message)
             }
 
-
-            localStorage.setItem('memberId', 14)
         })
-
-        $('.meBtn').click(function () {
-            if(localStorage.getItem('memberId')){
-                location.href = 'person_loggedin.html'
-            }else {
-                location.href = 'person_not_loggedin.html'
-            }
-        })
-    })
-</script>
-
+    </script>
 <div class="news-video-item clearfix videoItemTmpl" style="display:none;">
     <div class="video-item-detail">
         <div class="wrap-news-video">

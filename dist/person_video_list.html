@@ -140,7 +140,7 @@ cessf Project and talent of the benign int </h4>
                 </a>
             </li>
             <li class="col-xs-3 active">
-                <a href="person_not_loggedin.html">
+                <a href="javascript:void(0);" class="meBtn">
                     <span class="me-footer"></span>
                     <i>Me</i>
                 </a>
@@ -148,6 +148,29 @@ cessf Project and talent of the benign int </h4>
         </ul>
     </div>
 </div>
+<script>
+    $(function () {
+        $get('/Account/GetLogonStatus',function (data) {
+            if(data.Status == 2){
+                var memberId = '14'
+                localStorage.setItem('memberId', memberId)
+            }else {
+                console.log(data.Message)
+            }
+
+
+            localStorage.setItem('memberId', 14)
+        })
+
+        $('.meBtn').click(function () {
+            if(localStorage.getItem('memberId')){
+                location.href = 'person_loggedin.html'
+            }else {
+                location.href = 'person_not_loggedin.html'
+            }
+        })
+    })
+</script>
 <script>
     $(function () {
         console.log('jquery version:', $.fn.jquery);

@@ -51,7 +51,7 @@
             </div><!-- wrap-member-type-box -->
         </div><!-- wrap-search-type -->
     </div><!-- wrap-search-title -->
-    <div class="container noMore" style="display: none">
+    <div class="container noAnyData" style="display: none">
         <div class="row">
             <div class="col-xs-12 wrap-no-result">
                 <div class="text-center">
@@ -135,8 +135,9 @@
                 setTags(videoTags)
             }else if(text == 'Member'){
                 setTags(memberTags)
-
             }
+
+            doSearch()
         })
 
         var articleTags = {
@@ -153,6 +154,12 @@
         
         var memberTags = {}
 
+        getTags0(function (tgs) {
+            for(var i=0; i<tgs.length; i++){
+                memberTags[tgs[i]['TagId']] = tgs[i]['EnglishName']
+            }
+        })
+
         $('.searchTags').on('click', '>a', function () {
             if($('.onRequesting:visible').length){
                 return
@@ -160,11 +167,9 @@
 
             var keyword = $('.searchInput').val().trim()
             var type = $(".btn .search-text").text()
-            var tag = $(this).text()
 
             $(this).siblings().removeClass('active')
             $(this).addClass('active')
-//            alert(type + ' ' + tag + ' ' + $(this).data('tid') + ' ' + keyword)
 
             doSearch()
         })
@@ -173,22 +178,19 @@
             var tgs = []
 
             var tags = []
+            var i = 0
             for(var k in tagsObj){
                 tags.push([tagsObj[k], k])
-            }
 
-            for(var i=0; i<tags.length; i++){
                 var $tg = $('<a href="javascript:void(0);"></a>')
-                    .addClass('swiper-slide tagbtn ' + ' tagBtn'+i)
+                    .addClass('swiper-slide tagbtn ' + ' tagBtn'+(i++))
                     .css({display: 'inline-block',width: 'atuo'})
-                    .text(tags[i][0]).data('tid',tags[i][1])
-//                var $taWrap = $('<div></div>').css({'width': '25%',textAlign: 'center'}).append($tg)
+                    .text(tagsObj[k]).data('val',k)
                 tgs.push($tg)
             }
+
             $('.searchTags').empty().append(tgs)
         }
-
-       
 
         $('.searchInput').keydown(function(e) {
             if (e.keyCode == 13) {
@@ -202,16 +204,14 @@
 
             $('.result-list').empty()
 
-            $('.loadMore').off()
+            $('.loadMore').off().hide()
             $('.noMore').hide()
-            $('.loadMore').hide()
             $('.onRequesting').show()
 
 
             var keyword = $('.searchInput').val().trim()
             var type = $(".btn .search-text").text()
-            var tag = $('.searchTags>a.active').text()
-            var $fn = $get
+            var tagVal = $('.searchTags>a.active').data('val')
 
             var url = '/' + (type == 'Member' ? 'Account' : type) + '/Search'
             var dt = {
@@ -219,30 +219,28 @@
                 p: page++
             }
             if (type == 'Article') {
-                dt.articleType = tag
+                dt.articleType = tagVal
             } else if (type == 'Video') {
-                dt.videoType = tag
+                dt.videoType = tagVal
             } else if (type == 'Member') {
-                $fn = $post
+                dt.parentTagId = tagVal
             }
 
-            $('.loadMore').click(function () {
-                $('.onRequesting').show()
+            $('.loadMore').off().click(function () {
                 $(this).hide()
                 dt.p = page++
-                reqData($fn, url, type, dt)
+                reqData(url, type, dt)
             })
 
-            reqData($fn,url, type, dt)
+            reqData(url, type, dt)
 
             //
         }
 
+        function reqData(url, type, dt) {
+            $('.onRequesting').show()
 
-        function reqData($fn,url, type, dt) {
-            $fn(url,{
-                dt
-            },function (data) {
+            $get(url,dt,function (data) {
                 $('.onRequesting').hide()
                 if(data.Status == 2){
                     var ret = data.Body
@@ -271,33 +269,25 @@
 
         function makeDt(type, data) {
             var $items = []
-            if (type == 'Article') {
-                for (var i = 0; i < data.length; i++) {
-                    var item = data[i]
+
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i]
+                if (type == 'Article') {
                     $items.push(makeArticleItem(item))
-                }
-                $('.result-list').append($items)
-            }else if (type == 'Video') {
-                for (var i = 0; i < data.length; i++) {
-                    var item = data[i]
+                }else if (type == 'Video') {
                     $items.push(makeVideoItem(item))
-                }
-                $('.result-list').append($items)
-            }else if (type == 'Member') {
-                for (var i = 0; i < data.length; i++) {
-                    var item = data[i]
+                }else if (type == 'Member') {
                     $items.push(makeMemberItem(item))
                 }
-                $('.result-list').append($items)
             }
-        }
 
+            $('.result-list').append($items)
+
+        }
         //
         $(".dropdown-menu li").children().first().click()
     })
 </script>
-
-
 
 </body>
 </html>

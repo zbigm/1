@@ -159,9 +159,9 @@ function makeArticleItem(dt) {
 function makeMemberItem(dt) {
     var $item = $('.memberItemTmpl').clone().removeClass('memberItemTmpl')
     var tagsStr = ''
-    if(dt.tags && dt.tags.length){
-        for(var i=0; i<dt.tags.length; i++){
-            tagsStr += dt.tags[i][EnglishName]
+    if(dt.Tags && dt.Tags.length){
+        for(var i=0; i<dt.Tags.length; i++){
+            tagsStr += dt.Tags[i]['EnglishName']
             tagsStr += ' '
         }
     }
@@ -182,3 +182,4 @@ function makeVideoItem(dt) {
     $item.find('.wrap-video-introduction').attr('href', "person_video_detail.html?VideoId="+dt.VideoId);
     return $item
 }
+
