@@ -1077,8 +1077,35 @@ li.member-list-item:nth-child(even){
 	width: 100%;
 }
 .person-info {
-	border-top: 0.17rem solid #f5f5f5;
 	border-bottom: 0.17rem solid #f5f5f5;
+}
+.info-title {
+	height: 0.92rem;
+	border-bottom: 1px solid #e8e8e8;
+	padding: 0 0.3rem;
+	line-height: 0.92rem;
+	text-align: center;
+	color: #3c3c3c;
+	font-size: 0.38rem;
+}
+.info-title .return-wrap {
+	position: absolute;
+	top: 0;
+	left: 0.33rem;
+	line-height: 0.92rem;
+}
+.info-title .return {
+	width: 0.2rem;
+	height: 0.38rem;	
+}
+.info-title .save {
+	display: block;
+	line-height: 0.92rem;
+	position: absolute;
+	color: #3c3c3c;
+	font-size: 0.34rem;
+	top: 0;
+	right: 0.3rem;
 }
 .person-info .info-list {
 	height: 0.92rem;
@@ -1092,7 +1119,7 @@ li.member-list-item:nth-child(even){
 	text-align: left;
 	padding: 0;
 }
-.person-info .info-list .right {
+.person-info .info-list input.right {
 	color: #909090;
 	font-size: 0.28rem;
 	text-align: right;
@@ -1103,6 +1130,19 @@ li.member-list-item:nth-child(even){
 	padding-right: 0.3rem;
 	background: url("../Images/next.png") center right no-repeat;
 	background-size: 0.15rem auto;
+	-webkit-appearance: none;
+	outline: none;
+	border: none;
+}
+.person-info .info-list span.right {
+	color: #909090;
+	font-size: 0.28rem;
+	text-align: right;
+	padding: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding-right: 0.3rem;
 }
 .person-info .info-list .right .person {
 	width: 0.64rem;
