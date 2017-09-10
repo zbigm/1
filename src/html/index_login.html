@@ -42,7 +42,7 @@
                         <span class="logico pull-left">
                             <img src="./public/Images/passwordico.png" alt="">
                         </span>
-                        <input type="text" placeholder="Password | 密码" class="input-item password pull-left">
+                        <input type="password" placeholder="Password | 密码" class="input-item password pull-left">
                     </div>
                     <div class="error">
                         <span></span>
@@ -113,7 +113,7 @@
                 }, function (data) {
                     if(data.Status == 2){
                         alert('登录成功，即将前往首页')
-                        //location.href = 'index.html'
+                        location.href = 'index.html'
                     }else{
                         alert(data.Message)
                     }
