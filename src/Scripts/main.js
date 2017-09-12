@@ -79,7 +79,7 @@ function fmtDate1(dateStr) {
     var year =  date.getFullYear()
     var month = date.getMonth();
     var day = date.getDate();
-    var mthStr = ["Jan.","Feb.","Mar.","Apr.","May.","Jun.","Jul.","Aug.","Sep.","Oct.","Nov.","Dec."][month]
+    var mthStr = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][month]
 
     return mthStr + ' ' + day + ', ' + year
 }

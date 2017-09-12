@@ -12,6 +12,18 @@
         .wrap-new-breif{
             padding-bottom: 0.4rem;
         }
+        .s-container{
+            font-size: 0.24rem;
+            color: #a1a2a4;
+            display: block;
+            padding-left: 0.24rem;
+            width: 4.2rem;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            height: 0.45rem;
+            line-height: 0.45rem;
+        }
     </style>
 </head>
 <body>
@@ -43,7 +55,12 @@
                 <span class="pull-left index-sidebar-ico">
                     <img src="./public/Images/events.png" alt="">
                 </span>
-            <a href="javascript:void(0);" class="index-news-title pull-left">美亚经济文化协会最新活动资讯通报./public.</a>
+            <div style="display: inline-block;float: left;" class="s-container">
+                <div class="swiper-wrapper">
+
+                </div>
+            </div>
+            <!--<a href="javascript:void(0);" class="index-news-title pull-left">美亚经济文化协会最新活动资讯通报./public.</a>-->
             <a href="index_event_list.html" class="news-more pull-right">More >></a>
         </div>
     </div><!-- wrap-index-sidebar -->
@@ -63,6 +80,57 @@
 </div><!-- container-fluid -->
 
 <script src="./public/Scripts/vendor.min.js"></script>
+<script>
+    $(function () {
+        $get('/Activity/Search',{
+
+        }, function (data) {
+            $('.onRequesting').hide()
+            if(data.Status == 2){
+                var Body = data.Body
+                if(Body && Body.length){
+                    $('.loadMore').show()
+                    $('.noMore').hide()
+                    var $items = []
+
+                    for(var i=0; i<Math.min(2, Body.length); i++){
+                        var item = Body[i]
+                        var a1 = $('<a></a>').addClass('index-news-title pull-left')
+                            .attr('href', 'index_event_detail.html?id='+item.ActivityId)
+                            .text(item.Title)
+                        a1 = $('<div class="swiper-slide">').append(a1)
+                        $items.push(a1)
+
+                        var a2 = $('<a></a>').addClass('index-news-title pull-left')
+                            .attr('href', 'index_event_detail.html?id='+item.ActivityId)
+                            .text(item.Subtitle)
+                        a2 = $('<div class="swiper-slide">').append(a2)
+                        $items.push(a2)
+
+                    }
+
+                    $('.swiper-wrapper').append($items)
+
+                    new Swiper('.s-container', {
+                        autoplay: 5000,
+                        loop: true,
+                        slidesPerView: "auto"
+
+                    });
+
+                }else{
+                    $('.loadMore').hide()
+                    $('.noMore').show()
+                }
+            }else{
+                $('.onRequesting').hide()
+                alert(data.Message)
+            }
+        }, function (error) {
+            $('.onRequesting').hide()
+        })
+    })
+</script>
     <div class="wrap-footer">
     <div class="container">
         <ul class="row">
