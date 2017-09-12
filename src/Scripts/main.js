@@ -79,7 +79,7 @@ function fmtDate1(dateStr) {
     var year =  date.getFullYear()
     var month = date.getMonth();
     var day = date.getDate();
-    var mthStr = ["January","February","March","April","May","June","July","August","September","October","November","December"][month]
+    var mthStr = ["Jan.","Feb.","Mar.","Apr.","May.","Jun.","Jul.","Aug.","Sep.","Oct.","Nov.","Dec."][month]
 
     return mthStr + ' ' + day + ', ' + year
 }
@@ -160,7 +160,7 @@ function makeMemberItem(dt) {
     var $item = $('.memberItemTmpl').clone().removeClass('memberItemTmpl')
     var tagsStr = ''
     if(dt.Tags && dt.Tags.length){
-        for(var i=0; i<dt.Tags.length; i++){
+        for(var i=0; i<1; i++){
             tagsStr += dt.Tags[i]['EnglishName']
             tagsStr += ' '
         }

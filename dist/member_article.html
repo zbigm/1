@@ -19,12 +19,12 @@
 			<img src="./public/Images/backarrow.png"/>
 		</a>
 		<div class="wrap-user-icon">
-            <a href="person_info.html">
-			    <img src="./public/Images/memberico.png"/>
+            <a href="person_info.html" class="memberImgWrapx">
+			    <img src=""/>
             </a>
 		</div>
-		<h3 class="text-center">Bowman</h3>
-		<h4 class="text-center">Mobile Internet</h4>
+		<h3 class="text-center memberNamex"></h3>
+		<h4 class="text-center memberTagsx"></h4>
 	</div><!--wrap-member-header-->
 	<div class="row wrap-member-title">
         <ul class="clearfix">
@@ -49,73 +49,11 @@
         </ul>
     </div><!-- wrap-navbar -->
     <!--member-header-->
-    <div class="wrap-news-item">
-        <ul>
-            <!-- articleItemTmpl -->
-            <li class="news-item articleItemTmpl clearfix" style="display: none">
-                <a href="news_detail.html" class="pull-left newsitem-img">
-                    <img class="articleImg" src="http://sdf.img" alt="">
-                </a>
-                <div class="news-item-detail pull-right">
-                    <h3><a href="news_detail.html?articleId=1" class="articleTitle">标题标题</a></h3>
-                    <p class="news-item-tag"><span class="articleTags">高科技</span></p>
-                    <div class="wrap-tagsnew clearfix">
-                        <div class="pull-left clearfix">
-                            <img src="http://bs.img" alt="" class="pull-left icon-person avatarKey">
-                            <span class="pull-left color-grey articleAuthor">作者</span>
-                        </div>
-                        <div class="pull-right"><span class="color-grey articleDate">8/17/2015</span>
-                        </div>
-                    </div>
-                </div>
-            </li>
 
-            <!-- videoItemTmpl -->
-            <li class="news-video-item clearfix videoItemTmpl" style="display:none;">
-                <div class="video-item-detail">
-                    <div class="wrap-news-video">
-                        <a class="wrap-video-introduction" href="person_video_detail.html">
-                            <img src="./public/Images/newsvideo.png" alt="" class="pull-left newsvedio">
-                            <img src="./public/Images/broadcast.png" alt="" class="broadcast-btn">
-                            <h4 class="video-title">Project and talent of the benign int eraction of suc
-                                cessf Project and talent of the benign int </h4>
-                            <span class="bggrey"></span>
-                        </a>
-                    </div>
-                    <div class="news-video-tag clearfix">
-                        <div class="pull-left clearfix">
-                            <img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person">
-                            <span class="pull-left color-grey namemember">Bo Hong</span>
-                        </div>
-                        <div class="pull-right">
-                            <span class="color-grey datamember">August 17, 2017</span>
-                        </div>
-                    </div>
-                </div>
-            </li><!-- news-video-item -->
 
-            <li class="news-item projectItemTmpl clearfix" style="display: none">
-                <a href="news_detail.html" class="pull-left newsitem-img">
-                    <img class="articleImg" src="http://sdf.img" alt="">
-                </a>
-                <div class="news-item-detail pull-right">
-                    <h3><a href="news_detail.html?articleId=1" class="articleTitle">标题标题</a></h3>
-                    <p class="news-item-tag"><span class="articleTags">高科技</span></p>
-                    <div class="wrap-tagsnew clearfix">
-                        <div class="pull-left clearfix">
-                            <img src="http://bs.img" alt="" class="pull-left icon-person avatarKey">
-                            <span class="pull-left color-grey articleAuthor">作者</span>
-                        </div>
-                        <div class="pull-right"><span class="color-grey articleDate">8/17/2015</span>
-                        </div>
-                    </div>
-                </div>
-            </li>
+    <div class="result-list"></div>
 
-        </ul>
-    </div><!-- wrap-news-item -->
-
-    <div style="padding: 0 0 15px 0;">
+    <div style="padding: 0.5rem 0 0.5rem 0;">
         <div class="noMore" style="text-align: center;cursor: pointer;display: none;">没有更多数据</div>
         <div class="loadMore" style="text-align: center;cursor: pointer;display: none;">点击加载更多</div>
         <div class="onRequesting" style="text-align: center;display: none;">正在请求数据...</div>
@@ -181,37 +119,41 @@
 
         var page = 1
         var type = 'Article'
-        var memberId = getSearchParam('memberId') || ''
-
+        var memberId = getSearchParam('MemberId') || ''
+        
         $('.contentType').click(function () {
-            if($(".onRequesting:visible").length){
-                console.log('onrequesting,return')
-                return
-            }
-            $('.contentType').removeClass('active')
-            $(this).addClass('active')
-
-
-            $('.wrap-news-item>ul>li:gt(2)').remove()
-
             type = $(this).data('type')
-            page = 1
-
-
-            reqData()
+            $(this).addClass('active').siblings().removeClass('active')
+            doSearch()
         })
 
-        function reqData() {
-            $('.onRequesting').show()
+        function doSearch() {
+            page = 1;
+
+            $('.result-list').empty()
+
+            $('.loadMore').off().hide()
             $('.noMore').hide()
-            $('.loadMore').hide()
-            $get('/' + type + '/Search',{
+
+
+            $('.loadMore').off().click(function () {
+                $(this).hide()
+                reqData()
+            })
+
+            reqData()
+
+            //
+        }
+
+        function reqData() {
+
+            $('.onRequesting').show()
+            $get('/' +  type + '/Search',{
                 p: page++,
-                memberId: memberId,
-                isRecommend: true
+                memberId: memberId
             },function (data) {
                 $('.onRequesting').hide()
-
                 if(data.Status == 2){
                     var ret = data.Body
                     if(ret && ret.length){
@@ -219,13 +161,15 @@
                         $('.noMore').hide()
 
                         makeDt(ret)
+
                     }else{
                         $('.loadMore').hide()
-                        $('.noMore').show()
+
+                        //$('.noMore').show()
                     }
                 }else{
                     $('.loadMore').show()
-                    $('.noMore').hide()
+                    //$('.noMore').hide()
                     alert(data.Message)
                 }
             },function () {
@@ -235,71 +179,55 @@
 
         function makeDt(data) {
             var $items = []
-            if (type == 'Article') {
-                for (var i = 0; i < data.length; i++) {
-                    var item = data[i]
+
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i]
+                if (type == 'Article') {
+                    $items.push(makeArticleItem(item))
+                }else if (type == 'Video') {
+                    $items.push(makeVideoItem(item))
+                }else if (type == 'Project') {
                     $items.push(makeArticleItem(item))
                 }
-                $('.wrap-news-item>ul').append($items)
-            }else if (type == 'Video') {
-                for (var i = 0; i < data.length; i++) {
-                    var item = data[i]
-                    $items.push(makeVideoItem(item))
-                }
-                $('.wrap-news-item>ul').append($items)
-            }else if (type == 'Member') {
-                for (var i = 0; i < data.length; i++) {
-                    var item = data[i]
-                    $items.push(makeProjectItem(item))
-                }
-                $('.wrap-news-item>ul').append($items)
             }
+
+            $('.result-list').append($items)
+
         }
 
         $('.contentType').first().click()
-        $('.loadMore').click(reqData)
 
+//        $get('/Account/Statistics',{
+//            memberId: memberId
+//        },function (data) {
+//            if(data.Status == 2){
+//                debugger
+//            }else{
+//                alert(data.Message)
+//            }
+//        })
 
+        $get('/Account/GetById',{
+            memberId: memberId
+        }, function (data) {
+            if(data.Status == 2){
+                var dt = data.First
+                var tagsStr = ''
+                if(dt.Tags && dt.Tags.length){
+                    for(var i=0; i<1; i++){
+                        tagsStr += dt.Tags[i]['EnglishName']
+                        tagsStr += ' '
+                    }
+                }
+                $('.wrap-member-header').find('.memberTagsx').text(tagsStr)
+                $('.wrap-member-header').find('.memberNamex').text(dt.Name)
+                $('.wrap-member-header').find('.memberImgWrapx>img').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.AvatarKey+'@!w170h170');
+            }else{
+                alert(data.Message)
+            }
+        })
 
     })
-
-
-    function makeArticleItem(dt) {
-        var $item = $('.articleItemTmpl').clone().removeClass('articleItemTmpl').css('display', 'block')
-        $item.find('.articleTitle').text(dt.Title)
-        $item.find('.articleTitle').attr('href','news_detail.html?articleId='+dt.ArticleId)
-        $item.find('.newsitem-img').attr('href','news_detail.html?articleId='+dt.ArticleId)
-        $item.find('.articleDate').text(fmtDate1(dt.Timestamp))
-        $item.find('.articleTags').text(dt.Keywords)
-        $item.find('.articleAuthor').text(dt.Member.Name)
-        $item.find('.articleImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)
-        $item.find('.avatarKey').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey)
-        return $item
-    }
-
-    function makeProjectItem(dt) {
-        var $item = $('.articleItemTmpl').clone().removeClass('articleItemTmpl').css('display', 'block')
-        $item.find('.articleTitle').text(dt.Title)
-        $item.find('.articleTitle').attr('href','news_detail.html?articleId='+dt.ArticleId)
-        $item.find('.newsitem-img').attr('href','news_detail.html?articleId='+dt.ArticleId)
-        $item.find('.articleDate').text(fmtDate1(dt.Timestamp))
-        $item.find('.articleTags').text(dt.Keywords)
-        $item.find('.articleAuthor').text(dt.Member.Name)
-        $item.find('.articleImg').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)
-        $item.find('.avatarKey').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey)
-        return $item
-    }
-
-    function makeVideoItem(dt) {
-        var $item = $('.articleItemTmpl').clone().removeClass('articleItemTmpl').css('display', 'block');
-        $item.find('.video-title').text(dt.Title);    //video title
-        $item.find('.namemember').text(dt.Member.Name);  //namemember
-        $item.find('.datamember').text(fmtDate1(dt.Timestamp));   //date
-        $item.find('.icon-person').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey);   //小头像
-        $item.find('.newsvedio').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)   // 视频地址
-        $item.find('.wrap-video-introduction').attr('href', "person_video_detail.html?VideoId="+dt.VideoId);
-        return $item
-    }
 
 
 </script>

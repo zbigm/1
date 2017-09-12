@@ -13,124 +13,204 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="row wrap-navbar">
+
+
+    <div class="row wrap-navbar newsTypeWrap">
         <div class="swiper-container">
-            <ul class="swiper-wrapper clearfix">
-                <li class="swiper-slide active">
-                    <a href="javascript:void(0);">
-                        <span>javascript</span>
+            <ul class="swiper-wrapper clearfix tagsWrap1">
+                <li class="swiper-slide active" data-type="1">
+                    <a href="javascript:void(0)">
+                        <span>Insight</span>
                         <i>行业洞察</i>
                     </a>
                     <div class="linebottom"></div>
                 </li>
-                <li class="swiper-slide">
-                    <a href="javascript:void(0);">
-                        <span>javascript</span>
+                <li class="swiper-slide" data-type="2">
+                    <a href="javascript:void(0)">
+                        <span>Top News</span>
                         <i>前沿热点</i>
                     </a>
                     <div class="linebottom"></div>
                 </li>
-                <li class="swiper-slide">
-                    <a href="javascript:void(0);">
-                        <span>javascript</span>
+                <li class="swiper-slide" data-type="3">
+                    <a href="javascript:void(0)">
+                        <span>Tech Express</span>
                         <i>科技创新</i>
                     </a>
                     <div class="linebottom"></div>
                 </li>
-                <li class="swiper-slide">
-                    <a href="javascript:void(0);">
-                        <span>javascript</span>
-                        <i>快乐大本营</i>
-                    </a>
-                    <div class="linebottom"></div>
-                </li>
+
             </ul>
         </div>
     </div><!-- wrap-navbar -->
-    <div class="wrap-news-item">
-        <ul>
-            <li class="news-video-item clearfix">
-                <div class="video-item-detail">
-                    <div class="wrap-news-video">
-                        <a class="wrap-video-introduction" href="person_video_detail.html">
-                            <img src="./public/Images/newsvideo.png" alt="" class="pull-left icon-person">
-                            <img src="./public/Images/broadcast.png" alt="" class="broadcast-btn">
-                            <h4>Project and talent of the benign int eraction of suc
-cessf Project and talent of the benign int </h4>
-                            <span class="bggrey"></span>
-                        </a>
-                    </div>
-                    <div class="news-video-tag clearfix">
-                        <div class="pull-left clearfix">
-                            <img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person">
-                            <span class="pull-left color-grey">Bo Hong</span>
-                        </div>
-                        <div class="pull-right">
-                            <span class="color-grey">August 17, 2017</span>
-                        </div>
-                    </div>
-                </div>
-            </li><!-- news-video-item -->
-            <li class="news-video-item clearfix">
-                <div class="video-item-detail">
-                    <div class="wrap-news-video">
-                        <a class="wrap-video-introduction" href="person_video_detail.html">
-                            <img src="./public/Images/newsvideo.png" alt="" class="pull-left icon-person">
-                            <img src="./public/Images/broadcast.png" alt="" class="broadcast-btn">
-                            <h4>Project and talent of the benign int eraction of suc
-cessf Project and talent of the benign int </h4>
-                            <span class="bggrey"></span>
-                        </a>
-                    </div>
-                    <div class="news-video-tag clearfix">
-                        <div class="pull-left clearfix">
-                            <img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person">
-                            <span class="pull-left color-grey">Bo Hong</span>
-                        </div>
-                        <div class="pull-right">
-                            <span class="color-grey">August 17, 2017</span>
-                        </div>
-                    </div>
-                </div>
-            </li><!-- news-video-item -->
-            <li class="news-video-item clearfix">
-                <div class="video-item-detail">
-                    <div class="wrap-news-video">
-                        <a class="wrap-video-introduction" href="person_video_detail.html">
-                            <img src="./public/Images/newsvideo.png" alt="" class="pull-left icon-person">
-                            <img src="./public/Images/broadcast.png" alt="" class="broadcast-btn">
-                            <h4>Project and talent of the benign int eraction of suc
-cessf Project and talent of the benign int </h4>
-                            <span class="bggrey"></span>
-                        </a>
-                    </div>
-                    <div class="news-video-tag clearfix">
-                        <div class="pull-left clearfix">
-                            <img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person">
-                            <span class="pull-left color-grey">Bo Hong</span>
-                        </div>
-                        <div class="pull-right">
-                            <span class="color-grey">August 17, 2017</span>
-                        </div>
-                    </div>
-                </div>
-            </li><!-- news-video-item -->
-        </ul>
-    </div><!-- wrap-news-item -->
+
+
+    <div class="result-list"></div>
+    <div style="padding: 0.5rem 0 0.5rem 0;">
+        <div class="loadMore" style="text-align: center;cursor: pointer;display: none;">点击加载更多</div>
+        <div class="onRequesting" style="text-align: center;display: none;">正在请求数据...</div>
+    </div>
+
+
 </div><!-- container-fluid -->
 <!--{{footer.html}}-->
 <script>
+
+
     $(function () {
-        console.log('jquery version:', $.fn.jquery);
-        // swiper 滑动导航
+//    newsReady()
+        var mySwiper = new Swiper('.news-banner .swiper-container', {
+            autoplay: 5000,
+            loop: true,
+            // 如果需要分页器
+            pagination: '.swiper-pagination'
+        });
         var navBarSwiper = new Swiper ('.wrap-navbar .swiper-container', {
             slidesPerView: "auto"
         });
+
         $(".wrap-navbar li").click(function(){
             $(this).addClass('active').siblings().removeClass('active');
-        });     
-        // swiper 滑动导航
+        });
+
+
+        $('.catgWrapBar li').click(function () {
+            newsCatg = $(this).find('span').text()
+            type = ''
+
+            doSearch()
+        })
+
+
+        var newsCatg = 'Video'
+        var page = 1
+        var type = 1  // Insight
+        var isRecommend = 0
+
+        // Insight Topnews HighTech Project
+        $('.tagsWrap1').on('click','li', function () {
+            type = $(this).data('type')
+            doSearch()
+        })
+
+        // Article , Video , Recommend
+        $('.navWrap').on('click', '>a', function () {
+            $(this).addClass('active').siblings().removeClass('active')
+            var text = $(this).find('i').text().trim()
+
+            isRecommend = 0
+            type = 1
+
+            if(text === 'Article'){
+                newsCatg = 'Article'
+
+                $('.news-banner').show()
+                $('.newsTypeWrap').show()
+                $('.projectItemType').show()
+                $('.catgWrapBar').hide()
+
+            }else if(text == 'Video'){
+                newsCatg = 'Video'
+                $('.news-banner').hide()
+                $('.newsTypeWrap').show()
+                $('.projectItemType').hide()
+                $('.catgWrapBar').hide()
+            }else if(text == 'Recommend'){
+                newsCatg = 'Article'
+                $('.news-banner').show()
+                $('.newsTypeWrap').hide()
+                $('.catgWrapBar').show()
+                isRecommend = 1
+                type = ''
+
+            }
+
+            doSearch()
+
+            $(".cancel-icon").click()
+
+        })
+
+        function doSearch() {
+            page = 1;
+
+            $('.result-list').empty()
+
+            $('.loadMore').off().hide()
+            $('.noMore').hide()
+
+            var tag = $('.searchTags>a.active').text()
+
+            var url = '/' + newsCatg + '/Search'
+            var dt = {
+                p: page++,
+                isRecommend: isRecommend
+            }
+            if (newsCatg == 'Article') {
+                dt.articleType = type
+            } else if (newsCatg == 'Video') {
+                dt.videoType = type
+            }
+
+            $('.loadMore').off().click(function () {
+                $(this).hide()
+                dt.p = page++
+                reqData( url, dt)
+            })
+
+            reqData(url, dt)
+
+        }
+
+
+        function reqData(url, dt) {
+            $('.onRequesting').show()
+            $get(url,dt,function (data) {
+                $('.onRequesting').hide()
+                if(data.Status == 2){
+                    var ret = data.Body
+                    if(ret && ret.length){
+
+                        makeDt(ret)
+
+                        $('.loadMore').show()
+                        $('.noMore').hide()
+
+                    }else{
+                        $('.loadMore').hide()
+                        $('.noMore').show()
+                    }
+                }else{
+                    $('.loadMore').show()
+                    $('.noMore').hide()
+                    alert(data.Message)
+                }
+            },function () {
+                $('.onRequesting').hide()
+            })
+        }
+
+        function makeDt( data) {
+            var $items = []
+            if (newsCatg == 'Article' || newsCatg == 'Recommend') {
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i]
+                    $items.push(makeArticleItem(item))
+                }
+                $('.result-list').append($items)
+            }else if (newsCatg == 'Video') {
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i]
+                    $items.push(makeVideoItem(item))
+                }
+                $('.result-list').append($items)
+            }
+        }
+
+        doSearch()
+
     })
+
 </script>
 </body>
 </html>

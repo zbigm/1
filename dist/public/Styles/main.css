@@ -64,7 +64,7 @@ body{
 	background: url(../Images/fixmember.png) no-repeat left center;
 	background-size: 100% 100%;
 }
-.wrap-footer ul li.active .members-footer{
+.wrap-footer ul li.active .members-enfooter{
 	background: url(../Images/fixmemberactive.png) no-repeat left center;
 	background-size: 100% 100%;
 }
@@ -240,6 +240,7 @@ a:hover, a:visited, a:link, a:active {
 	left: 0.26rem;
 	font-size: 0.28rem;
 	color: #646464;
+	white-space: nowrap;
 }
 .memberTags{
 	position: absolute;

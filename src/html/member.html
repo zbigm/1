@@ -83,11 +83,11 @@
         </div><!-- wrap-search-type -->
     </div><!-- wrap-member-type-box -->
 
-    <div class="result-list">
+    <div class="result-list" style="overflow:hidden;">
 
     </div>
 
-    <div style="padding: 0 0 15px 0;">
+    <div style="padding: 0.5rem 0 0.5rem 0;">
         <div class="loadMore" style="text-align: center;cursor: pointer;display: none;">点击加载更多</div>
         <div class="onRequesting" style="text-align: center;display: none;">正在请求数据...</div>
     </div>
@@ -137,6 +137,10 @@
             }
 
             $('.tagsWrap2').empty().append($tgs)
+
+            new Swiper ('.wrap-member-type-box .swiper-container', {
+                slidesPerView: "auto"
+            });
         })
         
         $('.typeWrap1').on('click','li', function () {
@@ -172,7 +176,8 @@
             $post('/Account/Search',{
                 p: page++,
                 memberLevel: memberLevel,
-                parentTagId: tagId
+                parentTagId: tagId,
+                memberStatus: 2
             },function (data) {
                 $('.onRequesting').hide()
                 if(data.Status == 2){
