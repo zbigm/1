@@ -146,15 +146,15 @@
 
         $('.contentType').first().click()
 
-//        $get('/Account/Statistics',{
-//            memberId: memberId
-//        },function (data) {
-//            if(data.Status == 2){
-//                debugger
-//            }else{
-//                alert(data.Message)
-//            }
-//        })
+        $get('/Account/Statistics',{
+            memberId: memberId
+        },function (data) {
+            if(data.Status == 2){
+                debugger
+            }else{
+                console.log(data.Message)
+            }
+        })
 
         $get('/Account/GetById',{
             memberId: memberId

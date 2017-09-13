@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="./public/Styles/main.css">
     <script src="./public/Scripts/main.js"></script>
     <script src="./public/Scripts/vendor.min.js"></script>
+    <style>
+        .member-type .tagbtn{
+            margin-right: 0.2rem;
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid index-search">
@@ -169,7 +174,7 @@
             var type = $(".btn .search-text").text()
 
             $(this).siblings().removeClass('active')
-            $(this).addClass('active')
+            $(this).toggleClass('active')
 
             doSearch()
         })
@@ -190,6 +195,10 @@
             }
 
             $('.searchTags').empty().append(tgs)
+
+            new Swiper ('.wrap-member-type-box .swiper-container', {
+                slidesPerView: "auto"
+            });
         }
 
         $('.searchInput').keydown(function(e) {
@@ -224,6 +233,8 @@
                 dt.videoType = tagVal
             } else if (type == 'Member') {
                 dt.parentTagId = tagVal
+                dt.memberStatus = 2
+
             }
 
             $('.loadMore').off().click(function () {

@@ -153,11 +153,12 @@
             })
 
             //
-            $get('/Member/Account/Statistics', function (data) {
+            $get('/Member/Account/Statistics',{
+            },function (data) {
                 if(data.Status == 2){
-                    // set data
+                    debugger
                 }else{
-                   // alert(data.Message)
+                    console.log(data.Message)
                 }
             })
         })
