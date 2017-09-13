@@ -93,7 +93,7 @@ Membership Registration Agreement"</a></span><br>
                     confirmPassword: password2
                 }, function (data) {
                     if(data.Status == 2){
-//                        alert('注册成功，请登录')
+                        alert('注册成功，请登录')
                         location.href = 'index_login.html'
                     }else{
                         alert(data.Message)
@@ -101,7 +101,7 @@ Membership Registration Agreement"</a></span><br>
                 })
             })
 
-            var count = 3;
+            var count = 60;
             var timer;
             $("body").on("click", ".getcode", function() {
                 var email = $(".input-list .email").val().trim();
@@ -131,7 +131,7 @@ Membership Registration Agreement"</a></span><br>
                         clearInterval(timer);
                         $(".auth-code").text('Auth-Code');
                         $(".auth-code").addClass("getcode");
-                        count = 3;
+                        count = 60;
                     }
                 }, 1000)
 

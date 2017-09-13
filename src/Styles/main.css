@@ -14,6 +14,10 @@ body{
 	padding-bottom: 1rem;
 
 }
+
+::-webkit-input-placeholder { /* WebKit browsers */
+	color:    #eee;
+}
 /*footer*/
 .wrap-footer{
 	position: fixed;

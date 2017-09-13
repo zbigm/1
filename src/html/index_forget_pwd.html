@@ -34,7 +34,7 @@
     <script>
 
         $(function () {
-            var count = 3;
+            var count = 60;
             var timer;
             $("body").on("click", ".getcode", function() {
                 var email = $(".input-list .email").val().trim();
@@ -64,7 +64,7 @@
                         clearInterval(timer);
                         $(".auth-code").text('Auth-Code');
                         $(".auth-code").addClass("getcode");
-                        count = 3;
+                        count = 60;
                     }
                 }, 1000)
 

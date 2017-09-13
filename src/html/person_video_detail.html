@@ -21,7 +21,7 @@
         }
     </style>
 </head>
-<body>
+<body style="display: none; padding-bottom: 0.2rem;">
 <div class="container-fluid">
     <div class="wrap-news-item wrap-video-broadcast">
         <div class="news-video-item clearfix">
@@ -39,19 +39,30 @@
                 <div class="news-video-tag clearfix">
                     <div class="pull-left clearfix">
                         <img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person authorImg">
-                        <span class="pull-left color-grey authorName">Bo Hong</span>
+                        <span class="pull-left color-grey authorName"></span>
                     </div>
                     <div class="pull-right">
-                        <span class="color-grey authorDate">August 17, 2017</span>
+                        <span class="color-grey authorDate"></span>
                     </div>
                 </div>
             </div>
         </div><!-- news-video-item -->
     </div>
+
+    <div class="height10"></div>
+    <div class="wrap-news-item">
+        <h5 class="event-title" style="padding-bottom: 0.15rem;">Recommend video</h5>
+        <div class="recommendResult">
+
+        </div>
+
+    </div><!-- wrap-news-item -->
 </div><!-- container-fluid -->
-<!--{{footer.html}}-->
 <script>
     $(function(){
+        var counter = 0
+
+
         $get('/Video/GetById',{
             VideoId: location.search.split('=')[1]
         }, function (data) {
@@ -71,12 +82,42 @@
                 // $(".video-broadcast").find("video").attr("poster", 'http://aaeca.img-us-west-1.aliyuncs.com/'+Body.ImageKey)
                 // $(".video-broadcast").find("source").attr("src", 'http://aaeca.img-us-west-1.aliyuncs.com/'+Body.Src)
                 var myPlayer = videojs('example_video_1')
+
+                counter++
+                if(counter == 2){
+                    $('body').show()
+                }
             }else{
                 alert(data.Message)
             }
             bool = true;
         }, function (error) {
             alert(error)
+        })
+
+        $get('/Video/Search',{
+            isRecommend: true,
+            publishStatus: 2,
+            p: 1
+        }, function (data) {
+            if(data.Status == 2){
+                var Body = data.Body
+                if(Body && Body.length){
+                    var $items = []
+                    for(var i=0; i<Body.length; i++){
+                        var $item = makeVideoItem(Body[i])
+                        $items.push($item)
+                    }
+                    $('.recommendResult').append($items)
+                }
+
+                counter++
+                if(counter == 2){
+                    $('body').show()
+                }
+            }else{
+                console.log(data.Message)
+            }
         })
     })
 </script>

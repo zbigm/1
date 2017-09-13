@@ -42,7 +42,7 @@
         }
     </style>
 </head>
-<body>
+<body style="display: none">
 <div class="container-fluid">
     <div class="container">
         <div class="row news-article-detail">
@@ -70,48 +70,10 @@
     <div class="height10"></div>
     <div class="wrap-news-item">
         	<h5 class="event-title">Recommend article</h5>
-        <ul>
-            <li class="news-item clearfix">
-                <a href="news_detail.html" class="pull-left newsitem-img">
-                    <img src="./public/Images/newsitem.png" alt="">
-                </a>
-                <div class="news-item-detail pull-right">
-                    <h3><a href="news_detail.html">硅谷的人本理念对我国产业园区发展的启示</a></h3>
-                    <p class="news-item-tag">
-                        <span>高科技</span>
-                    </p>
-                    <div class="wrap-tagsnew clearfix">
-                        <div class="pull-left clearfix">
-                            <img src="" alt="" class="pull-left icon-person">
-                            <span class="pull-left color-grey"></span>
-                        </div>
-                        <div class="pull-right">
-                            <span class="color-grey"></span>
-                        </div>
-                    </div>
-                </div>
-            </li><!-- news-item -->
-            <li class="news-item clearfix">
-                <a href="news_detail.html" class="pull-left newsitem-img">
-                    <img src="./public/Images/newsitem.png" alt="">
-                </a>
-                <div class="news-item-detail pull-right">
-                    <h3><a href="news_detail.html">硅谷的人本理念对我国产业园区发展的启示</a></h3>
-                    <p class="news-item-tag">
-                        <span>高科技</span>
-                    </p>
-                    <div class="wrap-tagsnew clearfix">
-                        <div class="pull-left clearfix">
-                            <img src="" alt="" class="pull-left icon-person">
-                            <span class="pull-left color-grey"></span>
-                        </div>
-                        <div class="pull-right">
-                            <span class="color-grey">August 17, 2017</span>
-                        </div>
-                    </div>
-                </div>
-            </li><!-- news-item -->
-        </ul>
+            <div class="recommendResult">
+
+            </div>
+
     </div><!-- wrap-news-item -->
 </div><!-- container-fluid -->
 <div class="wrap-footer">
@@ -148,14 +110,14 @@
     $(function () {
         $get('/Account/GetLogonStatus',function (data) {
             if(data.Status == 2){
-                var memberId = '14'
+                var memberId = data.memberId
                 localStorage.setItem('memberId', memberId)
             }else {
                 console.log(data.Message)
             }
 
 
-            localStorage.setItem('memberId', 14)
+//            localStorage.setItem('memberId', 14)
         })
 
         $('.meBtn').click(function () {
@@ -169,14 +131,17 @@
 </script>
 <script>
     $(function () {
-        var activityId = location.search.split('=')[1]
-        console.log(activityId)
+        var activityId = getSearchParam('id')
+
+        var counter = 0
+
 
 
         $get('/Activity/GetById',{
             activityId: activityId
         },function (data) {
             if(data.Status == 2){
+
                 let detail = data.First
                 if(!detail){
                     return
@@ -187,8 +152,38 @@
                 $('.eventAuthorIcon').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+detail.ImageKey+'@!w170h170');
 
                 $('.authorDate').text(fmtDate1(detail.Timestamp))
+
+                counter++
+                if(counter == 2){
+                    $('body').show()
+                }
             }else{
                 alert(data.Message)
+            }
+        })
+
+        $get('/Article/Search',{
+            isRecommend: true,
+            publishStatus: 2,
+            p: 1
+        }, function (data) {
+            if(data.Status == 2){
+                var Body = data.Body
+                if(Body && Body.length){
+                    var $items = []
+                    for(var i=0; i<Body.length; i++){
+                        var $item = makeArticleItem(Body[i])
+                        $items.push($item)
+                    }
+                    $('.recommendResult').append($items)
+                }
+
+                counter++
+                if(counter == 2){
+                    $('body').show()
+                }
+            }else{
+                console.log(data.Message)
             }
         })
     })

@@ -258,7 +258,8 @@
             var url = '/' + newsCatg + '/Search'
             var dt = {
                 p: page++,
-                isRecommend: isRecommend
+                isRecommend: isRecommend,
+                publishStatus: 2
             }
             if (newsCatg == 'Article') {
                 dt.articleType = type
@@ -322,6 +323,24 @@
         }
 
         doSearch()
+
+
+        (function () {
+            if(localStorage.getItem('memberId')){
+                $('.wrap-logsignbtn').hide()
+            }else{
+                $('.wrap-logsignbtn').show()
+
+            }
+            $get('/Account/GetLogonStatus',function (data) {
+                if(data.Status == 2){
+                    $('.wrap-logsignbtn').hide()
+                }else {
+                    $('.wrap-logsignbtn').show()
+                    console.log(data.Message)
+                }
+            })
+        })()
 
     })
 </script>

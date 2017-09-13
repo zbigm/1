@@ -62,7 +62,8 @@
                 <!--<a class="pull-left" href="javascript:void(0);">articletag</a>-->
                 <!--<a class="pull-left" href="javascript:void(0);">错负责</a>-->
             </div>
-            <div class="wrap-news-attachment">
+
+            <div class="wrap-news-attachment" style="display: none;">
                 <h4>Attachment</h4>
                 <div class="attachment-item clearfix">
                     <div class="pull-left attachment-title clearfix">
@@ -72,8 +73,18 @@
                     <span class="pull-right downloadbtn">Download</span>
                 </div>
             </div>
+
+
         </div><!-- news-article-detail -->
     </div>
+
+    <div class="height10"></div>
+    <div class="wrap-news-item">
+        <h5 class="event-title">Recommend article</h5>
+        <div class="recommendResult">
+
+        </div>
+    </div><!-- wrap-news-item -->
 </div><!-- container-fluid -->
 <!--<div class="wrap-share">-->
 <!--<a href="javascript:void(0);">-->
@@ -82,6 +93,8 @@
 <!--</div>-->
 <script>
     $(function () {
+
+        var counter = 0
 
         var articleId = getSearchParam('articleId')
         $get('/Article/GetById',{
@@ -99,6 +112,11 @@
                 keyWords = keyWords.split(';')
                 for(var i=0; i<keyWords.length; i++){
                     $('<a href="javascript:void(0);"></a>').addClass('pull-left').text(keyWords[i]).appendTo($('.keyWords'))
+                }
+
+                counter++
+                if(counter == 2){
+                    $('body').show()
                 }
 
             }else{
@@ -120,6 +138,31 @@
             }
         }, function (err) {
             conosle.log(err)
+        })
+
+        $get('/Article/Search',{
+            isRecommend: true,
+            publishStatus: 2,
+            p: 1
+        }, function (data) {
+            if(data.Status == 2){
+                var Body = data.Body
+                if(Body && Body.length){
+                    var $items = []
+                    for(var i=0; i<Body.length; i++){
+                        var $item = makeArticleItem(Body[i])
+                        $items.push($item)
+                    }
+                    $('.recommendResult').append($items)
+                }
+
+                counter++
+                if(counter == 2){
+                    $('body').show()
+                }
+            }else{
+                console.log(data.Message)
+            }
         })
     })
 </script>
