@@ -121,6 +121,46 @@
         })
     })
 </script>
+
+<!-- 分享代码 -->
+<div id="loadmask"></div>
+<div class="sharebtn">分享</div>
+<div class="wrap-share-box" style="display:none;">
+    <div class="wrap-share container">
+        <div class="bdsharebuttonbox">
+            <div class="sharebtns">
+                <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+            </div>
+            <div class="sharebtns">
+                <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+            </div>
+            <div class="sharebtns">
+                <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+            </div>
+            <div class="sharebtns">
+                <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+            </div>
+            <div class="sharebtns">
+                <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到微博"></a>
+            </div>
+        </div>
+    </div>
+    <span class="cancelshare">取消</span>
+</div>
+<!-- 分享代码 -->
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdPic":"","bdStyle":"1","bdSize":"32"},"share":{},"image":{"viewList":["qzone","tsina","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+
+
+$(".sharebtn").click(function(){
+    $(".wrap-share-box").show();
+    $("#loadmask").show();
+});
+$(".cancelshare").click(function(){
+    $(".wrap-share-box").hide();
+    $("#loadmask").hide();
+});
+
+</script>
 <div class="news-video-item clearfix videoItemTmpl" style="display:none;">
     <div class="video-item-detail">
         <div class="wrap-news-video">

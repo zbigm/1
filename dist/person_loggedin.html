@@ -20,7 +20,7 @@
     <div class="person-nologin person-login">
         <div class="wrap-member-header">
             <div class="wrap-user-icon">
-                <a href="person_info.html">
+                <a href="person_info.html" class="avatarLink">
                     <img src="" class="avatarImg"/>
                 </a>
             </div>
@@ -103,7 +103,7 @@
     $(function () {
         $get('/Account/GetLogonStatus',function (data) {
             if(data.Status == 2){
-                var memberId = data.memberId
+                var memberId = data.MemberId
                 localStorage.setItem('memberId', memberId)
             }else {
                 console.log(data.Message)
@@ -125,6 +125,7 @@
     <script>
         $(function () {
             var memberId = localStorage.getItem('memberId')
+            $('.avatarLink').attr('href', 'person_info.html?isme=1&memberId='+memberId)
             $get('/Account/GetById', {
                 memberId: memberId
             }, function (data) {

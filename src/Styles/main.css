@@ -19,6 +19,17 @@ body{
 	overflow: hidden;
 }
 
+.wrap-share{
+	height: 100px;
+	position: relative;
+}
+.sharebtn{
+	position: fixed;
+	bottom: 70px;
+	right: 20px;
+	background: rgba(156, 36, 232, 0.5);
+}
+
 ::-webkit-input-placeholder { /* WebKit browsers */
 	color:    #eee;
 }

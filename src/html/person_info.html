@@ -19,75 +19,152 @@
         Info
         <span class="save saveBtn" style="display: none;">save</span>
     </div>
-    <div class="person-info">
+    <div class="person-info" style="display: none;">
         <div class="info-list">
             <span class="left col-xs-3">Icon</span>
-            <span class="right col-xs-9"><img class="person" src="./public/Images/zhangc.png"></span>
+            <span class="right col-xs-9"><img class="person" src=""></span>
         </div>
         <div class="info-list">
             <span class="left col-xs-3">Name</span>
-            <input value="" class="right col-xs-9 nameInput"/>
+            <input value="" class="right col-xs-9 nameInput ed"/>
         </div>
         <div class="info-list">
             <span class="left col-xs-3">Uint</span>
-            <input value="" class="right col-xs-9 companyInput"/>
+            <input value="" class="right col-xs-9 companyInput ed"/>
         </div>
         <div class="info-list">
             <span class="left col-xs-3">Position</span>
-            <input value="" class="right col-xs-9 positionInput"/>
+            <input value="" class="right col-xs-9 positionInput ed"/>
         </div>
         <div class="info-list">
-            <span class="left col-xs-3">E-main</span>
-            <span class="right col-xs-9"></span>
+            <span class="left col-xs-3">E-mail</span>
+            <input class="right col-xs-9 emailInput"></input>
         </div>
         <div class="info-list">
             <span class="left col-xs-3">Phone</span>
-            <input value="18810971174" class="right col-xs-9 phoneInput"/>
+            <input value="" class="right col-xs-9 phoneInput ed"/>
         </div>
         <div class="info-list">
             <span class="left col-xs-5">Registration Date</span>
-            <span class="right col-xs-7"></span>
+            <input value="" class="right col-xs-7 regDate"/>
         </div>
         <div class="info-list">
             <span class="left col-xs-4">Introduction </span>
-            <input value="" class="right col-xs-8 introInput">
+            <input value="" class="right col-xs-8 introInput ed">
         </div>
     </div>
 
     <script>
 
+        var memberId = getSearchParam('memberId') || ''
+        var isMe = getSearchParam('isme')
+
+        if(!isMe){
+            $('input').css('backgroundImage', 'none').prop('readonly', true)
+            $('.saveBtn').remove()
+        }
+
+        $('.return').click(function () {
+            history.back()
+        })
+
+        $('.emailInput, .regDate').prop('readonly', true).css('backgroundImage', 'none')
+
         $('input').focus(function () {
-            $('.saveBtn').show()
+            if(isMe){
+                $('.saveBtn').show()
+                $(this).css('backgroundImage', 'none')
+            }
+        })
+
+        $('input').blur(function () {
+            if(isMe){
+
+                $(this).css('backgroundImage','../Images/next.png')
+            }
         })
         
-        $('.savebtn').click(function () {
+        $('.saveBtn').click(function () {
 
             var personInfo = {
-                name:  $('.nameinput').val(),
+                name:  $('.nameInput').val(),
                 personalCompanyName: $('.companyInput').val(),
-                enterpriseContact: $('.companyInput').val(),
+                personalPosition: $('.positionInput').val(),
+                //enterpriseContact:
                 phoneNumber: $('.phoneInput').val(),
                 introduce: $('.introInput').val()
             }
-            
-            $post('', personInfo, function (data) {
 
+            
+            $post('/Member/Account/Update', personInfo, function (data) {
+                if(data.Status == 2){
+                    alert('save succeed')
+                    $('.saveBtn').hide()
+                    $('.ed').css('backgroundImage','../Images/next.png')
+                }else{
+                    alert(data.Message)
+                }
             })
 
         })
 
+//        function () {
+//          a =  {
+//                "MemberId": 6,
+//                "Email": "rbi@bohongland.com",
+//                "Password": "13633993b73513b3cc7376b848f8b511",
+//                "MemberType": 1,
+//                "MemberLevel": 1,
+//                "AvatarKey": "AAECA/d2BXSMEJcJ.jpg",
+//                "Name": "Ryan Bi",
+//                "ImageKey": null,
+//                "PersonalCompanyName": "Heibei Silicon Valley Innovation Park河北硅谷创新中心",
+//                "PersonalPosition": "manager",
+//                "EnterpriseContact": null,
+//                "PhoneNumber": "4088339855",
+//                "Introduce": "接受河北省及各地方政府委托，定向募集项目、智力;筛选优质项目引领进驻河北的科技园区;凭借硅谷世界网络一体化平台的支持，为河北的政府和企业提供专家、智库服务；为国内企业进入美国硅谷，在硅谷设立研发中心、技术提升中心、科技项目孵化等提提供必要的和充分的服务项目。",
+//                "TagIds": null,
+//                "Tags": [
+//                {
+//                    "TagId": 53,
+//                    "ParentId": 9,
+//                    "Parent": null,
+//                    "ChineseName": "其他",
+//                    "EnglishName": "Others",
+//                    "Children": null
+//                }
+//            ],
+//                "MemberStatus": 2,
+//                "ModifyTimestamp": "/Date(1504915403000)/",
+//                "Timestamp": "/Date(1502830478000)/"
+//            }
+//        }
+
         $get('/Account/GetById',{
-            memberId: ''
+            memberId: memberId
         },function (data) {
             if(data.Status == 2){
-                $('.nameinput').val(data.name)
-                $('.companyInput').val(data.personalCompanyName)
-                $('.companyInput').val(data.enterpriseContact)
-                $('.phoneInput').val()
-                $('.introInput').val()
+                var m = data.First
+
+                var memberType = m.MemberType
+                if(memberType != 1){
+                    $('.positionInput').hide()
+                }
+
+                var imgSrc = 'http://aaeca.img-us-west-1.aliyuncs.com/'+m.AvatarKey+'@!w170h170'
+                $('img.person').attr('src', imgSrc)
+                $('.nameInput').val(m.Name)
+
+                $('.companyInput').val(m.PersonalCompanyName)
+                $('.positionInput').val(m.PersonalPosition)
+                $('.emailInput').val(m.Email)
+                $('.phoneInput').val(m.PhoneNumber)
+                $('.regDate').val(fmtDate1(m.Timestamp))
+                $('.introInput').val(m.Introduce)
             }else{
                 alert(data.Message)
             }
+            $('.person-info').show()
 
         })
     </script>

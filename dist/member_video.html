@@ -110,7 +110,7 @@ cessf Project and talent of the benign int </h4>
     $(function () {
         $get('/Account/GetLogonStatus',function (data) {
             if(data.Status == 2){
-                var memberId = data.memberId
+                var memberId = data.MemberId
                 localStorage.setItem('memberId', memberId)
             }else {
                 console.log(data.Message)

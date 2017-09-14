@@ -469,10 +469,10 @@ a{
 }
 /*協議長成*/
 .wrap-share{
-	position: fixed;
+	/*position: fixed;*/
 	bottom: 0rem;
 	width: 100%;
-	height: 0.8rem;
+	/*height: 0.8rem;*/
 	line-height: 0.8rem;
 	background: #42a7f9;
 	left: 0px;

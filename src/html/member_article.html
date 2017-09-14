@@ -19,7 +19,7 @@
 			<img src="./public/Images/backarrow.png"/>
 		</a>
 		<div class="wrap-user-icon">
-            <a href="person_info.html" class="memberImgWrapx">
+            <a href="" class="memberImgWrapx">
 			    <img src=""/>
             </a>
 		</div>
@@ -69,6 +69,8 @@
         var type = 'Article'
         var memberId = getSearchParam('MemberId') || ''
 //        memberId = ''
+
+        $('.memberImgWrapx').attr('href', 'person_info.html?memberId='+memberId)
         
         $('.contentType').click(function () {
             type = $(this).data('type')
