@@ -1,4 +1,4 @@
-var apiServer = 'http://api.m.aaeca.org'
+var apiServer = ''
 function $get(url, data, doneFn, failFn, alwaysFn) {
     $.get(apiServer + url, data)
         .done(function (data) {

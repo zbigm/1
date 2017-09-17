@@ -281,7 +281,7 @@
     $(function () {
         $get('/Account/GetLogonStatus',function (data) {
             if(data.Status == 2){
-                var memberId = data.MemberId
+                var memberId = data.First.MemberId
                 localStorage.setItem('memberId', memberId)
             }else {
                 console.log(data.Message)
