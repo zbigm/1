@@ -83,6 +83,8 @@
 
     $(function () {
 //    newsReady()
+        var memberId = getSearchParam('memberId')
+
         var mySwiper = new Swiper('.news-banner .swiper-container', {
             autoplay: 5000,
             loop: true,
@@ -136,13 +138,14 @@
             var url = '/' + 'Project' + '/Search'
             var dt = {
                 p: page++,
-                isRecommend: isRecommend
+                isRecommend: isRecommend,
+                memberId: memberId
             }
-            if (newsCatg == 'Article') {
-                dt.articleType = type
-            } else if (newsCatg == 'Video') {
-                dt.videoType = type
-            }
+//            if (newsCatg == 'Article') {
+//                dt.articleType = type
+//            } else if (newsCatg == 'Video') {
+//                dt.videoType = type
+//            }
 
             $('.loadMore').off().click(function () {
                 $(this).hide()
@@ -159,14 +162,11 @@
             reqData( )
         })
 
-        reqData()
 
 
-        function reqData() {
+        function reqData(url, dt) {
             $('.onRequesting').show()
-            $get(url,{
-                p: page++
-            },function (data) {
+            $get(url,dt,function (data) {
                 $('.onRequesting').hide()
                 if(data.Status == 2){
                     var ret = data.Body
@@ -200,6 +200,7 @@
             $('.result-list').append($items)
         }
 
+        doSearch()
 
 
     })

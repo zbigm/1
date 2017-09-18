@@ -26,6 +26,10 @@
         .authorDate{
             color: #6d6d6d !important;
         }
+        .wrap-news-article p img{
+            max-width: 100%;
+            height: auto !important;
+        }
     </style>
 </head>
 <body style="display: none;">
@@ -36,10 +40,12 @@
                 cessf Project and talent of the benign int </h4>
             <div class="article-sidebar clearfix">
                 <div class="pull-left clearfix">
-                    <div class="eventAuthorIconWrap">
-                        <img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person authorImg">
-                    </div>
-                    <span class="pull-left color-grey authorName"></span>
+                    <a href="" class="goAuthorLink">
+                        <div class="eventAuthorIconWrap">
+                            <img src="./public/Images/newspeople.png" alt="" class="pull-left icon-person authorImg">
+                        </div>
+                        <span class="pull-left color-grey authorName"></span>
+                    </a>
                 </div>
                 <div class="pull-right">
                     <span class="color-grey authorDate"> </span>
@@ -102,6 +108,8 @@
         }, function (data) {
             if(data.Status == 2){
                 var Body = data.First
+//                debugger
+                $('.goAuthorLink').attr('href', 'member_article.html?MemberId=' + Body.Member.MemberId)
                 $(".wrap-news-article").html(Body.Content)
                 $(".article-summary").text(Body.Title)
                 $(".authorImg").attr("src", 'http://aaeca.img-us-west-1.aliyuncs.com/'+Body.Member.AvatarKey)
@@ -149,7 +157,7 @@
                 var Body = data.Body
                 if(Body && Body.length){
                     var $items = []
-                    for(var i=0; i<Body.length; i++){
+                    for(var i=0; i<Math.min(2,Body.length); i++){
                         var $item = makeArticleItem(Body[i])
                         $items.push($item)
                     }

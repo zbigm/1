@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="./public/Styles/css/vendor.min.css">
+    <link rel="stylesheet" href="./public/Styles/main.css">
+    <script src="./public/Scripts/main.js"></script>
+    <script src="./public/Scripts/vendor.min.js"></script>
+</head>
+<body>
+<div class="index-signup">
+    <div class="info-title">
+        <div class="return-wrap">
+            <img class="return" src="./public/Images/return.png" alt="">
+        </div>
+        <span class="curType">Individual</span>
+        <span class=" notCurType" style="color: #c3c3c3;position: absolute;right: 0.4rem;">Unit</span>
+
+    </div>
+    <div class="input-wrap">
+        <div class="input-list nameInputWrap">
+            <input class="line name realName" type="text" placeholder="Please enter the real name">
+        </div>
+        <div class="input-list">
+            <input class="line unit" type="text" placeholder="Please enter your unit">
+        </div>
+        <div class="input-list">
+            <input class="line position" type="text" placeholder="Please enter the position">
+        </div>
+
+        <!--<div class="input-file">-->
+            <!--<div class="prompt">-->
+                <!--1.Business License<br>-->
+                <!--2.Less than 8M-->
+            <!--</div>-->
+            <!--<div class="file-wrap" id="container">-->
+                <!--&lt;!&ndash;<input id="selectfilesxxx" class="file" type="file">&ndash;&gt;-->
+                <!--<div id="selectfiles" class="file" style="width: 100%; height: 100%"></div>-->
+
+            <!--</div>-->
+        <!--</div>-->
+        <div class="input-list">
+            <input class="line number contactNumber" type="number" placeholder="Please enter the contact number">
+        </div>
+        <div class="input-list">
+            <input class="line intruction" type="text" placeholder="Please enter the introduction">
+        </div>
+        <select class="input-select">
+            <!--<option value="AI">AI</option>-->
+            <!--<option value="Big Data">Big Data</option>-->
+            <!--<option value="Cloud Computing">Cloud Computing</option>-->
+        </select>
+        <div class="selected">
+        </div>
+        <button class="submit">Sign Up</button>
+    </div>
+    <div class="agree">
+        <label for="iagree">
+            <div class="noagree">
+                <input id="iagree" name="iagree" type="checkbox"/>
+            </div>
+            <div class="agree-text">
+                <span class="text">I have read and accepted the <a href="#">"AAECA of Association"</a></span><br>
+                <span class="text chinese">我已经阅读并接受<a href="#">《美亚协会章程》</a></span>
+            </div>
+        </label>
+    </div>
+</div>
+<script>
+    $(function () {
+        var type = 'Individual'
+
+        $('.notCurType').click(function () {
+            if(type=='Individual'){
+                type = 'Unit'
+                $('.curType').text('Unit')
+                $('.notCurType').text('Individual')
+                $('.nameInputWrap').hide()
+            }else{
+                type = 'Individual'
+                $('.curType').text('Individual')
+                $('.notCurType').text('Unit')
+                $('.nameInputWrap').show()
+
+            }
+        })
+        function initTags() {
+            var selObj = $(".input-select")
+//            var value="value";
+//            var text="text";
+//            selObj.append("<option value='"+value+"'>"+text+"</option>");
+            getTags0(function(tgs){
+                for(var i=0; i<tgs.length; i++){
+                    var tg = tgs[i]
+                    var $opt = $('<option></option>').attr('value', tg.EnglishName).text(tg.EnglishName).data('tgid',tg.TagId).appendTo(selObj)
+//debugger
+                }
+            })
+        }
+        initTags()
+        $get('/Member/AliOSS/GetSignature',{},function (obj) {
+            if(obj){
+                window.uploadInfo = obj
+
+                host = obj['host']
+                policyBase64 = obj['policy']
+                accessid = obj['accessid']
+                signature = obj['signature']
+                expire = parseInt(obj['expire'])
+                callbackbody = obj['callback']
+                key = obj['dir']
+            }else {
+                alert('获取文件上传信息异常')
+            }
+        })
+
+        $("#iagree").change(function(){
+            if ($(this).is(':checked')) {
+                $(this).parent().addClass("agreebg")
+                $(".input-wrap .submit").addClass("cansubmit")
+            } else {
+                $(this).parent().removeClass("agreebg")
+                $(".input-wrap .submit").removeClass("cansubmit")
+            }
+        })
+        $("body").on("click", ".cansubmit", function(){
+            var name = $(".input-list .name").val().trim();
+            var unit = $(".input-list .unit").val().trim();
+
+            var position = $(".input-list .position").val().trim();
+            var number = $(".input-list .contactNumber").val().trim();
+            var intruction = $(".input-list .intruction").val().trim();
+//            if (!position  || !name  || !number  || !intruction ) {
+//                alert('请将信息填写完整再提交');
+//                return;
+//            }
+
+            var tagIds = []
+            for(var i=0; i<selectedTags.length; i++){
+                tagIds.push(selectedTags[i][1])
+            }
+
+            var tgtUrl = '';
+            var dt = null;
+            if(type== "Individual"){
+                tgtUrl = '/Member/Account/PersonalSubmit'
+                dt = {
+                    name: name,
+//                    imageKey: 1,
+                    personalCompanyName: unit,
+                    personalPosition: position,
+                    phoneNumber: number,
+                    introduce: intruction,
+                    tagIds: tagIds
+                }
+
+            }else{
+                tgtUrl = '/Member/Account/EnterpriseSubmit'
+                dt = {
+                    name: unit,
+//                    imageKey: 1,
+                    enterpriseContact: position,
+                    phoneNumber: number,
+                    introduce: intruction,
+                    tagIds: tagIds
+                }
+            }
+
+            $post(tgtUrl, dt,function (data) {
+                if(data.Status == 2){
+                    location.href = 'index_login.html'
+                }
+                else{
+                    alert(data.Message)
+                }
+            })
+
+
+        })
+        var selected =  window.selectedTags = [];
+        $(".input-select").change(function() {
+            var self = this;
+            var hasitem = selected.every(function(item){
+                return item !== $(self).val()
+            })
+            if (hasitem) {
+                var tgid = $(this).find("option:selected").data('tgid')
+                selected.push([$(this).val(), tgid])
+                $(".selected").empty();
+                for(var i = 0; i < selected.length; i++) {
+                    $(".selected").append('<div class="selected-item"><i>'
+                        +selected[i][0]+'</i><span>x</span></div>')
+                }
+            }
+        })
+        $("body").on("click", ".selected .selected-item span", function(){
+//            alert("ok")
+            var text = $(this).parents(".selected-item").find("i").text();
+            for(var j = 0; j < selected.length; j++) {
+                if(text === selected[j][0]) {
+                    selected.splice(j,1);
+                    break;
+                }
+            }
+            $(".selected").empty();
+            for(var i = 0; i < selected.length; i++) {
+                $(".selected").append('<div class="selected-item"><i>'
+                    +selected[i][0]+'</i><span>x</span></div>')
+            }
+        })
+    })
+</script>
+<!--<script type="text/javascript" src="public/Scripts/plupload-2.1.2/js/plupload.full.min.js"></script>-->
+<!--<script type="text/javascript" src="public/Scripts/upload.js"></script>-->
+</body>
+</html>

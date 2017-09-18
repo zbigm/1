@@ -24,6 +24,18 @@
             height: 0.45rem;
             line-height: 0.45rem;
         }
+        .wrap-brief-txt{
+            padding: 0.22rem;
+            margin: 0 0.24rem;
+            background: #fafafa;
+        }
+         .swiper-wrapper{
+            display: block !important;
+            /*overflow: hidden;*/
+        }
+        .swiper-slide{
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -110,13 +122,24 @@
                     }
 
                     $('.swiper-wrapper').append($items)
+                    setInterval(function () {
+                        $('.swiper-wrapper').animate({
+                            marginTop : "-0.45rem"
+                        },500,function(){
+//                            var self =
+                            setTimeout(function(){
+                                $('.swiper-wrapper').css({marginTop : "0"}).find(".swiper-slide:first").appendTo( $('.swiper-wrapper'));
+                            }, 2000)
+                        })
+                    }, 3000)
 
-                    new Swiper('.s-container', {
-                        autoplay: 5000,
-                        loop: true,
-                        slidesPerView: "auto"
 
-                    });
+//                    new Swiper('.s-container', {
+//                        autoplay: 5000,
+//                        loop: true,
+//                        slidesPerView: "auto"
+//
+//                    });
 
                 }else{
                     $('.loadMore').hide()

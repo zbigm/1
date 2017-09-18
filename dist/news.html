@@ -286,7 +286,7 @@
                 $('.news-banner').show()
                 $('.newsTypeWrap').hide()
                 $('.catgWrapBar').show()
-                isRecommend = 1
+                isRecommend = true
                 type = ''
 
             }
@@ -374,10 +374,12 @@
             }
         }
 
-        doSearch()
 
 
         (function () {
+
+            doSearch()
+
             if(localStorage.getItem('memberId')){
                 $('.wrap-logsignbtn').hide()
             }else{

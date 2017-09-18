@@ -17,6 +17,13 @@ body{
 
 .result-list{
 	overflow: hidden;
+	background: #ededed;
+}
+.result-list>div{
+	margin-bottom: 0.09rem;
+}
+.result-list .news-video-item{
+	background-color: #fff;
 }
 
 .wrap-share{
@@ -42,6 +49,7 @@ body{
 	padding: 0.2rem 0 0.05rem 0;
 	background: #fff;
 	z-index: 9999999;
+	border-top: 1px solid #eee;
 }
 .wrap-footer ul li{
 	padding: 0px;

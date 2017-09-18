@@ -1,4 +1,4 @@
-var apiServer = ''
+var apiServer = 'http://wap.aaeca.org'
 function $get(url, data, doneFn, failFn, alwaysFn) {
     $.get(apiServer + url, data)
         .done(function (data) {
@@ -177,8 +177,8 @@ function makeVideoItem(dt) {
     $item.find('.video-title').text(dt.Title);    //video title
     $item.find('.namemember').text(dt.Member.Name);  //namemember
     $item.find('.datamember').text(fmtDate1(dt.Timestamp));   //date
-    $item.find('.icon-person').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey);   //小头像
-    $item.find('.newsvedio').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey)   // 视频地址
+    $item.find('.icon-person').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.Member.AvatarKey+'@!w170h170');   //小头像
+    $item.find('.newsvedio').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.ImageKey+'@!w380h190')   // 视频地址
     $item.find('.wrap-video-introduction').attr('href', "person_video_detail.html?VideoId="+dt.VideoId);
     return $item
 }

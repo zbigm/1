@@ -92,9 +92,11 @@ Membership Registration Agreement"</a></span><br>
                     password: password1,
                     confirmPassword: password2
                 }, function (data) {
+                    location.href = 'index_signup_detail.html'
                     if(data.Status == 2){
                         alert('注册成功，请登录')
-                        location.href = 'index_login.html'
+                        //location.href = 'index_login.html'
+                        location.href = 'index_signup_detail.html'
                     }else{
                         alert(data.Message)
                     }

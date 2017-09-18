@@ -59,6 +59,8 @@
 
     $(function () {
 //    newsReady()
+        var memberId = getSearchParam('memberId')
+
         var mySwiper = new Swiper('.news-banner .swiper-container', {
             autoplay: 5000,
             loop: true,
@@ -144,7 +146,8 @@
             var url = '/' + newsCatg + '/Search'
             var dt = {
                 p: page++,
-                isRecommend: isRecommend
+                isRecommend: isRecommend,
+                memberId: memberId
             }
             if (newsCatg == 'Article') {
                 dt.articleType = type

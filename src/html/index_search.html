@@ -14,6 +14,11 @@
         .member-type .tagbtn{
             margin-right: 0.2rem;
         }
+        input[type="search"]::-webkit-search-cancel-button{
+            display: none;
+            -webkit-appearance: none;
+        }
+
     </style>
 </head>
 <body>
@@ -41,11 +46,13 @@
                 <span class="input-group-icon pull-left">
                     <img src="./public/Images/lightsearch.png" alt="">
                 </span>
-                <input type="text" class="input-group-control pull-left searchInput" placeholder="Please enter the content">
+                <form action="" class="input-kw-form">
+                    <input type="search" autocomplete="off" class="input-group-control pull-left searchInput" placeholder="Please enter the content">
+                </form>
             </div>
         </div><!-- wrap-search-header -->
         <div class="wrap-search-type">
-            <div class="search-type">Article Type</div>
+            <div class="search-type" style="display: none;">Article Type</div>
             <div class="wrap-member-type-box">
                 <div class="wrap-search-type container  member-type swiper-container">
                     <ul class="wrap-searchtag clearfix swiper-wrapper searchTags" style="min-height: 45px;">
@@ -129,6 +136,11 @@
 //            $(this).addClass('active').siblings().removeClass('active');
 //        });
         // swiper 滑动导航
+
+        $('.input-kw-form').on('submit', function(event){
+            event.preventDefault();
+        })
+
         $('.dropdown-toggle').dropdown()
         $(".dropdown-menu li").click(function(){
             var text = $(this).find("a").text()
@@ -205,6 +217,9 @@
             if (e.keyCode == 13) {
                 doSearch()
             }
+        })
+        $('.input-group-icon').click(function(){
+            doSearch()
         })
 
 

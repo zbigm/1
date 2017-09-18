@@ -30,19 +30,19 @@
         <ul class="clearfix">
             <li class=" col-xs-4 contentType" data-type="Article">
                 <a href="javascript:void(0);" >
-                    <span>0</span>
+                    <span class="articleCount">0</span>
                     <i>Article</i>
                 </a>
             </li>
             <li class="col-xs-4 contentType"  data-type="Project">
                 <a href="javascript:void(0);" >
-                    <span>0</span>
+                    <span class="projectCount">0</span>
                     <i>Project</i>
                 </a>
             </li>
             <li class="col-xs-4 contentType" data-type="Video">
                 <a href="javascript:void(0);" >
-                    <span>0</span>
+                    <span class="videoCount">0</span>
                     <i>Video</i>
                 </a>
             </li>
@@ -152,7 +152,16 @@
             memberId: memberId
         },function (data) {
             if(data.Status == 2){
-                debugger
+//                debugger
+                var ArticleCount = data.First.ArticleCount
+                var ProjectCount = data.First.ProjectCount
+                var VideoCount = data.First.VideoCount
+
+                $('.articleCount').text(ArticleCount)
+                $('.projectCount').text(ProjectCount)
+                $('.videoCount').text(VideoCount)
+
+
             }else{
                 console.log(data.Message)
             }
