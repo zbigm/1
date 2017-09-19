@@ -6,7 +6,8 @@ function $get(url, data, doneFn, failFn, alwaysFn) {
         })
         .fail(function (error) {
             if(!failFn){
-                alert('服务异常，请稍后再试')
+                // alert('服务异常，请稍后再试')
+                console.log('服务异常，请稍后再试.' + JSON.stringify(error))
             }else{
                 failFn(error)
             }
@@ -29,7 +30,9 @@ function $post(url, data, doneFn, failFn, alwaysFn, alwaysFn) {
     })
     .fail(function (error) {
         if(!failFn){
-            alert('服务异常，请稍后再试')
+            // alert('服务异常，请稍后再试')
+            console.log('服务异常，请稍后再试.' + JSON.stringify(error))
+
         }else{
             failFn(error)
         }
@@ -167,6 +170,7 @@ function makeMemberItem(dt) {
     }
     $item.find('.memberTags').text(tagsStr)
     $item.find('.memberName').text(dt.Name)
+    $item.find('.memberIntro').text(dt.Introduce)
     $item.find('.memberImgWrap>img').attr('src','http://aaeca.img-us-west-1.aliyuncs.com/'+dt.AvatarKey+'@!w170h170');
     $item.find('.memberLink').attr('href','member_article.html?MemberId='+dt.MemberId)
     return $item

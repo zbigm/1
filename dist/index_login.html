@@ -115,7 +115,9 @@
                         alert('登录成功，即将前往首页')
                         location.href = 'index.html'
                     }else{
+                        $('.codeimg>img').attr('src',"http://wap.aaeca.org/Captcha/Image?"+Math.random())
                         alert(data.Message)
+
                     }
                 })
             })
@@ -150,13 +152,16 @@
             <div class="memberImgWrap fl">
                 <img src="" alt="">
             </div>
-            <div class="memberTextWrap fl">
+            <div class="memberTextWrap ">
                 <div class="memberName"></div>
                 <div class="memberTags"></div>
+                <div class="memberIntro">22</div>
             </div>
         </div>
     </a>
 </div>
+
+
 
 <div class="articleItem articleItemTmpl">
     <a href="" class="articleLink">

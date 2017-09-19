@@ -64,14 +64,17 @@
                 <input id="iagree" name="iagree" type="checkbox"/>
             </div>
             <div class="agree-text">
-                <span class="text">I have read and accepted the <a href="#">"AAECA of Association"</a></span><br>
-                <span class="text chinese">我已经阅读并接受<a href="#">《美亚协会章程》</a></span>
+                <span class="text">I have read and accepted the <a href="index_signup_charter.html">"AAECA of Association"</a></span><br>
+                <span class="text chinese">我已经阅读并接受<a href="index_signup_agreement.html">《美亚协会章程》</a></span>
             </div>
         </label>
     </div>
 </div>
 <script>
     $(function () {
+        $('.return-wrap').click(function () {
+            history.back()
+        })
         var type = 'Individual'
 
         $('.notCurType').click(function () {
@@ -172,7 +175,7 @@
 
             $post(tgtUrl, dt,function (data) {
                 if(data.Status == 2){
-                    location.href = 'index_login.html'
+                    location.href = 'index.html'
                 }
                 else{
                     alert(data.Message)

@@ -43,7 +43,7 @@
     <div class="container index-header">
         <div class="row news-header padding0">
             <div class="col-xs-4 padding0">
-                <a class="classify-icon" href="index_login.html">
+                <a class="classify-icon" href="index_login.html" style="visibility: hidden;">
                     <img src="./public/Images/logicon.png" alt="">
                 </a>
             </div>
@@ -94,6 +94,19 @@
 <script src="./public/Scripts/vendor.min.js"></script>
 <script>
     $(function () {
+        $get('/Account/GetLogonStatus',function (data) {
+            if(data.Status == 2){
+//                $('.classify-icon').css('visibility', 'visible')
+//                var memberId = data.First.MemberId
+            }else {
+                $('.classify-icon').css('visibility', 'visible')
+
+//                console.log(data.Message)
+            }
+        })
+
+
+
         $get('/Activity/Search',{
 
         }, function (data) {
@@ -236,13 +249,16 @@
             <div class="memberImgWrap fl">
                 <img src="" alt="">
             </div>
-            <div class="memberTextWrap fl">
+            <div class="memberTextWrap ">
                 <div class="memberName"></div>
                 <div class="memberTags"></div>
+                <div class="memberIntro">22</div>
             </div>
         </div>
     </a>
 </div>
+
+
 
 <div class="articleItem articleItemTmpl">
     <a href="" class="articleLink">

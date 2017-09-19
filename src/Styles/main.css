@@ -149,6 +149,11 @@ a:hover, a:visited, a:link, a:active {
 .row0{
 	overflow: hidden;
 }
+.memberItem .row0{
+	background: #f6f6f6;
+	padding: 0.05rem;
+
+}
 .fl{
 	float: left;
 }
@@ -234,18 +239,18 @@ a:hover, a:visited, a:link, a:active {
 
 
  .memberItem{
-	 width: 3.43rem;
-	 height: 1.7rem;
+	 /*width: 3.43rem;*/
+	 /*height: 1.7rem;*/
 	 position: relative;
-	 float: left;
-	 margin: 0.30rem 0 0.30rem 0.21rem;
+
+	 margin: 0.30rem 0.22rem 0.30rem 0.24rem;
  }
 .memberImgWrap{
-	width: 50%;
+	width: 1.7rem;
 	height: 1.7rem;
 	position: relative;
 	overflow: hidden;
-
+	border-radius: 50%;
 }
 .memberImgWrap>img{
 	width: 100%;
@@ -255,7 +260,7 @@ a:hover, a:visited, a:link, a:active {
 	transform: translate(-50%,-50%);
 }
 .memberTextWrap{
-	width: 50%;
+	width: 5.2rem;
 	height: 1.7rem;
 	background: #f6f6f6;
 	overflow: hidden;
@@ -263,7 +268,7 @@ a:hover, a:visited, a:link, a:active {
 }
 .memberName{
 	position: absolute;
-	top: 0.49rem;
+	top: 0.18rem;
 	left: 0.26rem;
 	font-size: 0.28rem;
 	color: #646464;
@@ -271,12 +276,27 @@ a:hover, a:visited, a:link, a:active {
 }
 .memberTags{
 	position: absolute;
-	top: 0.95rem;
+	top: 0.61rem;
 	left: 0.26rem;
 	font-size: 0.24rem;
 	color: #118ff6;
 	overflow: hidden;
 	white-space: nowrap;
+}
+.memberIntro{
+	position: absolute;
+	top: 1.06rem;
+	left: 0.26rem;
+	width: 5.03rem;
+	font-size: 0.22rem;
+	color: #646464;
+	overflow: hidden;
+	-ms-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	/*white-space: nowrap;*/
+
 }
 
 
