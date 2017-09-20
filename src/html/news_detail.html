@@ -52,13 +52,11 @@
                 </div>
             </div><!-- article-sidebar -->
             <div class="wrap-news-article">
-                <p>Project and talent of the benign int eraction of suc
-                    cessf Project and talent of the benign int</p>
-                <div class="news-article-img">
-                    <img src="./public/Images/articleimg.png" alt="">
-                </div>
-                <p>Project and talent of the benign int eraction of suc
-                    cessf Project and talent of the benign int</p>
+                <p class="wrap-news-article-summary"></p>
+                <p class="news-article-img">
+                    <img src="" alt="">
+                </p>
+                <p class="wrap-news-article-content"></p>
             </div>
             <div class="wrap-disclaimer">
                 <div class="disclaimer-text">Disclaimer: part of the articles and information are obtained from the Internet and they are reproduced for the only purpose of communication and study; If any of them involves the copyright issues, please contact us immediately, and we will change or delete the involved articles and make sure your rights are protected.</div>
@@ -110,11 +108,15 @@
                 var Body = data.First
 //                debugger
                 $('.goAuthorLink').attr('href', 'member_article.html?MemberId=' + Body.Member.MemberId)
-                $(".wrap-news-article").html(Body.Content)
+
+                $('.news-article-img>img').attr('src', 'http://aaeca.img-us-west-1.aliyuncs.com/'+Body.ImageKey+'@!w780')
+                $(".wrap-news-article-summary").html(Body.Summary)
+                $(".wrap-news-article-content").html(Body.Content)
                 $(".article-summary").text(Body.Title)
                 $(".authorImg").attr("src", 'http://aaeca.img-us-west-1.aliyuncs.com/'+Body.Member.AvatarKey)
                 $(".authorName").text(Body.Member.Name)
                 $(".authorDate").text(fmtDate1(Body.Member.Timestamp))
+                document.title =Body.Title
 
                 var keyWords = Body.Keywords || ''
                 keyWords = keyWords.split(';')
@@ -187,9 +189,9 @@
             <div class="sharebtns">
                 <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
             </div>
-            <div class="sharebtns">
-                <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-            </div>
+            <!--<div class="sharebtns">-->
+                <!--<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>-->
+            <!--</div>-->
             <div class="sharebtns">
                 <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
             </div>
@@ -201,7 +203,7 @@
     <span class="cancelshare">取消</span>
 </div>
 <!-- 分享代码 -->
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdPic":"","bdStyle":"1","bdSize":"32"},"share":{},"image":{"viewList":["qzone","tsina","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdPic":"","bdStyle":"1","bdSize":"32"},"share":{},"image":{"viewList":["qzone","tsina","renren"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","renren"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
 
 
 $(".sharebtn").click(function(){
